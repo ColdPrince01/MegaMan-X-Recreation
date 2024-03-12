@@ -9,9 +9,13 @@ extends CharacterBody2D
 @onready var character_animator = $CharacterAnimator
 @onready var movement_component = $MovementComponent
 @onready var state_machine = $StateMachine
+@onready var coyote_timer = $CoyoteTimer
 
 
 var has_control := true
+var has_jumped = false
+var is_dashing = false
+var can_dash = true
 
 func _ready():
 	state_machine.init(self, movement_component)
@@ -28,6 +32,7 @@ func _physics_process(delta):
 
 func _process(delta):
 	state_machine.process_frame(delta)
+	
 
 
 func _unhandled_input(event):

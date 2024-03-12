@@ -10,6 +10,8 @@ var parent: Player
 var move_component
 var state_velocity = Vector2.ZERO
 
+
+
 #called as soon as the player enters the state 
 func enter() -> void:
 	parent.character_animator.play(animation_name)

@@ -4,20 +4,24 @@ extends State
 @export var run_state : State
 @export var jump_state : State
 @export var fall_state : State
+@export var dash_state : State
 
 func enter() -> void:
 	super()
 	parent.velocity.x = 0
+	
 
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_right"):
 		return idle_state
-	if Input.is_action_just_pressed("ui_accept") and parent.is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and parent.is_on_floor() or parent.coyote_timer.time_left > 0.0:
 		return jump_state #return jump state if jump key is pressed and is on ground
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
 		return run_state #return move state is left or right key is pressed
-	
+	if Input.is_action_just_pressed("Dash") and parent.can_dash:
+		parent.character_animator.play("dash_enter")
+		return dash_state
 	return null
 
 

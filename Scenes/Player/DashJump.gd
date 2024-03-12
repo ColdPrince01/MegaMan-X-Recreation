@@ -1,15 +1,18 @@
 extends State
 
 
-@export var run_state : State
-@export var idle_state : State
 @export var fall_state : State
+@export var idle_state : State
+@export var run_state : State
+@export var dash_fall_state : State
 
-func enter() -> void:
+@export var dash_time := 0.5
+
+var dash_timer := 0.0
+
+func enter():
 	super()
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
-	parent.can_dash = false
-	
 
 func process_input(event: InputEvent) -> State:
 	if not parent.is_on_floor():
@@ -23,7 +26,7 @@ func process_physics(delta: float) -> State:
 	
 	
 	if parent.velocity.y > 0.0:
-		return fall_state
+		return dash_fall_state
 	
 	var input_direction = get_movement_input()
 	
@@ -31,7 +34,7 @@ func process_physics(delta: float) -> State:
 		parent.x_sprite.flip_h = input_direction < 0 #whether or not the player sprite flips is determined by the direction of movement
 		
 	
-	parent.velocity.x = input_direction * movement_data.move_speed
+	parent.velocity.x = input_direction * movement_data.dash_speed
 	parent.move_and_slide() #call move and slide after movement calculations
 	
 
@@ -42,7 +45,3 @@ func process_physics(delta: float) -> State:
 		return idle_state #if on the floor and not moving, set state = idle_state
 	
 	return null #if nothing changes return null 
-
-
-func exit() -> void:
-	parent.can_dash = true
