@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjmkfiguhiqs0"]
+
+[ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
+
+[node name="World" type="Node2D"]
+
+[node name="TempWalls" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TempWalls"]
+polygon = PackedVector2Array(0, 0, 0, 184, 1272, 184, 1272, -8, 1344, -8, 1344, 320, -72, 320, -72, 0)
+
+[node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
+position = Vector2(-12, -1)

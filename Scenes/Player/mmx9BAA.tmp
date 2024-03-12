@@ -1,0 +1,213 @@
+[gd_scene load_steps=21 format=3 uid="uid://cp1taopkiaubn"]
+
+[ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
+[ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
+[ext_resource type="PackedScene" uid="uid://3k7ec7wx6hrb" path="res://StateMachine/state_machine.tscn" id="3_r7y4i"]
+[ext_resource type="Script" path="res://Scenes/Player/MovementComponent.gd" id="4_bs4rq"]
+[ext_resource type="Script" path="res://Scenes/Player/Idle.gd" id="4_g4pbo"]
+[ext_resource type="Script" path="res://Resources/PlayerMovementData.gd" id="5_aapas"]
+[ext_resource type="Script" path="res://Scenes/Player/Run.gd" id="6_j1sur"]
+[ext_resource type="Script" path="res://Scenes/Player/Jump.gd" id="7_58kuq"]
+[ext_resource type="Script" path="res://Scenes/Player/Fall.gd" id="8_an1e2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0o4md"]
+size = Vector2(15, 24)
+
+[sub_resource type="Animation" id="Animation_a4qtw"]
+resource_name = "idle"
+length = 1.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 11]
+}
+
+[sub_resource type="Animation" id="Animation_oi4vv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_6cffm"]
+resource_name = "run"
+length = 0.5
+loop_mode = 1
+step = 0.06
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_tvr1e"]
+resource_name = "jump_rise"
+length = 0.25
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_a30sq"]
+resource_name = "jump_fall"
+length = 0.25
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [16, 17, 18]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfpgc"]
+_data = {
+"RESET": SubResource("Animation_oi4vv"),
+"idle": SubResource("Animation_a4qtw"),
+"jump_fall": SubResource("Animation_a30sq"),
+"jump_rise": SubResource("Animation_tvr1e"),
+"run": SubResource("Animation_6cffm")
+}
+
+[sub_resource type="Resource" id="Resource_j63me"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 300.0
+gravity_scale = 1.0
+dash_speed = 210.0
+gravity = 900
+max_fall_speed = 345.0
+slide_speed = 160.0
+climb_speed = 90.0
+
+[sub_resource type="Resource" id="Resource_kmnsh"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 300.0
+gravity_scale = 1.0
+dash_speed = 210.0
+gravity = 900
+max_fall_speed = 345.0
+slide_speed = 160.0
+climb_speed = 90.0
+
+[sub_resource type="Resource" id="Resource_mnj4p"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 300.0
+gravity_scale = 1.0
+dash_speed = 210.0
+gravity = 900
+max_fall_speed = 345.0
+slide_speed = 160.0
+climb_speed = 90.0
+
+[sub_resource type="Resource" id="Resource_mkaus"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 300.0
+gravity_scale = 1.0
+dash_speed = 210.0
+gravity = 900
+max_fall_speed = 345.0
+slide_speed = 160.0
+climb_speed = 90.0
+
+[node name="MMX" type="CharacterBody2D"]
+z_index = 25
+collision_layer = 2
+script = ExtResource("1_bjuxh")
+
+[node name="XSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_vsw34")
+hframes = 10
+vframes = 2
+frame = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -12)
+shape = SubResource("RectangleShape2D_0o4md")
+
+[node name="CharacterAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lfpgc")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("init_state") instance=ExtResource("3_r7y4i")]
+init_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state")]
+script = ExtResource("4_g4pbo")
+idle_state = NodePath(".")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+movement_data = SubResource("Resource_j63me")
+animation_name = "idle"
+
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "jump_state")]
+script = ExtResource("6_j1sur")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+movement_data = SubResource("Resource_kmnsh")
+animation_name = "run"
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("run_state", "idle_state", "fall_state")]
+script = ExtResource("7_58kuq")
+run_state = NodePath("../Run")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
+movement_data = SubResource("Resource_mnj4p")
+animation_name = "jump_rise"
+
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state")]
+script = ExtResource("8_an1e2")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+movement_data = SubResource("Resource_mkaus")
+animation_name = "jump_fall"
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("4_bs4rq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
