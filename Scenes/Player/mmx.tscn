@@ -1,7 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=57 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
+[ext_resource type="PackedScene" uid="uid://dsbbg0d7q4pma" path="res://Scenes/Player/x_buster.tscn" id="3_o60g5"]
 [ext_resource type="PackedScene" uid="uid://3k7ec7wx6hrb" path="res://StateMachine/state_machine.tscn" id="3_r7y4i"]
 [ext_resource type="Script" path="res://Scenes/Player/MovementComponent.gd" id="4_bs4rq"]
 [ext_resource type="Script" path="res://Scenes/Player/Idle.gd" id="4_g4pbo"]
@@ -17,6 +18,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/DashWallJump.gd" id="14_l3gxi"]
 [ext_resource type="PackedScene" uid="uid://du2ntcuu5snff" path="res://StateMachine/attack_machine.tscn" id="15_0h6pj"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
+[ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -134,7 +136,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tvr1e"]
 resource_name = "jump_rise"
-length = 0.25
+length = 0.48
 step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -233,7 +235,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_6c62t"]
 resource_name = "idle_shoot"
-length = 0.4
+length = 0.48
+step = 0.07
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -241,7 +244,7 @@ tracks/0/path = NodePath("XSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
+"times": PackedFloat32Array(0, 0.07),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [30, 31]
@@ -249,7 +252,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_my863"]
 resource_name = "run_shoot"
-length = 0.5
+length = 0.48
 loop_mode = 1
 step = 0.06
 tracks/0/type = "value"
@@ -267,7 +270,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_yav8j"]
 resource_name = "jump_rise_shoot"
-length = 0.25
+length = 0.48
 step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -315,11 +318,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [47]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wall_dust_effect"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_rd1t4"]
 resource_name = "dash_shoot"
-length = 0.1
-loop_mode = 1
+length = 0.48
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -330,7 +346,24 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [46]
+"values": [20]
+}
+
+[sub_resource type="Animation" id="Animation_7jhan"]
+resource_name = "wall_jump_shoot"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [49, 50, 51, 42]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfpgc"]
@@ -349,8 +382,32 @@ _data = {
 "run_shoot": SubResource("Animation_my863"),
 "wall_enter": SubResource("Animation_bcmey"),
 "wall_jump": SubResource("Animation_1bbv2"),
+"wall_jump_shoot": SubResource("Animation_7jhan"),
 "wall_shoot": SubResource("Animation_kwgor"),
 "wall_slide": SubResource("Animation_apljj")
+}
+
+[sub_resource type="Animation" id="Animation_iqbvb"]
+resource_name = "instatiation"
+length = 0.48
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"wall_dust_effect"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_84ifs"]
+_data = {
+"instatiation": SubResource("Animation_iqbvb")
 }
 
 [sub_resource type="Resource" id="Resource_j63me"]
@@ -474,6 +531,17 @@ max_fall_speed = 375.0
 climb_speed = 90.0
 max_wall_speed = 90.0
 
+[sub_resource type="Resource" id="Resource_4x8dk"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 312.0
+gravity_scale = 1.0
+dash_speed = 245.0
+gravity = 900
+max_fall_speed = 375.0
+climb_speed = 90.0
+max_wall_speed = 90.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_n52ng"]
 font_size = 5
 
@@ -485,6 +553,8 @@ z_index = 25
 collision_layer = 2
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
+
+[node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]
 
 [node name="XSprite" type="Sprite2D" parent="."]
 position = Vector2(1, -16)
@@ -505,6 +575,11 @@ disabled = true
 [node name="CharacterAnimator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_lfpgc")
+}
+
+[node name="DustAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_84ifs")
 }
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("init_state") instance=ExtResource("3_r7y4i")]
@@ -604,12 +679,18 @@ movement_data = SubResource("Resource_rj11c")
 animation_name = "jump_rise"
 
 [node name="AttackMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("15_0h6pj")]
-starting_state = NodePath("IdleShoot")
+starting_state = NodePath("Idle")
 
-[node name="IdleShoot" type="Node" parent="AttackMachine"]
+[node name="Idle" type="Node" parent="AttackMachine" node_paths=PackedStringArray("shooting_state")]
 script = ExtResource("16_f68vu")
+shooting_state = NodePath("../Shooting")
 movement_data = SubResource("Resource_d2bwb")
-animation_name = "idle_shoot"
+
+[node name="Shooting" type="Node" parent="AttackMachine" node_paths=PackedStringArray("idle_state", "shooting_state")]
+script = ExtResource("17_apale")
+idle_state = NodePath("../Idle")
+shooting_state = NodePath(".")
+movement_data = SubResource("Resource_4x8dk")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_bs4rq")
@@ -634,6 +715,7 @@ position = Vector2(-7, -12)
 position = Vector2(10, -12)
 
 [node name="Labels" type="Node2D" parent="."]
+position = Vector2(0, -10)
 
 [node name="Label" type="Label" parent="Labels"]
 offset_left = -159.0
@@ -653,9 +735,9 @@ label_settings = SubResource("LabelSettings_n52ng")
 
 [node name="Label3" type="Label" parent="Labels"]
 offset_left = -159.0
-offset_top = 76.0
+offset_top = 75.0
 offset_right = -119.0
-offset_bottom = 92.0
+offset_bottom = 91.0
 text = "Test"
 label_settings = SubResource("LabelSettings_s3e2d")
 
@@ -666,3 +748,25 @@ offset_right = -119.0
 offset_bottom = 99.0
 text = "Test"
 label_settings = SubResource("LabelSettings_s3e2d")
+
+[node name="Label5" type="Label" parent="Labels"]
+offset_left = -159.0
+offset_top = 90.0
+offset_right = -119.0
+offset_bottom = 106.0
+text = "Test"
+label_settings = SubResource("LabelSettings_s3e2d")
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="FireRate" type="Timer" parent="Timers"]
+wait_time = 0.14
+one_shot = true
+
+[node name="AttackAnimTimer" type="Timer" parent="Timers"]
+wait_time = 0.48
+one_shot = true
+
+[node name="DustTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+autostart = true

@@ -9,12 +9,14 @@ extends State
 
 var jump_timer := 0.0
 var string_name = "Dash_Wall_Jump"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
 	Sounds.play(Sounds.jump)
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.can_dash = false
+	parent.is_dashing = true
 	
 	jump_timer = air_time
 
@@ -48,3 +50,23 @@ func process_physics(delta: float) -> State:
 		return dash_fall_state
 	
 	return null
+
+
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("wall_jump_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("wall_jump")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
+
+
+
+func exit() -> void:
+	parent.is_dashing = false

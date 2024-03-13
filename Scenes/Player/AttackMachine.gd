@@ -1,9 +1,9 @@
 extends Node
 
 
-@export var starting_state : AttackMachine #variable for initial state, pass in for every different state
+@export var starting_state : State #variable for initial state, pass in for every different state
 
-var current_state : AttackMachine
+var current_state : State
 
 func init(parent: Player, move_component) -> void:
 	for child in get_children(): #iterate over every child node the player has, made it a child of the state machine
@@ -34,7 +34,7 @@ func process_input(event: InputEvent) -> void:
 
 
 #function for when the state changes to another state, asks for new state which inherits from state machine 
-func change_state(new_state: AttackMachine) -> void:
+func change_state(new_state: State) -> void:
 	if current_state: #if on current state
 		current_state.exit() #exit current state
 		

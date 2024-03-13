@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://0l3y7xbic6ij"]
+
+[ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="1_ksol4"]
+[ext_resource type="Script" path="res://Scenes/InheritanceScenes/projectile.gd" id="1_pds7n"]
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_pds7n")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("1_ksol4")]
+collision_layer = 32
+collision_mask = 16
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="HitBoxComponent" to="." method="_on_hit_box_component_area_entered"]
+[connection signal="body_entered" from="HitBoxComponent" to="." method="_on_hit_box_component_body_entered"]

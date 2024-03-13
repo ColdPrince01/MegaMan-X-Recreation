@@ -23,7 +23,6 @@ func process_input(event: InputEvent) -> State:
 	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right"):
 		return run_state #return move state is left or right key is pressed
 	if Input.is_action_just_pressed("Dash") and parent.can_dash:
-		parent.character_animator.play("dash_enter")
 		return dash_state
 	return null
 
@@ -36,5 +35,13 @@ func process_physics(delta: float) -> State:
 		if !parent.is_on_floor() and parent.velocity.y > 0.0:
 			return fall_state
 		
+	
+	return null
+
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		parent.character_animator.play("idle_shoot")
+	if parent.attack_anim_timer.time_left <= 0.0:
+		return idle_state
 	
 	return null

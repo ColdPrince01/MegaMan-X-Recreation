@@ -9,6 +9,7 @@ extends State
 
 var jump_timer := 0.0
 var string_name = "Wall_Jump"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
@@ -52,6 +53,15 @@ func process_physics(delta: float) -> State:
 
 
 func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("wall_jump_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
 	
-	print(parent.velocity.x)
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("wall_jump")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
 	return null

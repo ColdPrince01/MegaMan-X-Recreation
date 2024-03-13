@@ -15,10 +15,12 @@ extends State
 
 var dash_timer := 0.0
 var string_name = "Dash_Fall"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
 	dash_timer = dash_time
+	parent.is_dashing = true
 
 
 func process_input(event: InputEvent) -> State:
@@ -59,7 +61,25 @@ func process_physics(delta: float) -> State:
 		return idle_state
 	return null
 
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_fall_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_fall")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
+
+
+
+
 func exit() -> void:
 	parent.can_dash = true
+	parent.is_dashing = false
 	if parent.is_on_floor():
 		Sounds.play(Sounds.land)

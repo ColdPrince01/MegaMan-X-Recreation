@@ -10,6 +10,8 @@ extends State
 @export var coyote_duration = 0.2
 
 var string_name = "Fall"
+var current_animation_pos: float
+
 
 func enter() -> void:
 	super()
@@ -54,6 +56,21 @@ func process_physics(delta: float) -> State:
 			return run_state
 		return idle_state
 	return null
+
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_fall_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_fall")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
+
 
 
 func exit() -> void:

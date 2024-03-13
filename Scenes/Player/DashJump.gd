@@ -10,11 +10,13 @@ extends State
 
 var dash_timer := 0.0
 var string_name = "Dash_Jump"
+var current_animation_pos: float
 
 func enter():
 	super()
 	Sounds.play(Sounds.jump)
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
+	parent.is_dashing = true
 
 func process_input(event: InputEvent) -> State:
 	if not parent.is_on_floor():
@@ -22,6 +24,21 @@ func process_input(event: InputEvent) -> State:
 			parent.velocity.y = -movement_data.jump_velocity / 10 #lowers jump to 1/10th of its typical trajectory
 	
 	return null 
+
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_rise_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_rise")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
+
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += movement_data.gravity * delta

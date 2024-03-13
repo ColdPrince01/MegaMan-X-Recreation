@@ -12,6 +12,7 @@ var direction := 1
 var dash_timer := 0.0
 var timer_paused := false
 var string_name = "Dash"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
@@ -59,6 +60,8 @@ func process_physics(delta: float) -> State:
 		parent.velocity.x = 0.0
 	
 	return null
+
+
 
 func exit() -> void:
 	parent.is_dashing = false

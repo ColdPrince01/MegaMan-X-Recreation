@@ -7,12 +7,14 @@ extends State
 @export var idle_state : State
 @export var wall_jump_state : State
 @export var dash_wall_state : State
+@export var wall_slide_state : State
 
 var wall_direction := 1
 var string_name = "Wall_Slide"
+var current_animation_pos: float
+var dust_particles = 0.0
 
 func enter() -> void:
-	parent.character_animator.play("wall_slide_enter")
 	super()
 	parent.velocity.x = 0.0
 	parent.velocity.y = 0.0
@@ -33,6 +35,7 @@ func process_input(event: InputEvent) -> State:
 
 
 func process_physics(delta:float) -> State:
+	
 	var input_direction = get_movement_input()
 	if input_direction != 0:
 		parent.velocity.x = 0.0
@@ -56,6 +59,17 @@ func process_physics(delta:float) -> State:
 	return null
 
 
-func process_frames(delta:float) -> State:
+func process_frame(delta : float) -> State:
+
+	
+	if parent.attack_anim_timer.time_left > 0.0:
+		parent.character_animator.play("wall_shoot")
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		parent.character_animator.play("wall_slide")
+	
 	
 	return null
+
+
+

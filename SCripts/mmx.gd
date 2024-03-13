@@ -26,6 +26,12 @@ const WallDustScene = preload("res://Scenes/Player/wall_dust.tscn")
 @onready var label_3 = $Labels/Label3
 @onready var label_4 = $Labels/Label4
 @onready var attack_machine = $AttackMachine
+@onready var x_buster = $X_Buster
+@onready var fire_rate = $Timers/FireRate
+@onready var attack_anim_timer = $Timers/AttackAnimTimer
+@onready var label_5 = $Labels/Label5
+@onready var dust_timer = $Timers/DustTimer
+@onready var dust_animation = $DustAnimation
 
 
 var has_control := true
@@ -34,6 +40,7 @@ var is_dashing = false
 var can_dash = true
 var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
+var has_fired = false
 
 func _ready():
 	state_machine.init(self, movement_component)
@@ -42,11 +49,13 @@ func _ready():
 
 func _physics_process(delta):
 	state_machine.process_physics(delta)
+	attack_machine.process_physics(delta)
 	if dev_menu == true: #Dev Menu for basic parameters
 		label.text = str("FPS:") + str(Engine.get_frames_per_second())
 		label_2.text = str("Vel_x:") + str(velocity.x)
 		label_3.text = str("Vel_y:") + str(velocity.y)
-		label_4.text = str("State:") + str(attack_machine.current_state.string_name) + str(state_machine.current_state.string_name)
+		label_4.text = str("State:") + str(state_machine.current_state.string_name)
+		label_5.text = str("Attack_State:") + str(attack_machine.current_state.string_name)
 	if Input.is_action_pressed("ui_up"):
 		Engine.time_scale = 0.1
 	else:
@@ -55,12 +64,12 @@ func _physics_process(delta):
 
 func _process(delta):
 	state_machine.process_frame(delta)
-	
+	attack_machine.process_frame(delta)
 
 
 func _unhandled_input(event):
 	state_machine.process_input(event)
-	
+	attack_machine.process_input(event)
 
 
 

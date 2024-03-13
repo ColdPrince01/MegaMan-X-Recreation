@@ -6,6 +6,7 @@ extends State
 @export var fall_state : State
 
 var string_name = "Jump"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
@@ -45,6 +46,21 @@ func process_physics(delta: float) -> State:
 		return idle_state #if on the floor and not moving, set state = idle_state
 	
 	return null #if nothing changes return null 
+
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_rise_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("jump_rise")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
+
 
 
 func exit() -> void:

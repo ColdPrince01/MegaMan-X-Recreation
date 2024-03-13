@@ -7,6 +7,7 @@ extends State
 @export var dash_state : State
 
 var string_name = "Run"
+var current_animation_pos: float
 
 func enter() -> void:
 	super()
@@ -18,7 +19,6 @@ func process_input(event : InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_accept") and parent.is_on_floor(): #if jump button pressed and parent is on floor
 		return jump_state
 	if Input.is_action_just_pressed("Dash") and parent.can_dash:
-		parent.character_animator.play("dash_enter")
 		return dash_state
 	return null
 
@@ -40,6 +40,19 @@ func process_physics(delta: float) -> State:
 		return fall_state
 	return null #return nothing, if nothing is happening 
 
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("run_shoot")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	if parent.attack_anim_timer.time_left <= 0.0:
+		current_animation_pos = parent.character_animator.current_animation_position
+		parent.character_animator.play("run")
+		parent.character_animator.seek(current_animation_pos, true)
+	
+	
+	return null
 
 func exit():
 	state_velocity.x = movement_data.move_speed
