@@ -9,9 +9,11 @@ extends State
 @export var dash_time := 0.5
 
 var dash_timer := 0.0
+var string_name = "Dash_Jump"
 
 func enter():
 	super()
+	Sounds.play(Sounds.jump)
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 
 func process_input(event: InputEvent) -> State:

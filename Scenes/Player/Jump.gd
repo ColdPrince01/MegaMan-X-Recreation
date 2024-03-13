@@ -5,16 +5,19 @@ extends State
 @export var idle_state : State
 @export var fall_state : State
 
+var string_name = "Jump"
+
 func enter() -> void:
 	super()
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.can_dash = false
-	
+	Sounds.play(Sounds.jump)
 
 func process_input(event: InputEvent) -> State:
 	if not parent.is_on_floor():
 		if Input.is_action_just_released("ui_accept") and parent.velocity.y < 0.0: #for when the jump button is released
 			parent.velocity.y = -movement_data.jump_velocity / 10 #lowers jump to 1/10th of its typical trajectory
+	
 	
 	return null 
 

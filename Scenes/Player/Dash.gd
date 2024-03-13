@@ -11,12 +11,17 @@ extends State
 var direction := 1
 var dash_timer := 0.0
 var timer_paused := false
+var string_name = "Dash"
 
 func enter() -> void:
 	super()
+	Sounds.play(Sounds.dash)
+	parent.dash_start_dust()
 	parent.velocity.y = 0.0
 	parent.is_dashing = true
 	dash_timer = dash_time
+	parent.vertical_collision.set_deferred("disabled", true)
+	parent.horizontal_collision.set_deferred("disabled", false)
 	
 	if parent.x_sprite.flip_h:
 		direction = -1
@@ -57,3 +62,5 @@ func process_physics(delta: float) -> State:
 
 func exit() -> void:
 	parent.is_dashing = false
+	parent.vertical_collision.set_deferred("disabled", false)
+	parent.horizontal_collision.set_deferred("disabled", true)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://du2ntcuu5snff"]
+
+[ext_resource type="Script" path="res://Scenes/Player/AttackMachine.gd" id="1_d1xiu"]
+
+[node name="AttackMachine" type="Node"]
+script = ExtResource("1_d1xiu")

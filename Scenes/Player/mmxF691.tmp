@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=39 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -15,8 +15,6 @@
 [ext_resource type="Script" path="res://Scenes/Player/WallSlide.gd" id="12_xp38g"]
 [ext_resource type="Script" path="res://Scenes/Player/WallJump.gd" id="13_ma2ia"]
 [ext_resource type="Script" path="res://Scenes/Player/DashWallJump.gd" id="14_l3gxi"]
-[ext_resource type="PackedScene" uid="uid://du2ntcuu5snff" path="res://StateMachine/attack_machine.tscn" id="15_0h6pj"]
-[ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -167,22 +165,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_bcmey"]
-resource_name = "wall_enter"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [24]
-}
-
 [sub_resource type="Animation" id="Animation_1bbv2"]
 resource_name = "wall_jump"
 length = 0.2
@@ -202,38 +184,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_apljj"]
 resource_name = "wall_slide"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [23]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"wall_dust_effect"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_6c62t"]
-resource_name = "idle_shoot"
-length = 0.4
+length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -244,93 +195,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [30, 31]
-}
-
-[sub_resource type="Animation" id="Animation_my863"]
-resource_name = "run_shoot"
-length = 0.5
-loop_mode = 1
-step = 0.06
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06, 0.12, 0.18, 0.24, 0.3, 0.36, 0.42),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [32, 33, 34, 35, 36, 37, 38, 39]
-}
-
-[sub_resource type="Animation" id="Animation_yav8j"]
-resource_name = "jump_rise_shoot"
-length = 0.25
-step = 0.08
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.16),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [40, 41, 42]
-}
-
-[sub_resource type="Animation" id="Animation_oq2x2"]
-resource_name = "jump_fall_shoot"
-length = 0.2
-step = 0.07
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.07, 0.14),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [43, 44, 45]
-}
-
-[sub_resource type="Animation" id="Animation_kwgor"]
-resource_name = "wall_shoot"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [47]
-}
-
-[sub_resource type="Animation" id="Animation_rd1t4"]
-resource_name = "dash_shoot"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [46]
+"values": [23, 24]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfpgc"]
@@ -338,18 +203,11 @@ _data = {
 "RESET": SubResource("Animation_oi4vv"),
 "dash": SubResource("Animation_b2vqt"),
 "dash_enter": SubResource("Animation_347f0"),
-"dash_shoot": SubResource("Animation_rd1t4"),
 "idle": SubResource("Animation_a4qtw"),
-"idle_shoot": SubResource("Animation_6c62t"),
 "jump_fall": SubResource("Animation_a30sq"),
-"jump_fall_shoot": SubResource("Animation_oq2x2"),
 "jump_rise": SubResource("Animation_tvr1e"),
-"jump_rise_shoot": SubResource("Animation_yav8j"),
 "run": SubResource("Animation_6cffm"),
-"run_shoot": SubResource("Animation_my863"),
-"wall_enter": SubResource("Animation_bcmey"),
 "wall_jump": SubResource("Animation_1bbv2"),
-"wall_shoot": SubResource("Animation_kwgor"),
 "wall_slide": SubResource("Animation_apljj")
 }
 
@@ -463,23 +321,6 @@ max_fall_speed = 375.0
 climb_speed = 90.0
 max_wall_speed = 90.0
 
-[sub_resource type="Resource" id="Resource_d2bwb"]
-script = ExtResource("5_aapas")
-move_speed = 90.0
-jump_velocity = 312.0
-gravity_scale = 1.0
-dash_speed = 245.0
-gravity = 900
-max_fall_speed = 375.0
-climb_speed = 90.0
-max_wall_speed = 90.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_n52ng"]
-font_size = 5
-
-[sub_resource type="LabelSettings" id="LabelSettings_s3e2d"]
-font_size = 5
-
 [node name="MMX" type="CharacterBody2D"]
 z_index = 25
 collision_layer = 2
@@ -490,7 +331,7 @@ movement_data = SubResource("Resource_mc3o2")
 position = Vector2(1, -16)
 texture = ExtResource("1_vsw34")
 hframes = 10
-vframes = 6
+vframes = 3
 frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
@@ -603,14 +444,6 @@ air_time = 0.15
 movement_data = SubResource("Resource_rj11c")
 animation_name = "jump_rise"
 
-[node name="AttackMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("15_0h6pj")]
-starting_state = NodePath("IdleShoot")
-
-[node name="IdleShoot" type="Node" parent="AttackMachine"]
-script = ExtResource("16_f68vu")
-movement_data = SubResource("Resource_d2bwb")
-animation_name = "idle_shoot"
-
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_bs4rq")
 
@@ -622,47 +455,13 @@ wait_time = 0.2
 one_shot = true
 
 [node name="DustPoint" type="Marker2D" parent="."]
-position = Vector2(-10, -2)
+position = Vector2(-8, -2)
 
 [node name="DustPoint2" type="Marker2D" parent="."]
-position = Vector2(10, -2)
+position = Vector2(8, -2)
 
 [node name="WallDust" type="Marker2D" parent="."]
-position = Vector2(-7, -12)
+position = Vector2(-8, -25)
 
 [node name="WallDust2" type="Marker2D" parent="."]
-position = Vector2(10, -12)
-
-[node name="Labels" type="Node2D" parent="."]
-
-[node name="Label" type="Label" parent="Labels"]
-offset_left = -159.0
-offset_top = 60.0
-offset_right = -107.0
-offset_bottom = 79.0
-text = "Test"
-label_settings = SubResource("LabelSettings_n52ng")
-
-[node name="Label2" type="Label" parent="Labels"]
-offset_left = -159.0
-offset_top = 68.0
-offset_right = -107.0
-offset_bottom = 87.0
-text = "Test"
-label_settings = SubResource("LabelSettings_n52ng")
-
-[node name="Label3" type="Label" parent="Labels"]
-offset_left = -159.0
-offset_top = 76.0
-offset_right = -119.0
-offset_bottom = 92.0
-text = "Test"
-label_settings = SubResource("LabelSettings_s3e2d")
-
-[node name="Label4" type="Label" parent="Labels"]
-offset_left = -159.0
-offset_top = 83.0
-offset_right = -119.0
-offset_bottom = 99.0
-text = "Test"
-label_settings = SubResource("LabelSettings_s3e2d")
+position = Vector2(8, -25)

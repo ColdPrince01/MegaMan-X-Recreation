@@ -6,6 +6,8 @@ extends State
 @export var fall_state : State
 @export var dash_state : State
 
+var string_name = "Run"
+
 func enter() -> void:
 	super()
 	state_velocity.x = parent.velocity.x
