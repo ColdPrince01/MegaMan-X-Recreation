@@ -4,6 +4,8 @@ extends CharacterBody2D
 const DustEffectScene = preload("res://Scenes/Player/dust_effect.tscn")
 const DashDustStart = preload("res://Scenes/Player/dash_start.tscn")
 const WallDustScene = preload("res://Scenes/Player/wall_dust.tscn")
+const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.tscn")
+
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -41,6 +43,17 @@ var can_dash = true
 var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
 var has_fired = false
+
+var no_shockwave = is_dashing and is_on_floor()
+
+func _enter_tree():
+	MainInstances.player = self
+
+
+
+func _exit_tree():
+	MainInstances.player = null
+
 
 func _ready():
 	state_machine.init(self, movement_component)

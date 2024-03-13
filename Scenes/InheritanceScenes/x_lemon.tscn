@@ -1,34 +1,49 @@
-[gd_scene load_steps=8 format=3 uid="uid://j2cnao72xqe6"]
+[gd_scene load_steps=11 format=3 uid="uid://j2cnao72xqe6"]
 
 [ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_jfr6u"]
-[ext_resource type="Texture2D" uid="uid://cx0utbmn7kfqa" path="res://Sprites/Player/XPellet.png" id="2_rlx4l"]
+[ext_resource type="Script" path="res://Scenes/InheritanceScenes/x_lemon.gd" id="2_2nxxf"]
+[ext_resource type="Texture2D" uid="uid://48nnbbl4bj7" path="res://Sprites/Effects/XLemonBetter.png" id="3_4o1db"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orypi"]
 size = Vector2(16, 6)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ayvwa"]
-atlas = ExtResource("2_rlx4l")
-region = Rect2(0, 0, 16, 7)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvqqc"]
+atlas = ExtResource("3_4o1db")
+region = Rect2(0, 0, 14, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k3525"]
-atlas = ExtResource("2_rlx4l")
-region = Rect2(16, 0, 16, 7)
+[sub_resource type="AtlasTexture" id="AtlasTexture_eotj7"]
+atlas = ExtResource("3_4o1db")
+region = Rect2(14, 0, 14, 8)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpfuc"]
-atlas = ExtResource("2_rlx4l")
-region = Rect2(32, 0, 16, 7)
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3f7e"]
+atlas = ExtResource("3_4o1db")
+region = Rect2(28, 0, 14, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o3et"]
+atlas = ExtResource("3_4o1db")
+region = Rect2(42, 0, 14, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55qms"]
+atlas = ExtResource("3_4o1db")
+region = Rect2(56, 0, 14, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w84u0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ayvwa")
+"texture": SubResource("AtlasTexture_rvqqc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k3525")
+"texture": SubResource("AtlasTexture_eotj7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rpfuc")
+"texture": SubResource("AtlasTexture_a3f7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7o3et")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55qms")
 }],
 "loop": true,
 "name": &"default",
@@ -36,6 +51,8 @@ animations = [{
 }]
 
 [node name="XLemon" instance=ExtResource("1_jfr6u")]
+z_index = 31
+script = ExtResource("2_2nxxf")
 speed = 400
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
@@ -50,4 +67,4 @@ shape = SubResource("RectangleShape2D_orypi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_w84u0")
 autoplay = "default"
-frame_progress = 0.858205
+frame_progress = 0.146027
