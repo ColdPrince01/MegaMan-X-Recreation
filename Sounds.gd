@@ -18,6 +18,10 @@ func play(sound_stream, pitch_scale = 1.0, volume_db = 0.0):
 			sound_player.pitch_scale = pitch_scale #set pitch scale equal to pitch scale passed in (default is 1.0)
 			sound_player.volume_db = volume_db #set volume equal to volume level passed in (default is 0.0)
 			sound_player.stream = sound_stream #load the corresponding sound file with the string passed in (ex. "res://Sounds/bullet.wav")
+			if Engine.time_scale < 1.0:
+				sound_player.pitch_scale = 0.65
+			else:
+				sound_player.pitch_scale = 1.0
 			sound_player.play() #play the sound 
 			return
 

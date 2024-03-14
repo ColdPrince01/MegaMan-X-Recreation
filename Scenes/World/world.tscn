@@ -11,5 +11,12 @@ script = ExtResource("1_7qcyd")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TempWalls"]
 polygon = PackedVector2Array(0, 0, 0, 184, 1272, 184, 1272, -8, 1344, -8, 1344, 320, -72, 320, -72, 0)
 
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="TempWalls"]
+polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -72)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="TempWalls"]
+position = Vector2(87, 0)
+polygon = PackedVector2Array(448, -72, 449, 136, 489, 136, 488, -72)
+
 [node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
 position = Vector2(-12, -1)
