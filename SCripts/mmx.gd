@@ -34,6 +34,7 @@ const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.t
 @onready var label_5 = $Labels/Label5
 @onready var dust_timer = $Timers/DustTimer
 @onready var dust_animation = $DustAnimation
+@onready var label_6 = $Labels/Label6
 
 
 var has_control := true
@@ -43,6 +44,7 @@ var can_dash = true
 var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
 var has_fired = false
+var is_wall_sliding = false
 
 var no_shockwave = is_dashing and is_on_floor()
 
@@ -69,6 +71,7 @@ func _physics_process(delta):
 		label_3.text = str("Vel_y:") + str(velocity.y)
 		label_4.text = str("State:") + str(state_machine.current_state.string_name)
 		label_5.text = str("Attack_State:") + str(attack_machine.current_state.string_name)
+		label_6.text = str("Input:") + str(state_machine.current_state.input_action)
 	if Input.is_action_pressed("ui_up"):
 		Engine.time_scale = 0.1
 	else:

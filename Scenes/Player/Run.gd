@@ -8,6 +8,7 @@ extends State
 
 var string_name = "Run"
 var current_animation_pos: float
+var input_action = "Arrow"
 
 func enter() -> void:
 	super()
@@ -53,6 +54,7 @@ func process_frame(delta: float) -> State:
 	
 	
 	return null
+
 
 func exit():
 	state_velocity.x = movement_data.move_speed

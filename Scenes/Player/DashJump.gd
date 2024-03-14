@@ -7,14 +7,25 @@ extends State
 @export var dash_fall_state : State
 
 @export var dash_time := 0.5
+@export var buster_pos := Vector2(20, -19)
+@export var buster_pos_2 := Vector2(-16,-19)
+
+
 
 var dash_timer := 0.0
 var string_name = "Dash_Jump"
 var current_animation_pos: float
+var input_action = "Space"
+var current_buster_pos 
+var current_buster_pos_2
 
 func enter():
 	super()
 	Sounds.play(Sounds.jump)
+	current_buster_pos = parent.x_buster.buster_pos.position
+	current_buster_pos_2 = parent.x_buster.buster_pos_2.position
+	parent.x_buster.buster_pos.position = buster_pos
+	parent.x_buster.buster_pos_2.position = buster_pos_2
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.is_dashing = true
 
@@ -64,3 +75,8 @@ func process_physics(delta: float) -> State:
 		return idle_state #if on the floor and not moving, set state = idle_state
 	
 	return null #if nothing changes return null 
+
+
+func exit() -> void:
+	parent.x_buster.buster_pos.position = current_buster_pos
+	parent.x_buster.buster_pos_2.position = current_buster_pos_2

@@ -8,6 +8,7 @@ extends State
 
 
 var string_name = "Idle"
+var input_action = "null"
 
 func enter() -> void:
 	super()

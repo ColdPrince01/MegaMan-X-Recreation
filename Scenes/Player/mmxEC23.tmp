@@ -553,6 +553,8 @@ z_index = 25
 collision_layer = 2
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
+death_time = null
+dev_menu = null
 
 [node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]
 

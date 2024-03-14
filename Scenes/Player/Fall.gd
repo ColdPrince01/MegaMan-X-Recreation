@@ -11,7 +11,7 @@ extends State
 
 var string_name = "Fall"
 var current_animation_pos: float
-
+var input_action = "null"
 
 func enter() -> void:
 	super()

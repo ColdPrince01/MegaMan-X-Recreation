@@ -7,15 +7,23 @@ extends State
 @export var dash_jump_state : State
 
 @export var dash_time := 0.5
+@export var buster_pos := Vector2(19,-11)
+@export var buster_pos_2 := Vector2(-15,-11)
+
 
 var direction := 1
 var dash_timer := 0.0
 var timer_paused := false
 var string_name = "Dash"
 var current_animation_pos: float
+var input_action = "Z"
+var current_buster_pos 
+var current_buster_pos_2
 
 func enter() -> void:
 	super()
+	current_buster_pos = parent.x_buster.buster_pos.position
+	current_buster_pos_2 = parent.x_buster.buster_pos_2.position
 	Sounds.play(Sounds.dash)
 	parent.dash_start_dust()
 	parent.velocity.y = 0.0
@@ -23,6 +31,8 @@ func enter() -> void:
 	dash_timer = dash_time
 	parent.vertical_collision.set_deferred("disabled", true)
 	parent.horizontal_collision.set_deferred("disabled", false)
+	parent.x_buster.buster_pos.position = buster_pos
+	parent.x_buster.buster_pos_2.position = buster_pos_2
 	
 	if parent.x_sprite.flip_h:
 		direction = -1
@@ -67,3 +77,5 @@ func exit() -> void:
 	parent.is_dashing = false
 	parent.vertical_collision.set_deferred("disabled", false)
 	parent.horizontal_collision.set_deferred("disabled", true)
+	parent.x_buster.buster_pos.position = current_buster_pos
+	parent.x_buster.buster_pos_2.position = current_buster_pos_2

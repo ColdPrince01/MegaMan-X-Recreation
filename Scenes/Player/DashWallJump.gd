@@ -10,6 +10,7 @@ extends State
 var jump_timer := 0.0
 var string_name = "Dash_Wall_Jump"
 var current_animation_pos: float
+var input_action = "Space"
 
 func enter() -> void:
 	super()

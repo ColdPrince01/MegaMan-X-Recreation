@@ -16,6 +16,7 @@ extends State
 var dash_timer := 0.0
 var string_name = "Dash_Fall"
 var current_animation_pos: float
+var input_action = "null"
 
 func enter() -> void:
 	super()

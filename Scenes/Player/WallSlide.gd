@@ -13,11 +13,13 @@ var wall_direction := 1
 var string_name = "Wall_Slide"
 var current_animation_pos: float
 var dust_particles = 0.0
+var input_action = "arrow"
 
 func enter() -> void:
 	super()
 	parent.velocity.x = 0.0
 	parent.velocity.y = 0.0
+	parent.is_wall_sliding = true
 	if parent.x_sprite.flip_h: #if the player's sprite is facing left
 		wall_direction = 1 #the wall is facing the right
 	else: #otherwise if the player sprite is facing right
@@ -71,5 +73,6 @@ func process_frame(delta : float) -> State:
 	
 	return null
 
-
+func exit() -> void:
+	parent.is_wall_sliding = false
 

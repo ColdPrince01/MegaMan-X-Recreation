@@ -5,14 +5,26 @@ extends State
 @export var idle_state : State
 @export var fall_state : State
 
+@export var buster_pos := Vector2(20, -19)
+@export var buster_pos_2 := Vector2(-16,-19)
+
+
 var string_name = "Jump"
 var current_animation_pos: float
+var input_action = "Space"
+var current_buster_pos 
+var current_buster_pos_2
 
 func enter() -> void:
 	super()
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.can_dash = false
+	current_buster_pos = parent.x_buster.buster_pos.position
+	current_buster_pos_2 = parent.x_buster.buster_pos_2.position
+	parent.x_buster.buster_pos.position = buster_pos
+	parent.x_buster.buster_pos_2.position = buster_pos_2
 	Sounds.play(Sounds.jump)
+
 
 func process_input(event: InputEvent) -> State:
 	if not parent.is_on_floor():
@@ -21,6 +33,7 @@ func process_input(event: InputEvent) -> State:
 	
 	
 	return null 
+
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += movement_data.gravity * delta
@@ -47,6 +60,7 @@ func process_physics(delta: float) -> State:
 	
 	return null #if nothing changes return null 
 
+
 func process_frame(delta: float) -> State:
 	if parent.attack_anim_timer.time_left > 0.0:
 		current_animation_pos = parent.character_animator.current_animation_position
@@ -62,6 +76,7 @@ func process_frame(delta: float) -> State:
 	return null
 
 
-
 func exit() -> void:
 	parent.can_dash = true
+	parent.x_buster.buster_pos.position = current_buster_pos
+	parent.x_buster.buster_pos_2.position = current_buster_pos_2
