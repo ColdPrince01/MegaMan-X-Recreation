@@ -22,6 +22,8 @@ var current_buster_pos_2
 
 func enter() -> void:
 	super()
+	parent.instance_ghosting()
+	parent.ghost_timer.start()
 	current_buster_pos = parent.x_buster.buster_pos.position
 	current_buster_pos_2 = parent.x_buster.buster_pos_2.position
 	Sounds.play(Sounds.dash)

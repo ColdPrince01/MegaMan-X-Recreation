@@ -778,3 +778,9 @@ one_shot = true
 [node name="DustTimer" type="Timer" parent="Timers"]
 wait_time = 0.2
 autostart = true
+
+[node name="GhostTimer" type="Timer" parent="Timers"]
+process_callback = 0
+wait_time = 0.12
+
+[connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]

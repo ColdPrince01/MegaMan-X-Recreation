@@ -1,0 +1,18 @@
+[gd_resource type="Shader" format=3 uid="uid://bhmartfx3xpyr"]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform bool blue_tint = false;
+uniform float mix_weight = 0.65;
+
+void fragment() {
+	vec4 texture_color = texture(TEXTURE, UV);
+	if (blue_tint) {
+		vec3 blue = vec3(0.3,0,1);
+		vec3 blue_textured_rgb = mix(texture_color.rgb, blue, mix_weight);
+		COLOR = vec4(blue_textured_rgb, texture_color.a);
+	}
+	
+}
+"

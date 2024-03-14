@@ -5,7 +5,7 @@ const DustEffectScene = preload("res://Scenes/Player/dust_effect.tscn")
 const DashDustStart = preload("res://Scenes/Player/dash_start.tscn")
 const WallDustScene = preload("res://Scenes/Player/wall_dust.tscn")
 const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.tscn")
-
+const GhostingScene = preload("res://Scenes/Effects/ghosting.tscn")
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -35,6 +35,7 @@ const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.t
 @onready var dust_timer = $Timers/DustTimer
 @onready var dust_animation = $DustAnimation
 @onready var label_6 = $Labels/Label6
+@onready var ghost_timer = $Timers/GhostTimer
 
 
 var has_control := true
@@ -76,7 +77,10 @@ func _physics_process(delta):
 		Engine.time_scale = 0.1
 	else:
 		Engine.time_scale = 1.0
-	
+	if not is_dashing:
+		ghost_timer.stop()
+		print(ghost_timer.time_left)
+
 
 func _process(delta):
 	state_machine.process_frame(delta)
@@ -121,3 +125,19 @@ func set_direction():
 func get_direction():
 	return Vector2.LEFT if x_sprite.flip_h else Vector2.RIGHT
 	
+
+func instance_ghosting():
+	var ghost : Sprite2D = GhostingScene.instantiate()
+	ghost.global_position = x_sprite.global_position
+	ghost.texture = x_sprite.texture
+	ghost.hframes = x_sprite.hframes
+	ghost.vframes = x_sprite.vframes
+	ghost.frame = x_sprite.frame
+	ghost.flip_h = x_sprite.flip_h
+	
+	get_parent().add_child(ghost)
+	
+
+
+func _on_ghost_timer_timeout():
+	instance_ghosting()
