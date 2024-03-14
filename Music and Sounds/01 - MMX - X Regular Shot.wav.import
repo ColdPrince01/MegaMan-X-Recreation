@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b3d0rxgk6j20f"
+path="res://.godot/imported/01 - MMX - X Regular Shot.wav-e8135e558a5f2a3bb14b45777b58e84a.sample"
+
+[deps]
+
+source_file="res://Music and Sounds/01 - MMX - X Regular Shot.wav"
+dest_files=["res://.godot/imported/01 - MMX - X Regular Shot.wav-e8135e558a5f2a3bb14b45777b58e84a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

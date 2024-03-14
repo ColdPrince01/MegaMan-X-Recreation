@@ -4,14 +4,14 @@
 [ext_resource type="AudioStream" uid="uid://bw1i2hkmvh5f3" path="res://Music and Sounds/Dash.wav" id="2_mehvm"]
 [ext_resource type="AudioStream" uid="uid://besxh8mfwxi3w" path="res://Music and Sounds/Jump.wav" id="3_rrc56"]
 [ext_resource type="AudioStream" uid="uid://ddx5pxr201a6w" path="res://Music and Sounds/Land.wav" id="4_ouajo"]
-[ext_resource type="AudioStream" uid="uid://cbkjat6m4fqyf" path="res://Music and Sounds/Lemon.wav" id="5_bvj8g"]
+[ext_resource type="AudioStream" uid="uid://b3d0rxgk6j20f" path="res://Music and Sounds/01 - MMX - X Regular Shot.wav" id="5_0ewgd"]
 
 [node name="Sounds" type="Node"]
 script = ExtResource("1_4p871")
 dash = ExtResource("2_mehvm")
 jump = ExtResource("3_rrc56")
 land = ExtResource("4_ouajo")
-lemons = ExtResource("5_bvj8g")
+lemons = ExtResource("5_0ewgd")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Sounds"

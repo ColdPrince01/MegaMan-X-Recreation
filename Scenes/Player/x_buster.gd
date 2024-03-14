@@ -13,7 +13,7 @@ const XLemonScene = preload("res://Scenes/InheritanceScenes/x_lemon.tscn")
 var original_pos = Vector2(15,-14)
 
 func fire_lemon():
-	Sounds.play(Sounds.lemons, 1.0, -20.0)
+	Sounds.play(Sounds.lemons, 1.0, -12.0)
 	buster_pos.position.x = abs(buster_pos.position.x) * player.get_direction().x
 	var direction = buster_pos.position.x
 	if player.is_wall_sliding and !player.x_sprite.flip_h: #If the player is wall sliding and facing left
