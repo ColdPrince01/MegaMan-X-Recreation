@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnbnelb451xoq"]
+
+[ext_resource type="Texture2D" uid="uid://c1v6oqxg7ygld" path="res://Sprites/Player/WallJumpSpark.png" id="1_lhx3w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p5ij"]
+atlas = ExtResource("1_lhx3w")
+region = Rect2(0, 0, 14, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ydlw"]
+atlas = ExtResource("1_lhx3w")
+region = Rect2(14, 0, 14, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjb7j"]
+atlas = ExtResource("1_lhx3w")
+region = Rect2(28, 0, 14, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4kouw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p5ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ydlw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjb7j")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_4kouw")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

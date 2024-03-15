@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=4 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
 [ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
+[ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7qcyd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthMeter" parent="CanvasLayer" instance=ExtResource("2_ou68e")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="TempWalls" type="StaticBody2D" parent="."]
 

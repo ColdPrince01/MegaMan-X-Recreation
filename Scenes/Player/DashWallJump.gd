@@ -16,6 +16,7 @@ func enter() -> void:
 	super()
 	Sounds.play(Sounds.jump)
 	parent.instance_ghosting()
+	parent.wall_spark_effect()
 	parent.ghost_timer.start()
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.can_dash = false

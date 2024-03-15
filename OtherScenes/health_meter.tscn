@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c78fr5dvp0rad"]
+
+[ext_resource type="Script" path="res://OtherScenes/health_meter.gd" id="1_80gkv"]
+[ext_resource type="Texture2D" uid="uid://55jfl6drtdur" path="res://Sprites/Player/EmptyHealth.png" id="1_mtrrt"]
+[ext_resource type="Texture2D" uid="uid://cpy7ylqrdu2tr" path="res://Sprites/Player/FullHealth.png" id="2_yyoe7"]
+[ext_resource type="Texture2D" uid="uid://c1bnquvw835v1" path="res://Sprites/Player/HealthCosmetic.png" id="4_pcmdp"]
+
+[node name="HealthMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_80gkv")
+
+[node name="Empty" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 18.0
+offset_bottom = 37.0
+texture = ExtResource("1_mtrrt")
+
+[node name="Full" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 16.0
+offset_bottom = 35.0
+scale = Vector2(-1, -1)
+texture = ExtResource("2_yyoe7")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(15, 44)
+texture = ExtResource("4_pcmdp")

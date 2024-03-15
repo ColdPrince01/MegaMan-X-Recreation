@@ -6,6 +6,7 @@ const DashDustStart = preload("res://Scenes/Player/dash_start.tscn")
 const WallDustScene = preload("res://Scenes/Player/wall_dust.tscn")
 const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.tscn")
 const GhostingScene = preload("res://Scenes/Effects/ghosting.tscn")
+const WallKickDust = preload("res://Scenes/Player/WallJumpSpark.tscn")
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -36,12 +37,14 @@ const GhostingScene = preload("res://Scenes/Effects/ghosting.tscn")
 @onready var dust_animation = $DustAnimation
 @onready var label_6 = $Labels/Label6
 @onready var ghost_timer = $Timers/GhostTimer
+@onready var wall_kick = $WallKick
+@onready var wall_kick_2 = $WallKick2
 
 
 var has_control := true
 var has_jumped = false
 var is_dashing = false
-var can_dash = true
+var can_dash = !is_on_wall() and is_on_floor()
 var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
 var has_fired = false
@@ -138,6 +141,12 @@ func instance_ghosting():
 	get_parent().add_child(ghost)
 	
 
+func wall_spark_effect():
+	if is_on_wall_only():
+		if x_sprite.flip_h:
+			Utils.instantiate_scene_on_world(WallKickDust, wall_kick_2.global_position)
+		else:
+			Utils.instantiate_scene_on_world(WallKickDust, wall_kick.global_position)
 
 func _on_ghost_timer_timeout():
 	instance_ghosting()

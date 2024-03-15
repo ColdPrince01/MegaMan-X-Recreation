@@ -17,7 +17,7 @@ func enter() -> void:
 	Sounds.play(Sounds.jump)
 	parent.velocity.y = -movement_data.jump_velocity #set parent's velocity equal to jump force
 	parent.can_dash = false
-	
+	parent.wall_spark_effect()
 	jump_timer = air_time
 	
 	

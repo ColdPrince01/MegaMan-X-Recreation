@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Sounds="*res://Music and Sounds/sounds.tscn"
 Utils="*res://SCripts/Utils.gd"
 MainInstances="*res://SCripts/MainInstances.gd"
+PlayerStats="*res://SCripts/PlayerStats.gd"
 
 [display]
 

@@ -11,6 +11,7 @@ const XLemonScene = preload("res://Scenes/InheritanceScenes/x_lemon.tscn")
 @onready var player = MainInstances.player
 
 var original_pos = Vector2(15,-14)
+var original_pos_2 = Vector2(-13,-14)
 
 func fire_lemon():
 	Sounds.play(Sounds.lemons, 1.0, -12.0)
@@ -21,6 +22,7 @@ func fire_lemon():
 		var lemon = Utils.instantiate_scene_on_world_flipped(XLemonScene, buster_pos_2.global_position)
 		lemon.update_velocity()
 		lemon.velocity.x = (sign(direction) * -1) * lemon.speed #Multiply the direction by -1 since the player sprite is technically not flipped
+		buster_pos_2.position.y = original_pos_2.y
 	else: #Wall Slide sprite is facing left by default, so if it is instead facing right
 		if player.is_wall_sliding and player.x_sprite.flip_h:
 			buster_pos.position = wall_buster

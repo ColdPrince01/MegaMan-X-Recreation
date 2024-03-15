@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=59 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://du2ntcuu5snff" path="res://StateMachine/attack_machine.tscn" id="15_0h6pj"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
+[ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="20_h4km2"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -548,6 +549,9 @@ font_size = 5
 [sub_resource type="LabelSettings" id="LabelSettings_s3e2d"]
 font_size = 5
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rnrv5"]
+size = Vector2(12, 22)
+
 [node name="MMX" type="CharacterBody2D"]
 z_index = 25
 collision_layer = 2
@@ -564,11 +568,11 @@ vframes = 6
 frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12.5)
+position = Vector2(1, -12.5)
 shape = SubResource("RectangleShape2D_0o4md")
 
 [node name="HorizontalCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
+position = Vector2(1, -7)
 shape = SubResource("RectangleShape2D_g2rw6")
 disabled = true
 
@@ -703,18 +707,31 @@ wait_time = 0.2
 one_shot = true
 
 [node name="DustPoint" type="Marker2D" parent="."]
+visible = false
 position = Vector2(-10, -2)
 
 [node name="DustPoint2" type="Marker2D" parent="."]
+visible = false
 position = Vector2(10, -2)
 
 [node name="WallDust" type="Marker2D" parent="."]
+visible = false
 position = Vector2(-7, -12)
 
 [node name="WallDust2" type="Marker2D" parent="."]
+visible = false
 position = Vector2(10, -12)
 
+[node name="WallKick" type="Marker2D" parent="."]
+visible = false
+position = Vector2(9, -7)
+
+[node name="WallKick2" type="Marker2D" parent="."]
+visible = false
+position = Vector2(-7, -7)
+
 [node name="Labels" type="Node2D" parent="."]
+visible = false
 position = Vector2(0, -10)
 
 [node name="Label" type="Label" parent="Labels"]
@@ -782,5 +799,13 @@ autostart = true
 [node name="GhostTimer" type="Timer" parent="Timers"]
 process_callback = 0
 wait_time = 0.12
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("20_h4km2")]
+visible = false
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(1, -11)
+shape = SubResource("RectangleShape2D_rnrv5")
 
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]
