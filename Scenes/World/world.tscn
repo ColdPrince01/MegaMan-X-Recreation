@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=6 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
 [ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
 [ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o448h"]
+font_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_wawkd"]
+font_size = 5
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7qcyd")
@@ -15,6 +21,57 @@ offset_top = 8.0
 offset_right = 8.0
 offset_bottom = 8.0
 
+[node name="Labels" type="Node2D" parent="CanvasLayer"]
+position = Vector2(0, -10)
+
+[node name="Label" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 153.0
+offset_right = 54.0
+offset_bottom = 172.0
+text = "Test"
+label_settings = SubResource("LabelSettings_o448h")
+
+[node name="Label6" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 146.0
+offset_right = 54.0
+offset_bottom = 165.0
+text = "Test"
+label_settings = SubResource("LabelSettings_o448h")
+
+[node name="Label2" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 161.0
+offset_right = 54.0
+offset_bottom = 180.0
+text = "Test"
+label_settings = SubResource("LabelSettings_o448h")
+
+[node name="Label3" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 168.0
+offset_right = 42.0
+offset_bottom = 184.0
+text = "Test"
+label_settings = SubResource("LabelSettings_wawkd")
+
+[node name="Label4" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 176.0
+offset_right = 42.0
+offset_bottom = 192.0
+text = "Test"
+label_settings = SubResource("LabelSettings_wawkd")
+
+[node name="Label5" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 183.0
+offset_right = 42.0
+offset_bottom = 199.0
+text = "Test"
+label_settings = SubResource("LabelSettings_wawkd")
+
 [node name="TempWalls" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TempWalls"]
@@ -24,8 +81,8 @@ polygon = PackedVector2Array(0, 0, 0, 184, 1272, 184, 1272, -8, 1344, -8, 1344, 
 polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -72)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="TempWalls"]
-position = Vector2(87, 0)
-polygon = PackedVector2Array(448, -72, 449, 136, 489, 136, 488, -72)
+position = Vector2(109, 0)
+polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -72)
 
 [node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
 position = Vector2(-12, -1)

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b24m3x6i7ma25"]
+
+[ext_resource type="Texture2D" uid="uid://7nek581qq62w" path="res://Unrelated/BeckTest.png" id="1_edwd4"]
+[ext_resource type="Script" path="res://Unrelated/Normaltest.gd" id="1_taqof"]
+[ext_resource type="Texture2D" uid="uid://cayyxlcsru3kw" path="res://Unrelated/BeckNormalTest.png" id="2_jd61c"]
+[ext_resource type="Texture2D" uid="uid://dcdw05kflwtf2" path="res://Unrelated/TestLight.png" id="3_sou10"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xaki7"]
+diffuse_texture = ExtResource("1_edwd4")
+normal_texture = ExtResource("2_jd61c")
+specular_texture = ExtResource("2_jd61c")
+specular_shininess = 0.15
+texture_filter = 1
+texture_repeat = 2
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_taqof")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
+texture_filter = 1
+texture = SubResource("CanvasTexture_xaki7")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(35.5, 5.45455)
+scale = Vector2(20, 18.182)
+color = Color(0, 0.611765, 0.658824, 1)
+energy = 6.55
+shadow_enabled = true
+shadow_color = Color(0.462745, 0.0823529, 0.462745, 0.960784)
+shadow_filter = 2
+texture = ExtResource("3_sou10")
+
+[node name="Camera2D" type="Camera2D" parent="."]

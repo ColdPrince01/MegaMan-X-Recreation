@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=63 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/WallJump.gd" id="13_ma2ia"]
 [ext_resource type="Script" path="res://Scenes/Player/DashWallJump.gd" id="14_l3gxi"]
 [ext_resource type="PackedScene" uid="uid://du2ntcuu5snff" path="res://StateMachine/attack_machine.tscn" id="15_0h6pj"]
+[ext_resource type="Script" path="res://Scenes/Player/Stagger.gd" id="16_5bknb"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
 [ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="20_h4km2"]
@@ -132,6 +133,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [10, 11, 12, 11]
+}
+
+[sub_resource type="Animation" id="Animation_47spv"]
+resource_name = "idle_hurt"
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [54, 55, 56, 59, 58, 57]
 }
 
 [sub_resource type="Animation" id="Animation_6c62t"]
@@ -255,6 +273,23 @@ tracks/0/keys = {
 "values": [32, 33, 34, 35, 36, 37, 38, 39]
 }
 
+[sub_resource type="Animation" id="Animation_rnd75"]
+resource_name = "stagger"
+length = 0.15
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [52, 53]
+}
+
 [sub_resource type="Animation" id="Animation_bcmey"]
 resource_name = "wall_enter"
 length = 0.1
@@ -374,6 +409,7 @@ _data = {
 "dash_enter": SubResource("Animation_347f0"),
 "dash_shoot": SubResource("Animation_rd1t4"),
 "idle": SubResource("Animation_a4qtw"),
+"idle_hurt": SubResource("Animation_47spv"),
 "idle_shoot": SubResource("Animation_6c62t"),
 "jump_fall": SubResource("Animation_a30sq"),
 "jump_fall_shoot": SubResource("Animation_oq2x2"),
@@ -381,6 +417,7 @@ _data = {
 "jump_rise_shoot": SubResource("Animation_yav8j"),
 "run": SubResource("Animation_6cffm"),
 "run_shoot": SubResource("Animation_my863"),
+"stagger": SubResource("Animation_rnd75"),
 "wall_enter": SubResource("Animation_bcmey"),
 "wall_jump": SubResource("Animation_1bbv2"),
 "wall_jump_shoot": SubResource("Animation_7jhan"),
@@ -511,6 +548,17 @@ climb_speed = 90.0
 max_wall_speed = 90.0
 
 [sub_resource type="Resource" id="Resource_rj11c"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 312.0
+gravity_scale = 1.0
+dash_speed = 245.0
+gravity = 900
+max_fall_speed = 375.0
+climb_speed = 90.0
+max_wall_speed = 90.0
+
+[sub_resource type="Resource" id="Resource_kji87"]
 script = ExtResource("5_aapas")
 move_speed = 90.0
 jump_velocity = 312.0
@@ -658,13 +706,14 @@ dash_wall_state = NodePath("../DashWallJump")
 movement_data = SubResource("Resource_um671")
 animation_name = "jump_fall"
 
-[node name="WallSlide" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "run_state", "idle_state", "wall_jump_state", "dash_wall_state")]
+[node name="WallSlide" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "run_state", "idle_state", "wall_jump_state", "dash_wall_state", "wall_slide_state")]
 script = ExtResource("12_xp38g")
 fall_state = NodePath("../Fall")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
 wall_jump_state = NodePath("../WallJump")
 dash_wall_state = NodePath("../DashWallJump")
+wall_slide_state = NodePath(".")
 movement_data = SubResource("Resource_q6v7v")
 animation_name = "wall_slide"
 
@@ -681,6 +730,16 @@ dash_fall_state = NodePath("../DashFall")
 air_time = 0.15
 movement_data = SubResource("Resource_rj11c")
 animation_name = "jump_rise"
+
+[node name="Stagger" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state")]
+script = ExtResource("16_5bknb")
+knockback_timer = 0.15
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+movement_data = SubResource("Resource_kji87")
+animation_name = "stagger"
 
 [node name="AttackMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("15_0h6pj")]
 starting_state = NodePath("Idle")
@@ -707,27 +766,21 @@ wait_time = 0.2
 one_shot = true
 
 [node name="DustPoint" type="Marker2D" parent="."]
-visible = false
 position = Vector2(-10, -2)
 
 [node name="DustPoint2" type="Marker2D" parent="."]
-visible = false
 position = Vector2(10, -2)
 
 [node name="WallDust" type="Marker2D" parent="."]
-visible = false
 position = Vector2(-7, -12)
 
 [node name="WallDust2" type="Marker2D" parent="."]
-visible = false
 position = Vector2(10, -12)
 
 [node name="WallKick" type="Marker2D" parent="."]
-visible = false
 position = Vector2(9, -7)
 
 [node name="WallKick2" type="Marker2D" parent="."]
-visible = false
 position = Vector2(-7, -7)
 
 [node name="Labels" type="Node2D" parent="."]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1lnalk2f4eh7"]
+
+[ext_resource type="Texture2D" uid="uid://c8a7yfb16hpvo" path="res://Sprites/Effects/ChargedBusterShockwave.png" id="1_us50l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brb35"]
+atlas = ExtResource("1_us50l")
+region = Rect2(0, 0, 47, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvjna"]
+atlas = ExtResource("1_us50l")
+region = Rect2(47, 0, 47, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yukqg"]
+atlas = ExtResource("1_us50l")
+region = Rect2(94, 0, 47, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5p7u"]
+atlas = ExtResource("1_us50l")
+region = Rect2(141, 0, 47, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f48n6"]
+atlas = ExtResource("1_us50l")
+region = Rect2(188, 0, 47, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r02nj"]
+atlas = ExtResource("1_us50l")
+region = Rect2(235, 0, 47, 78)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4la2d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brb35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uvjna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yukqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5p7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f48n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r02nj")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ChargedShockwave" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_4la2d")
+autoplay = "default"
+frame = 5

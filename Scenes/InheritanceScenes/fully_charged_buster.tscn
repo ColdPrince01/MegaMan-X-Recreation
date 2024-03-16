@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2slu0nhcfpqg"]
+
+[ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_3ddpt"]
+[ext_resource type="Texture2D" uid="uid://fe4v5eql2j68" path="res://Sprites/Player/Buster Fully Charged.png" id="2_huwvb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljsrr"]
+atlas = ExtResource("2_huwvb")
+region = Rect2(0, 0, 37, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofoao"]
+atlas = ExtResource("2_huwvb")
+region = Rect2(37, 0, 37, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjlo0"]
+atlas = ExtResource("2_huwvb")
+region = Rect2(74, 0, 37, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uqaeu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljsrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofoao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjlo0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oc3ea"]
+size = Vector2(36, 15)
+
+[node name="FullyChargedBuster" instance=ExtResource("1_3ddpt")]
+speed = 400
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_uqaeu")
+autoplay = "default"
+frame_progress = 0.164517
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="1"]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(1.8, 1)
+
+[node name="HitBoxComponent" parent="." index="2"]
+damage = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_oc3ea")

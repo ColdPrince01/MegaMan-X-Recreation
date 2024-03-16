@@ -5,6 +5,7 @@ extends State
 @export var jump_state : State
 @export var fall_state : State
 @export var dash_state : State
+@export var stagger_state : State
 
 var string_name = "Run"
 var current_animation_pos: float

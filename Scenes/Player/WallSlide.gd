@@ -21,7 +21,7 @@ func enter() -> void:
 
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed("Dash") or Input.is_action_just_pressed("Dash"):
+	if Input.is_action_pressed("Dash"):
 		if Input.is_action_just_pressed("ui_accept"):
 			return dash_wall_state
 	if Input.is_action_just_pressed("ui_accept"):
@@ -33,7 +33,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta:float) -> State:
 	
 	var input_direction = get_movement_input()
-	if input_direction != 0:
+	if input_direction != 0 and parent.is_on_wall_only():
 		parent.velocity.x = 0.0
 		parent.velocity.y += movement_data.gravity * delta
 		parent.velocity.y = clamp(parent.velocity.y, 0, movement_data.max_wall_speed)

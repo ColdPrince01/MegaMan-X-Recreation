@@ -5,6 +5,7 @@ extends State
 @export var fall_state : State
 @export var dash_state : State
 @export var dash_jump_state : State
+@export var stagger_state : State
 
 @export var dash_time := 0.5
 @export var buster_pos := Vector2(19,-11)

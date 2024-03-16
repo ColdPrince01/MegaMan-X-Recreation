@@ -8,6 +8,7 @@ var sounds_path = "res://Music and Sounds/"
 @export var jump : AudioStream
 @export var land : AudioStream
 @export var lemons : AudioStream
+@export var hurt : AudioStream
 
 @onready var sound_players = get_children() #variable for getting the audio players in the scene 
 

@@ -5,10 +5,10 @@ extends State
 
 var string_name = "Idle"
 
+
 func enter() -> void:
 	pass
 	
-
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("Shoot") and parent.fire_rate.time_left == 0.0:

@@ -4,6 +4,7 @@ extends State
 @export var run_state : State
 @export var idle_state : State
 @export var fall_state : State
+@export var stagger_state : State
 
 @export var buster_pos := Vector2(20, -19)
 @export var buster_pos_2 := Vector2(-16,-19)

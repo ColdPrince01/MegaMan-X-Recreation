@@ -29,6 +29,7 @@ func process_input(event: InputEvent) -> State:
 		if Input.is_action_just_pressed("ui_accept"):
 			if parent.is_on_wall_only():
 				return dash_wall_state
+	
 	if Input.is_action_just_pressed("ui_accept"):
 		if parent.is_on_wall_only():
 			return wall_jump_state
@@ -45,9 +46,6 @@ func process_physics(delta: float) -> State:
 		parent.x_sprite.flip_h = input_direction < 0
 	parent.velocity.x = input_direction * movement_data.dash_speed
 	
-	parent.move_and_slide()
-	
-	
 	if parent.is_on_wall_only():
 		if input_direction == -1 and wall_normal.x == 1:
 			return wall_slide_state
@@ -55,6 +53,11 @@ func process_physics(delta: float) -> State:
 		if input_direction == 1 and wall_normal.x == -1:
 			return wall_slide_state
 	
+	
+	parent.move_and_slide()
+	
+	
+
 	if parent.is_on_floor():
 		parent.has_jumped = false
 		if input_direction != 0:

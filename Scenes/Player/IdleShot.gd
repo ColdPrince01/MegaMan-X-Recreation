@@ -15,13 +15,11 @@ func enter() -> void:
 		if parent.is_wall_sliding and !parent.x_sprite.flip_h:
 			var shockwave = Utils.instantiate_scene_on_world_flipped(parent.LemonShockwave, parent.x_buster.buster_pos_2.global_position - Vector2(shockwave_offset_X,0))
 	if parent.x_sprite.flip_h:
-		if not parent.is_dashing:
-			if parent.is_wall_sliding : return
-			var shockwave = Utils.instantiate_scene_on_world_flipped(parent.LemonShockwave, parent.x_buster.buster_pos_2.global_position - Vector2(shockwave_offset_X,0))
+		if parent.is_wall_sliding : return
+		var shockwave = Utils.instantiate_scene_on_world_flipped(parent.LemonShockwave, parent.x_buster.buster_pos_2.global_position - Vector2(shockwave_offset_X,0))
 	else:
-		if not parent.is_dashing:
-			if parent.is_wall_sliding : return
-			var shockwave = Utils.instantiate_scene_on_world(parent.LemonShockwave, parent.x_buster.buster_pos.global_position + Vector2(shockwave_offset_X, 0))
+		if parent.is_wall_sliding : return
+		var shockwave = Utils.instantiate_scene_on_world(parent.LemonShockwave, parent.x_buster.buster_pos.global_position + Vector2(shockwave_offset_X, 0))
 
 
 func process_input(event: InputEvent) -> State:

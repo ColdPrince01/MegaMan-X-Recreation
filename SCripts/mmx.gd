@@ -49,12 +49,12 @@ var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
 var has_fired = false
 var is_wall_sliding = false
+var is_damaged = false
 
 var no_shockwave = is_dashing and is_on_floor()
 
 func _enter_tree():
 	MainInstances.player = self
-
 
 
 func _exit_tree():
@@ -76,10 +76,6 @@ func _physics_process(delta):
 		label_4.text = str("State:") + str(state_machine.current_state.string_name)
 		label_5.text = str("Attack_State:") + str(attack_machine.current_state.string_name)
 		label_6.text = str("Input:") + str(state_machine.current_state.input_action)
-	if Input.is_action_pressed("ui_up"):
-		Engine.time_scale = 0.1
-	else:
-		Engine.time_scale = 1.0
 	if not is_dashing:
 		ghost_timer.stop()
 		print(ghost_timer.time_left)

@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://c3kuj4nwy61am"]
+
+[ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_aodgy"]
+[ext_resource type="Texture2D" uid="uid://bmwl5wvg6korq" path="res://Sprites/Player/MegaCharge1.png" id="2_8h0f8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svj1j"]
+size = Vector2(20, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em3ng"]
+atlas = ExtResource("2_8h0f8")
+region = Rect2(0, 0, 27, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2je72"]
+atlas = ExtResource("2_8h0f8")
+region = Rect2(27, 0, 27, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8by4i"]
+atlas = ExtResource("2_8h0f8")
+region = Rect2(54, 0, 27, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3ulx"]
+atlas = ExtResource("2_8h0f8")
+region = Rect2(81, 0, 27, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m7gxg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em3ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2je72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8by4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3ulx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="MegaChargeOne" instance=ExtResource("1_aodgy")]
+speed = 400
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(0, 0.5)
+scale = Vector2(1, 0.75)
+
+[node name="HitBoxComponent" parent="." index="1"]
+z_index = 35
+damage = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_svj1j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+position = Vector2(-3, 0)
+sprite_frames = SubResource("SpriteFrames_m7gxg")
+autoplay = "default"
+frame_progress = 0.760116

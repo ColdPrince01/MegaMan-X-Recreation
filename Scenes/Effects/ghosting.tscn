@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cncprju7xm5x0" path="res://icon.svg" id="1_hqkjr"]
 
 [node name="Ghosting" type="Sprite2D"]
-modulate = Color(0.129412, 0, 128.498, 0.427451)
+modulate = Color(0, 0, 100, 0.43)
 show_behind_parent = true
 texture = ExtResource("1_hqkjr")
 script = ExtResource("1_556gn")
