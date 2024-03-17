@@ -9,7 +9,7 @@
 diffuse_texture = ExtResource("1_edwd4")
 normal_texture = ExtResource("2_jd61c")
 specular_texture = ExtResource("2_jd61c")
-specular_shininess = 0.15
+specular_shininess = 0.08
 texture_filter = 1
 texture_repeat = 2
 
@@ -26,8 +26,20 @@ z_index = 5
 texture_filter = 1
 position = Vector2(35.5, 5.45455)
 scale = Vector2(20, 18.182)
-color = Color(0.988235, 0, 0.360784, 1)
-energy = 6.55
+color = Color(0, 0.631373, 0.509804, 1)
+energy = 4.39
+shadow_enabled = true
+shadow_color = Color(0.462745, 0.0823529, 0.462745, 0.960784)
+texture = ExtResource("3_sou10")
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+visible = false
+z_index = 5
+texture_filter = 1
+position = Vector2(-75, 5)
+scale = Vector2(20, 18.182)
+color = Color(0, 0.756863, 0.427451, 1)
+energy = 1.94
 shadow_enabled = true
 shadow_color = Color(0.462745, 0.0823529, 0.462745, 0.960784)
 shadow_filter = 2
