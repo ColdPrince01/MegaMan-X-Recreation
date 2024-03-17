@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2slu0nhcfpqg"]
+[gd_scene load_steps=9 format=3 uid="uid://b2slu0nhcfpqg"]
 
 [ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_3ddpt"]
 [ext_resource type="Texture2D" uid="uid://fe4v5eql2j68" path="res://Sprites/Player/Buster Fully Charged.png" id="2_huwvb"]
+[ext_resource type="Texture2D" uid="uid://wap12jucag6d" path="res://Sprites/Effects/ChargeParticle.png" id="3_qnjvn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ljsrr"]
 atlas = ExtResource("2_huwvb")
@@ -29,27 +30,43 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 20.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oc3ea"]
 size = Vector2(36, 15)
 
 [node name="FullyChargedBuster" instance=ExtResource("1_3ddpt")]
+z_index = 40
 speed = 400
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_uqaeu")
 autoplay = "default"
-frame_progress = 0.164517
+frame_progress = 0.5242
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="1"]
+visible = false
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(1.8, 1)
 
 [node name="HitBoxComponent" parent="." index="2"]
+visible = false
 damage = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_oc3ea")
+
+[node name="GlowParticles" type="CPUParticles2D" parent="." index="3"]
+position = Vector2(-4, 0)
+amount = 6
+lifetime = 0.4
+preprocess = 0.2
+texture = ExtResource("3_qnjvn")
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0

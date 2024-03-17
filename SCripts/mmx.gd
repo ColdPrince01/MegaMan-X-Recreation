@@ -7,6 +7,8 @@ const WallDustScene = preload("res://Scenes/Player/wall_dust.tscn")
 const LemonShockwave = preload("res://Scenes/InheritanceScenes/lemon_shockwave.tscn")
 const GhostingScene = preload("res://Scenes/Effects/ghosting.tscn")
 const WallKickDust = preload("res://Scenes/Player/WallJumpSpark.tscn")
+const ChargedShockwave = preload("res://OtherScenes/charged_shockwave.tscn")
+const ChargeOneShockwave = preload("res://OtherScenes/charge_one_shockwave.tscn")
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -41,6 +43,7 @@ const WallKickDust = preload("res://Scenes/Player/WallJumpSpark.tscn")
 @onready var wall_kick_2 = $WallKick2
 
 
+var charge_lvl = 0
 var has_control := true
 var has_jumped = false
 var is_dashing = false
@@ -50,6 +53,7 @@ var dust_point_position
 var has_fired = false
 var is_wall_sliding = false
 var is_damaged = false
+var is_charging = false
 
 var no_shockwave = is_dashing and is_on_floor()
 
@@ -78,7 +82,7 @@ func _physics_process(delta):
 		label_6.text = str("Input:") + str(state_machine.current_state.input_action)
 	if not is_dashing:
 		ghost_timer.stop()
-		print(ghost_timer.time_left)
+		
 
 
 func _process(delta):
@@ -119,6 +123,7 @@ func set_direction():
 		x_sprite.flip_h = false
 	if Vector2.LEFT:
 		x_sprite.flip_h = true
+
 
 
 func get_direction():

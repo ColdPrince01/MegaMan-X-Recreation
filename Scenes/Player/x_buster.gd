@@ -44,6 +44,7 @@ func fire_lemon():
 	
 
 func fire_charge_one():
+	Sounds.play(Sounds.charge_one)
 	buster_pos.position.x = abs(buster_pos.position.x) * player.get_direction().x
 	var direction = buster_pos.position.x
 	if player.is_wall_sliding and !player.x_sprite.flip_h: #If the player is wall sliding and facing left
@@ -71,6 +72,7 @@ func fire_charge_one():
 		lemon.velocity.x = sign(direction) * lemon.speed
 
 func fire_charge_two():
+	Sounds.play(Sounds.fully_charged)
 	buster_pos.position.x = abs(buster_pos.position.x) * player.get_direction().x
 	var direction = buster_pos.position.x
 	if player.is_wall_sliding and !player.x_sprite.flip_h: #If the player is wall sliding and facing left

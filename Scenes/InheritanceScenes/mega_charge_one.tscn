@@ -43,7 +43,8 @@ animations = [{
 }]
 
 [node name="MegaChargeOne" instance=ExtResource("1_aodgy")]
-speed = 400
+z_index = 40
+speed = 425
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
 position = Vector2(0, 0.5)

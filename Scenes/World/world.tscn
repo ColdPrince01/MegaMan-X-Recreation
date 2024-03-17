@@ -72,6 +72,14 @@ offset_bottom = 199.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
+[node name="Label7" type="Label" parent="CanvasLayer/Labels"]
+offset_left = 2.0
+offset_top = 139.0
+offset_right = 42.0
+offset_bottom = 155.0
+text = "Test"
+label_settings = SubResource("LabelSettings_wawkd")
+
 [node name="TempWalls" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TempWalls"]

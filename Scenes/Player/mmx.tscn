@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=65 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
 [ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="20_h4km2"]
+[ext_resource type="Script" path="res://Scenes/Player/Charging.gd" id="20_iarpn"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -591,6 +592,17 @@ max_fall_speed = 375.0
 climb_speed = 90.0
 max_wall_speed = 90.0
 
+[sub_resource type="Resource" id="Resource_cdj88"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 312.0
+gravity_scale = 1.0
+dash_speed = 245.0
+gravity = 900
+max_fall_speed = 375.0
+climb_speed = 90.0
+max_wall_speed = 90.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_n52ng"]
 font_size = 5
 
@@ -605,6 +617,7 @@ z_index = 25
 collision_layer = 2
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
+dev_menu = false
 
 [node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]
 
@@ -744,16 +757,24 @@ animation_name = "stagger"
 [node name="AttackMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("15_0h6pj")]
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="AttackMachine" node_paths=PackedStringArray("shooting_state")]
+[node name="Idle" type="Node" parent="AttackMachine" node_paths=PackedStringArray("shooting_state", "charging_state")]
 script = ExtResource("16_f68vu")
 shooting_state = NodePath("../Shooting")
+charging_state = NodePath("../Charging")
 movement_data = SubResource("Resource_d2bwb")
 
-[node name="Shooting" type="Node" parent="AttackMachine" node_paths=PackedStringArray("idle_state", "shooting_state")]
+[node name="Shooting" type="Node" parent="AttackMachine" node_paths=PackedStringArray("idle_state", "shooting_state", "charging_state")]
 script = ExtResource("17_apale")
 idle_state = NodePath("../Idle")
 shooting_state = NodePath(".")
+charging_state = NodePath("../Charging")
 movement_data = SubResource("Resource_4x8dk")
+
+[node name="Charging" type="Node" parent="AttackMachine" node_paths=PackedStringArray("idle_state", "shooting_state")]
+script = ExtResource("20_iarpn")
+idle_state = NodePath("../../StateMachine/Idle")
+shooting_state = NodePath("../Shooting")
+movement_data = SubResource("Resource_cdj88")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_bs4rq")
