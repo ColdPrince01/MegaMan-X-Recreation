@@ -10,9 +10,12 @@ var charge_timer := 0.0
 
 var string_name = "Charging"
 
+
 func enter() -> void:
 	charge_timer = 0.0
 	parent.is_charging = true
+	parent.charge_aura_effect()
+	parent.aura_timer.start()
 
 
 func process_input(event: InputEvent) -> State:
@@ -39,3 +42,7 @@ func process_frame(delta:float) -> State:
 
 	
 	return null
+	
+
+func exit() -> void:
+	parent.aura_timer.stop()

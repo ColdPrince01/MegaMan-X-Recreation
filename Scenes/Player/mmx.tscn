@@ -874,6 +874,9 @@ autostart = true
 process_callback = 0
 wait_time = 0.12
 
+[node name="AuraTimer" type="Timer" parent="Timers"]
+wait_time = 0.25
+
 [node name="HurtBoxComponent" parent="." instance=ExtResource("20_h4km2")]
 visible = false
 collision_layer = 8
@@ -883,3 +886,4 @@ position = Vector2(1, -11)
 shape = SubResource("RectangleShape2D_rnrv5")
 
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="timeout" from="Timers/AuraTimer" to="." method="_on_aura_timer_timeout"]

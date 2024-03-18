@@ -9,6 +9,7 @@ const GhostingScene = preload("res://Scenes/Effects/ghosting.tscn")
 const WallKickDust = preload("res://Scenes/Player/WallJumpSpark.tscn")
 const ChargedShockwave = preload("res://OtherScenes/charged_shockwave.tscn")
 const ChargeOneShockwave = preload("res://OtherScenes/charge_one_shockwave.tscn")
+const ChargedParticles = preload("res://OtherScenes/charge_particles.tscn")
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -41,6 +42,7 @@ const ChargeOneShockwave = preload("res://OtherScenes/charge_one_shockwave.tscn"
 @onready var ghost_timer = $Timers/GhostTimer
 @onready var wall_kick = $WallKick
 @onready var wall_kick_2 = $WallKick2
+@onready var aura_timer = $Timers/AuraTimer
 
 
 var charge_lvl = 0
@@ -54,6 +56,7 @@ var has_fired = false
 var is_wall_sliding = false
 var is_damaged = false
 var is_charging = false
+var y_offset = 8
 
 var no_shockwave = is_dashing and is_on_floor()
 
@@ -125,6 +128,8 @@ func set_direction():
 		x_sprite.flip_h = true
 
 
+func charge_aura_effect():
+	var aura = Utils.instantiate_scene_on_world(ChargedParticles, global_position - Vector2(0, y_offset))
 
 func get_direction():
 	return Vector2.LEFT if x_sprite.flip_h else Vector2.RIGHT
@@ -151,3 +156,7 @@ func wall_spark_effect():
 
 func _on_ghost_timer_timeout():
 	instance_ghosting()
+
+
+func _on_aura_timer_timeout():
+	charge_aura_effect()
