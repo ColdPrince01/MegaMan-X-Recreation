@@ -42,7 +42,7 @@ point_count = 2
 
 [node name="FullyChargedBuster" instance=ExtResource("1_3ddpt")]
 z_index = 40
-speed = 400
+speed = 350
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_uqaeu")

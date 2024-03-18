@@ -37,6 +37,9 @@ func process_physics(delta: float) -> State:
 			return fall_state
 		
 	
+	if parent.is_damaged:
+		return stagger_state
+	
 	return null
 
 func process_frame(delta: float) -> State:

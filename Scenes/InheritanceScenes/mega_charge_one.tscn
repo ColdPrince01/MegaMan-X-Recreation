@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3kuj4nwy61am"]
+[gd_scene load_steps=10 format=3 uid="uid://c3kuj4nwy61am"]
 
 [ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_aodgy"]
 [ext_resource type="Texture2D" uid="uid://bmwl5wvg6korq" path="res://Sprites/Player/MegaCharge1.png" id="2_8h0f8"]
@@ -39,12 +39,16 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 20.0
+"speed": 24.0
 }]
+
+[sub_resource type="Curve" id="Curve_qed5c"]
+_data = [Vector2(0.0164835, 1), 0.0, 0.0, 0, 0, Vector2(0.901099, 0.178947), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="MegaChargeOne" instance=ExtResource("1_aodgy")]
 z_index = 40
-speed = 425
+speed = 350
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]
 position = Vector2(0, 0.5)
@@ -55,6 +59,7 @@ z_index = 35
 damage = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_svj1j")
 
@@ -63,3 +68,17 @@ position = Vector2(-3, 0)
 sprite_frames = SubResource("SpriteFrames_m7gxg")
 autoplay = "default"
 frame_progress = 0.760116
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="3"]
+position = Vector2(-10, 0)
+amount = 4
+lifetime = 0.45
+emission_shape = 2
+emission_sphere_radius = 10.0
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_curve = SubResource("Curve_qed5c")
+color = Color(0.686275, 0.941176, 0.686275, 1)

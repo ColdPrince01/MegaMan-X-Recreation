@@ -38,6 +38,9 @@ func process_physics(delta: float) -> State:
 	parent.velocity.x = input_direction  * movement_data.move_speed
 	parent.move_and_slide() #call move and slide after calculating velocity 
 	
+	if parent.is_damaged:
+		return stagger_state
+	
 	if !parent.is_on_floor(): #if player is in the air 
 		return fall_state
 	return null #return nothing, if nothing is happening 

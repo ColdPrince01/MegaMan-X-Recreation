@@ -6,6 +6,7 @@ extends State
 @export var wall_slide_state : State
 @export var wall_jump_state : State
 @export var dash_wall_state : State
+@export var stagger_state : State
 
 @export var coyote_duration = 0.2
 

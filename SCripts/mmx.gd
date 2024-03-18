@@ -160,3 +160,9 @@ func _on_ghost_timer_timeout():
 
 func _on_aura_timer_timeout():
 	charge_aura_effect()
+
+
+func _on_hurt_box_component_hurt(hitbox, damage):
+	var is_damaged = true
+	PlayerStats.health -= damage
+	

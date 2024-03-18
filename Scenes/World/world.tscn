@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=7 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
 [ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
 [ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
+[ext_resource type="PackedScene" uid="uid://b4jtd8kp38ms7" path="res://Scenes/Enemies/met_tool.tscn" id="4_e4k12"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o448h"]
 font_size = 5
@@ -94,3 +95,6 @@ polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -7
 
 [node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
 position = Vector2(-12, -1)
+
+[node name="Met_Tool" parent="." instance=ExtResource("4_e4k12")]
+position = Vector2(249, 184)
