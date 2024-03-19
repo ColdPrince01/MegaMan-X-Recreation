@@ -680,7 +680,7 @@ stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_mnj4p")
 animation_name = "jump_rise"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "wall_slide_state", "wall_jump_state", "dash_wall_state")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "wall_slide_state", "wall_jump_state", "dash_wall_state", "stagger_state")]
 script = ExtResource("8_an1e2")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
@@ -688,6 +688,7 @@ jump_state = NodePath("../Jump")
 wall_slide_state = NodePath("../WallSlide")
 wall_jump_state = NodePath("../WallJump")
 dash_wall_state = NodePath("../DashWallJump")
+stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_mkaus")
 animation_name = "jump_fall"
 
@@ -750,7 +751,6 @@ animation_name = "jump_rise"
 
 [node name="Stagger" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state")]
 script = ExtResource("16_5bknb")
-knockback_timer = 0.15
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")

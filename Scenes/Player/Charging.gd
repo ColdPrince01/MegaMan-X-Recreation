@@ -19,6 +19,11 @@ func enter() -> void:
 
 
 func process_input(event: InputEvent) -> State:
+	if Input.is_action_just_released("Shoot") and parent.charge_lvl == 0:
+		parent.is_charging = false
+		parent.fire_rate.start()
+		parent.attack_anim_timer.start()
+		return shooting_state
 	if Input.is_action_just_released("Shoot") and parent.charge_lvl == 1:
 		parent.is_charging = false
 		parent.fire_rate.start()
