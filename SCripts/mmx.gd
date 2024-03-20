@@ -43,6 +43,9 @@ const ChargedParticles = preload("res://OtherScenes/charge_particles.tscn")
 @onready var wall_kick = $WallKick
 @onready var wall_kick_2 = $WallKick2
 @onready var aura_timer = $Timers/AuraTimer
+@onready var invincibility = $Timers/Invincibility
+@onready var hurt_box_component = $HurtBoxComponent
+@onready var damage_flash = $DamageFlash
 
 
 var charge_lvl = 0
@@ -57,6 +60,7 @@ var is_wall_sliding = false
 var is_damaged = false
 var is_charging = false
 var y_offset = 8
+var can_fire_charge = true 
 
 var no_shockwave = is_dashing and is_on_floor()
 
@@ -165,4 +169,8 @@ func _on_aura_timer_timeout():
 func _on_hurt_box_component_hurt(hitbox, damage):
 	is_damaged = true
 	PlayerStats.health -= damage
+	invincibility.start()
+	hurt_box_component.is_invincible = true 
+	await invincibility.timeout
+	hurt_box_component.is_invincible = false
 	

@@ -1,7 +1,7 @@
 extends State
 
 @export var fall_state: State
-
+@export var stagger_state : State
 
 @export var air_time := 0.2
 @export var wall_kickback = 75.0
@@ -46,6 +46,8 @@ func process_physics(delta: float) -> State:
 	
 	parent.move_and_slide()
 	
+	if parent.is_damaged:
+		return stagger_state
 	
 	if parent.velocity.y >= 0.0:
 		return fall_state

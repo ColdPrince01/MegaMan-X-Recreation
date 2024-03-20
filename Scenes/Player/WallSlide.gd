@@ -8,6 +8,7 @@ extends State
 @export var wall_jump_state : State
 @export var dash_wall_state : State
 @export var wall_slide_state : State
+@export var stagger_state : State
 
 var string_name = "Wall_Slide"
 var current_animation_pos: float
@@ -46,7 +47,8 @@ func process_physics(delta:float) -> State:
 	
 	parent.move_and_slide()
 	
-	
+	if parent.is_damaged:
+		return stagger_state
 	
 	if parent.is_on_floor():
 		Sounds.play(Sounds.land)

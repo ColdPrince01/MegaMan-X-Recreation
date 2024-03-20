@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=68 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -612,6 +612,43 @@ font_size = 5
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnrv5"]
 size = Vector2(12, 22)
 
+[sub_resource type="Animation" id="Animation_d3bdv"]
+resource_name = "flash"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_jvkyd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n6hvd"]
+_data = {
+"RESET": SubResource("Animation_jvkyd"),
+"flash": SubResource("Animation_d3bdv")
+}
+
 [node name="MMX" type="CharacterBody2D"]
 z_index = 25
 collision_layer = 2
@@ -703,16 +740,17 @@ stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_1er5v")
 animation_name = "dash"
 
-[node name="DashJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "dash_fall_state")]
+[node name="DashJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "idle_state", "run_state", "dash_fall_state", "stagger_state")]
 script = ExtResource("10_0vfhg")
 fall_state = NodePath("../Fall")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
 dash_fall_state = NodePath("../DashFall")
+stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_yyvhm")
 animation_name = "jump_rise"
 
-[node name="DashFall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state", "wall_slide_state", "wall_jump_state", "dash_wall_state")]
+[node name="DashFall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "run_state", "jump_state", "fall_state", "wall_slide_state", "wall_jump_state", "dash_wall_state", "stagger_state")]
 script = ExtResource("11_3cpw0")
 idle_state = NodePath("../Idle")
 run_state = NodePath("../Run")
@@ -721,10 +759,11 @@ fall_state = NodePath("../Fall")
 wall_slide_state = NodePath("../WallSlide")
 wall_jump_state = NodePath("../WallJump")
 dash_wall_state = NodePath("../DashWallJump")
+stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_um671")
 animation_name = "jump_fall"
 
-[node name="WallSlide" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "run_state", "idle_state", "wall_jump_state", "dash_wall_state", "wall_slide_state")]
+[node name="WallSlide" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "run_state", "idle_state", "wall_jump_state", "dash_wall_state", "wall_slide_state", "stagger_state")]
 script = ExtResource("12_xp38g")
 fall_state = NodePath("../Fall")
 run_state = NodePath("../Run")
@@ -732,19 +771,22 @@ idle_state = NodePath("../Idle")
 wall_jump_state = NodePath("../WallJump")
 dash_wall_state = NodePath("../DashWallJump")
 wall_slide_state = NodePath(".")
+stagger_state = NodePath("../Stagger")
 movement_data = SubResource("Resource_q6v7v")
 animation_name = "wall_slide"
 
-[node name="WallJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state")]
+[node name="WallJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("fall_state", "stagger_state")]
 script = ExtResource("13_ma2ia")
 fall_state = NodePath("../Fall")
+stagger_state = NodePath("../Stagger")
 air_time = 0.1
 movement_data = SubResource("Resource_46uwv")
 animation_name = "wall_jump"
 
-[node name="DashWallJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_fall_state")]
+[node name="DashWallJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("dash_fall_state", "stagger_state")]
 script = ExtResource("14_l3gxi")
 dash_fall_state = NodePath("../DashFall")
+stagger_state = NodePath("../Stagger")
 air_time = 0.15
 movement_data = SubResource("Resource_rj11c")
 animation_name = "jump_rise"
@@ -881,14 +923,22 @@ wait_time = 0.12
 [node name="AuraTimer" type="Timer" parent="Timers"]
 wait_time = 0.25
 
+[node name="Invincibility" type="Timer" parent="Timers"]
+wait_time = 0.9
+one_shot = true
+
 [node name="HurtBoxComponent" parent="." instance=ExtResource("20_h4km2")]
-visible = false
 collision_layer = 8
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 position = Vector2(1, -11)
 shape = SubResource("RectangleShape2D_rnrv5")
+
+[node name="DamageFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n6hvd")
+}
 
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="Timers/AuraTimer" to="." method="_on_aura_timer_timeout"]

@@ -2,6 +2,7 @@ extends State
 
 
 @export var dash_fall_state : State
+@export var stagger_state : State
 
 @export var air_time := 0.2
 
@@ -48,7 +49,8 @@ func process_physics(delta: float) -> State:
 		
 	parent.move_and_slide()
 	
-	
+	if parent.is_damaged:
+		return stagger_state
 	
 	if parent.velocity.y >= 0.0:
 		return dash_fall_state

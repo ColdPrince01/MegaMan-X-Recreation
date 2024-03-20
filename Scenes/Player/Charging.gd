@@ -16,6 +16,7 @@ func enter() -> void:
 	parent.is_charging = true
 	parent.charge_aura_effect()
 	parent.aura_timer.start()
+	
 
 
 func process_input(event: InputEvent) -> State:
@@ -25,15 +26,17 @@ func process_input(event: InputEvent) -> State:
 		parent.attack_anim_timer.start()
 		return shooting_state
 	if Input.is_action_just_released("Shoot") and parent.charge_lvl == 1:
-		parent.is_charging = false
-		parent.fire_rate.start()
-		parent.attack_anim_timer.start()
-		return shooting_state
+		if parent.can_fire_charge:
+			parent.is_charging = false
+			parent.fire_rate.start()
+			parent.attack_anim_timer.start()
+			return shooting_state
 	if Input.is_action_just_released("Shoot") and parent.charge_lvl == 2:
-		parent.is_charging = false
-		parent.fire_rate.start()
-		parent.attack_anim_timer.start()
-		return shooting_state
+		if parent.can_fire_charge:
+			parent.is_charging = false
+			parent.fire_rate.start()
+			parent.attack_anim_timer.start()
+			return shooting_state
 	return null
 
 

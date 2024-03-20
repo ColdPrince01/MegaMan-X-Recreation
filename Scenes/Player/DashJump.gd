@@ -5,6 +5,7 @@ extends State
 @export var idle_state : State
 @export var run_state : State
 @export var dash_fall_state : State
+@export var stagger_state : State
 
 @export var dash_time := 0.5
 @export var buster_pos := Vector2(20, -19)
@@ -67,7 +68,9 @@ func process_physics(delta: float) -> State:
 	parent.velocity.x = input_direction * movement_data.dash_speed
 	parent.move_and_slide() #call move and slide after movement calculations
 	
-
+	if parent.is_damaged:
+		return stagger_state
+	
 	
 	if parent.is_on_floor(): #if the player is on the floor
 		if input_direction != 0: #and they are moving
