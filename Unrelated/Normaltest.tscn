@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b24m3x6i7ma25"]
+[gd_scene load_steps=12 format=3 uid="uid://b24m3x6i7ma25"]
 
 [ext_resource type="Texture2D" uid="uid://7nek581qq62w" path="res://Unrelated/BeckTest.png" id="1_edwd4"]
 [ext_resource type="Script" path="res://Unrelated/Normaltest.gd" id="1_taqof"]
 [ext_resource type="Texture2D" uid="uid://cayyxlcsru3kw" path="res://Unrelated/BeckNormalTest.png" id="2_jd61c"]
 [ext_resource type="Texture2D" uid="uid://dcdw05kflwtf2" path="res://Unrelated/TestLight.png" id="3_sou10"]
+[ext_resource type="Texture2D" uid="uid://dvsui2srb8alv" path="res://Unrelated/Gunvolt Test.png" id="5_inhpp"]
+[ext_resource type="Texture2D" uid="uid://5ew5hdcsogm0" path="res://Unrelated/GunvoltNormal.png" id="6_t057b"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_xaki7"]
 diffuse_texture = ExtResource("1_edwd4")
@@ -12,6 +14,50 @@ specular_texture = ExtResource("2_jd61c")
 specular_shininess = 0.08
 texture_filter = 1
 texture_repeat = 2
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_knqus"]
+diffuse_texture = ExtResource("5_inhpp")
+normal_texture = ExtResource("6_t057b")
+specular_texture = ExtResource("6_t057b")
+specular_shininess = 0.08
+
+[sub_resource type="Animation" id="Animation_af1wy"]
+resource_name = "run"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Gunvolt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_5y6fh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Gunvolt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjggm"]
+_data = {
+"RESET": SubResource("Animation_5y6fh"),
+"run": SubResource("Animation_af1wy")
+}
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_taqof")
@@ -26,9 +72,8 @@ z_index = 5
 texture_filter = 1
 position = Vector2(35.5, 5.45455)
 scale = Vector2(20, 18.182)
-color = Color(0, 0.631373, 0.509804, 1)
-energy = 4.39
-shadow_enabled = true
+color = Color(0.109804, 0.705882, 1, 1)
+energy = 4.31
 shadow_color = Color(0.462745, 0.0823529, 0.462745, 0.960784)
 texture = ExtResource("3_sou10")
 
@@ -46,3 +91,16 @@ shadow_filter = 2
 texture = ExtResource("3_sou10")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gunvolt" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, -21)
+texture = SubResource("CanvasTexture_knqus")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+autoplay = "run"
+libraries = {
+"": SubResource("AnimationLibrary_tjggm")
+}

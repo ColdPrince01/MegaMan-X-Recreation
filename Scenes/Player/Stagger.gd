@@ -17,7 +17,7 @@ func enter() -> void:
 	super()
 	parent.is_damaged = true
 	parent.is_dashing = false 
-	Sounds.play(Sounds.hurt)
+	Sounds.play(Sounds.hurt, 1.0, -10.0)
 	parent.velocity.y = -KNOCKBACK_JUMP
 	knockback_timer = knockback_time
 	parent.damage_flash.play("flash")

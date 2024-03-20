@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4jtd8kp38ms7"]
+[gd_scene load_steps=23 format=3 uid="uid://b4jtd8kp38ms7"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/met_tool.gd" id="1_gvss6"]
 [ext_resource type="Texture2D" uid="uid://3c23bqtimnpb" path="res://Sprites/Enemies/MetTool.png" id="1_lsk7f"]
@@ -127,6 +127,9 @@ size = Vector2(14, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgeu6"]
 size = Vector2(12, 10)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ay6l"]
+radius = 59.0339
+
 [node name="Met_Tool" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_gvss6")
@@ -134,9 +137,8 @@ script = ExtResource("1_gvss6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_80kyo")
-animation = &"Walk"
+animation = &"Close"
 autoplay = "Close_P"
-frame_progress = 0.830442
 offset = Vector2(0, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -170,4 +172,20 @@ position = Vector2(0, -6)
 target_position = Vector2(56, 0)
 collision_mask = 2
 
+[node name="ActiveArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveArea"]
+position = Vector2(-1, -6)
+shape = SubResource("CircleShape2D_4ay6l")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

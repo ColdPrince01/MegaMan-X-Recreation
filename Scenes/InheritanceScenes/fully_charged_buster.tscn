@@ -42,7 +42,7 @@ point_count = 2
 
 [node name="FullyChargedBuster" instance=ExtResource("1_3ddpt")]
 z_index = 40
-speed = 350
+speed = 385
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_uqaeu")
@@ -50,12 +50,10 @@ autoplay = "default"
 frame_progress = 0.5242
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="1"]
-visible = false
 position = Vector2(-4.76837e-07, 0)
 scale = Vector2(1.8, 1)
 
 [node name="HitBoxComponent" parent="." index="2"]
-visible = false
 damage = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
