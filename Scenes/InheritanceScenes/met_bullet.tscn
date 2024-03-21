@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8mwx8n1ss2n2"]
+
+[ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_aigbe"]
+[ext_resource type="Script" path="res://Scenes/InheritanceScenes/met_bullet.gd" id="2_4veo7"]
+[ext_resource type="Texture2D" uid="uid://b7gvrcq6tsk2i" path="res://Sprites/Enemies/metbullet.png" id="2_jgqth"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdlpr"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6eht"]
+atlas = ExtResource("2_jgqth")
+region = Rect2(0, 0, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k382y"]
+atlas = ExtResource("2_jgqth")
+region = Rect2(6, 0, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v01xk"]
+atlas = ExtResource("2_jgqth")
+region = Rect2(12, 0, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf30u"]
+atlas = ExtResource("2_jgqth")
+region = Rect2(18, 0, 6, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5dxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6eht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k382y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v01xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf30u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="MetBullet" instance=ExtResource("1_aigbe")]
+script = ExtResource("2_4veo7")
+speed = 150
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="0"]
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(0.4, 0.3)
+
+[node name="HitBoxComponent" parent="." index="1"]
+collision_mask = 8
+damage = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent" index="0"]
+shape = SubResource("CircleShape2D_mdlpr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_j5dxj")
+autoplay = "default"
+frame_progress = 0.659772

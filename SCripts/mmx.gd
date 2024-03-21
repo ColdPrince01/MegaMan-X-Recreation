@@ -46,6 +46,7 @@ const ChargedParticles = preload("res://OtherScenes/charge_particles.tscn")
 @onready var invincibility = $Timers/Invincibility
 @onready var hurt_box_component = $HurtBoxComponent
 @onready var damage_flash = $DamageFlash
+@onready var charge_flash = $ChargeFlash
 
 
 var charge_lvl = 0
@@ -80,13 +81,7 @@ func _ready():
 func _physics_process(delta):
 	state_machine.process_physics(delta)
 	attack_machine.process_physics(delta)
-	if dev_menu == true: #Dev Menu for basic parameters
-		label.text = str("FPS:") + str(Engine.get_frames_per_second())
-		label_2.text = str("Vel_x:") + str(velocity.x)
-		label_3.text = str("Vel_y:") + str(velocity.y)
-		label_4.text = str("State:") + str(state_machine.current_state.string_name)
-		label_5.text = str("Attack_State:") + str(attack_machine.current_state.string_name)
-		label_6.text = str("Input:") + str(state_machine.current_state.input_action)
+	charge_animation()
 	if not is_dashing:
 		ghost_timer.stop()
 		
@@ -150,6 +145,13 @@ func instance_ghosting():
 	
 	get_parent().add_child(ghost)
 	
+
+func charge_animation():
+	if charge_lvl == 1:
+		charge_flash.play("Charge_One")
+	if charge_lvl == 2:
+		charge_flash.play("Charge_Two")
+
 
 func wall_spark_effect():
 	if is_on_wall_only():

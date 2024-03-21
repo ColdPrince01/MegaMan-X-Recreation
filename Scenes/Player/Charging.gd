@@ -17,6 +17,7 @@ func enter() -> void:
 	parent.charge_aura_effect()
 	parent.aura_timer.start()
 	
+	
 
 
 func process_input(event: InputEvent) -> State:
@@ -45,10 +46,10 @@ func process_frame(delta:float) -> State:
 		parent.charge_lvl = 1
 	if charge_timer > FULLY_CHARGED_BUSTER_TIME:
 		parent.charge_lvl = 2
-
 	
 	return null
 	
 
 func exit() -> void:
 	parent.aura_timer.stop()
+	parent.charge_flash.stop()

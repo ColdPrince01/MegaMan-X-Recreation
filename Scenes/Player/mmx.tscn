@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=72 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="Texture2D" uid="uid://bapfjbjraavp3" path="res://Sprites/Player/MMX Spritesheet.png" id="1_vsw34"]
@@ -649,6 +649,64 @@ _data = {
 "flash": SubResource("Animation_d3bdv")
 }
 
+[sub_resource type="Animation" id="Animation_vjt5p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j4wy2"]
+resource_name = "Charge_One"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 4.14, 20.71, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4j2cq"]
+resource_name = "Charge_Two"
+length = 0.1
+loop_mode = 1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 2.96, 47.93, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_urwh0"]
+_data = {
+"Charge_One": SubResource("Animation_j4wy2"),
+"Charge_Two": SubResource("Animation_4j2cq"),
+"RESET": SubResource("Animation_vjt5p")
+}
+
 [node name="MMX" type="CharacterBody2D"]
 z_index = 25
 collision_layer = 2
@@ -939,6 +997,11 @@ shape = SubResource("RectangleShape2D_rnrv5")
 [node name="DamageFlash" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_n6hvd")
+}
+
+[node name="ChargeFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_urwh0")
 }
 
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]

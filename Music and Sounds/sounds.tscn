@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlp5kghmo5t2d"]
+[gd_scene load_steps=13 format=3 uid="uid://dlp5kghmo5t2d"]
 
 [ext_resource type="Script" path="res://Sounds.gd" id="1_4p871"]
 [ext_resource type="AudioStream" uid="uid://bw1i2hkmvh5f3" path="res://Music and Sounds/Dash.wav" id="2_mehvm"]
@@ -8,6 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://hawk0xc3ap3q" path="res://Music and Sounds/10 - MMX - X Hurt.wav" id="6_smy83"]
 [ext_resource type="AudioStream" uid="uid://cyf7s2amv2236" path="res://Music and Sounds/ChargeOne.wav" id="7_ue37i"]
 [ext_resource type="AudioStream" uid="uid://cyuujbn0bdl4d" path="res://Music and Sounds/FullyCharged.wav" id="8_w0xeb"]
+[ext_resource type="AudioStream" uid="uid://cg0o2q7qkejyh" path="res://Music and Sounds/death.wav" id="9_gsxw5"]
+[ext_resource type="AudioStream" uid="uid://bam83b5qb0ivt" path="res://Music and Sounds/smalldeflect.wav" id="10_dnl1u"]
+[ext_resource type="AudioStream" uid="uid://dm3m1427ht0dk" path="res://Music and Sounds/30 - MMX - Small Hit.wav" id="11_atbi5"]
+[ext_resource type="AudioStream" uid="uid://bvyeg3u6arc5o" path="res://Music and Sounds/31 - MMX - Big Hit.wav" id="12_3qwc0"]
 
 [node name="Sounds" type="Node"]
 script = ExtResource("1_4p871")
@@ -18,6 +22,10 @@ lemons = ExtResource("5_0ewgd")
 hurt = ExtResource("6_smy83")
 charge_one = ExtResource("7_ue37i")
 fully_charged = ExtResource("8_w0xeb")
+death = ExtResource("9_gsxw5")
+small_deflect = ExtResource("10_dnl1u")
+small_hit = ExtResource("11_atbi5")
+big_hit = ExtResource("12_3qwc0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Sounds"

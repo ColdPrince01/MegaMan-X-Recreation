@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cen1euhu37p45"]
+
+[ext_resource type="Texture2D" uid="uid://dahcdvimsioyu" path="res://Sprites/Effects/ChargeDeflect.png" id="1_7bral"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqwa5"]
+atlas = ExtResource("1_7bral")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brujd"]
+atlas = ExtResource("1_7bral")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8cb7"]
+atlas = ExtResource("1_7bral")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j12tt"]
+atlas = ExtResource("1_7bral")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uypet"]
+atlas = ExtResource("1_7bral")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8vaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqwa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_brujd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8cb7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j12tt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uypet")
+}],
+"loop": false,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="ChargeDeflect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_s8vaw")
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

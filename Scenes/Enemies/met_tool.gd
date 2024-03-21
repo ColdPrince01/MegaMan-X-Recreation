@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+const MetBullet = preload("res://Scenes/InheritanceScenes/met_bullet.tscn")
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var collision_shape_2d = $CollisionShape2D
@@ -11,63 +12,117 @@ extends CharacterBody2D
 @onready var hit_collision = $HitBoxComponent/HitCollision
 @onready var hurt_collision = $HurtBoxComponent/HurtCollision
 @onready var active_area = $ActiveArea
-@onready var timer = $Timer
-@onready var timer_2 = $Timer2
+@onready var active_shape = $ActiveArea/ActiveShape
+@onready var fire_direction = $FireDirection
+@onready var anim_timer = $AnimTimer
+@onready var state_timer = $StateTimer
+@onready var damage_flash = $DamageFlash
+
 
 enum DIRECTION {LEFT = -1, RIGHT = 1}
 
 @onready var player = MainInstances.player
 
 @export var facing_direction = DIRECTION.RIGHT
+@export var area_size = 55.0
+@export var speed = 75.0
 
-var state 
+
+var player_dir = 1
+var self_dir = 1
+var spawn_pos : Vector2
+var active = false
 
 func _ready():
-	player_finder.target_position.x *= facing_direction
+	active_shape.shape.radius = area_size
 	animated_sprite_2d.scale.x = facing_direction
 	marker_2d.position.x = abs(marker_2d.position.x) * facing_direction
+	player_finder.target_position.x = area_size
 
 func _physics_process(delta):
-	
-	
-	animated_sprite_2d.flip_h = player.global_position < global_position
-	
-	
-	var normal_point = player_finder.get_collision_normal()
-	if active_area.has_overlapping_bodies():
-		find_player(global_position)
-		facing_direction = animated_sprite_2d.scale.x
-		if facing_direction == player.get_direction().x:
-			timer.start()
-		#If the player can be detected but is facing away from the player finder, open and fire
-	pass
-	
-	move_and_slide()
-	print(facing_direction)
+	handle_anims()
+	get_direction()
+	find_player(global_position)
+	if player_finder.is_colliding():
+		if player_dir == self_dir:
+			anim_timer.start()
+			if state_timer.time_left <= 0.0:
+				spawn_bullets(marker_2d.global_position)
+				
 
-func find_player(from):
-	player_finder.global_position = from
-	player_finder.target_position = player.global_position - from
-	player_finder.force_raycast_update()
+
+func get_direction():
+	if animated_sprite_2d.flip_h: #if sprite is flipped
+		self_dir = -1 #direction is equal to -1
+		player_finder.target_position.x = abs(player_finder.target_position.x) * -1
+	else:
+		self_dir = 1 #otherwise direction is right (sprite is facing right)
+		player_finder.target_position.x = abs(player_finder.target_position.x)
+
+	
+	return self_dir
+
+
+func spawn_bullets(spawn_pos):
+	var bullet : Node2D
+	var world = get_tree().current_scene
+	for particle in range(3):
+		bullet = MetBullet.instantiate()
+		if self_dir == DIRECTION.RIGHT:
+			bullet.initialize(spawn_pos, Vector2(1,-0.5).rotated(particle * PI/6), bullet.speed)
+		elif self_dir == DIRECTION.LEFT:
+			bullet.initialize(spawn_pos, Vector2(-1,0.5).rotated(particle * PI/6), bullet.speed)
+		world.add_child.call_deferred(bullet)
+	state_timer.start()
+	
+
 
 
 func handle_anims():
-	animated_sprite_2d.play("Open")
-	await animated_sprite_2d.animation_finished
-	animated_sprite_2d.play("Open_P")
+	if anim_timer.time_left > 0.0:
+		animated_sprite_2d.play("Open_P")
+	elif anim_timer.time_left <= 0.0:
+		animated_sprite_2d.play("Close_P")
 
-func handle_anims_2():
-	#test function
-	animated_sprite_2d.play("Close")
+func find_player(from):
+	if active: 
+		if active_area.has_overlapping_bodies():
+			marker_2d.position.x = abs(marker_2d.position.x) * self_dir
+			animated_sprite_2d.flip_h = player.global_position < global_position
+			if player.x_sprite.flip_h:
+				player_dir = -1
+			else: 
+				player_dir = 1
+				
+
+
+
+
+
+
 
 func _on_stats_no_health():
 	queue_free()
 
 
-func _on_timer_timeout():
-	handle_anims()
-	timer_2.start()
 
 
-func _on_timer_2_timeout():
-	handle_anims_2()
+func _on_hurt_box_component_hurt(hitbox, damage):
+	if anim_timer.time_left > 0.0: #if the mettool is open, take no damage
+		stats.health -= damage
+		Sounds.play(Sounds.small_hit, 1.0, -9.5)
+		damage_flash.play("flash")
+	elif anim_timer.time_left <= 0.0:
+		stats.health -= 0
+		Sounds.play(Sounds.small_deflect)
+
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	active = false
+
+
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	active = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b4jtd8kp38ms7"]
+[gd_scene load_steps=26 format=3 uid="uid://b4jtd8kp38ms7"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/met_tool.gd" id="1_gvss6"]
 [ext_resource type="Texture2D" uid="uid://3c23bqtimnpb" path="res://Sprites/Enemies/MetTool.png" id="1_lsk7f"]
@@ -119,16 +119,78 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fu76b"]
-size = Vector2(14, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_po10j"]
-size = Vector2(14, 13)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgeu6"]
 size = Vector2(12, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po10j"]
+size = Vector2(14, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgeu6"]
+size = Vector2(12, 12)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ay6l"]
-radius = 59.0339
+radius = 55.0
+
+[sub_resource type="Animation" id="Animation_bl8lw"]
+resource_name = "flash"
+length = 0.1
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(100, 100, 100, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ns814"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v761u"]
+_data = {
+"RESET": SubResource("Animation_ns814"),
+"flash": SubResource("Animation_bl8lw")
+}
 
 [node name="Met_Tool" type="CharacterBody2D"]
 collision_layer = 4
@@ -137,13 +199,12 @@ script = ExtResource("1_gvss6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_80kyo")
-animation = &"Close"
+animation = &"Open"
 autoplay = "Close_P"
 offset = Vector2(0, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1, -5)
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_fu76b")
 
 [node name="HitBoxComponent" parent="." instance=ExtResource("2_52bmo")]
@@ -152,13 +213,14 @@ collision_mask = 8
 damage = 2
 
 [node name="HitCollision" type="CollisionShape2D" parent="HitBoxComponent"]
-position = Vector2(-1, -6.5)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_po10j")
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("3_f683f")]
+collision_layer = 16
 
 [node name="HurtCollision" type="CollisionShape2D" parent="HurtBoxComponent"]
-position = Vector2(-1, -5)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_rgeu6")
 
 [node name="Stats" parent="." instance=ExtResource("4_km2x8")]
@@ -166,6 +228,9 @@ max_health = 6
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(10, -6)
+
+[node name="FireDirection" type="Marker2D" parent="."]
+position = Vector2(16, -6)
 
 [node name="PlayerFinder" type="RayCast2D" parent="."]
 position = Vector2(0, -6)
@@ -176,16 +241,28 @@ collision_mask = 2
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ActiveArea"]
+[node name="ActiveShape" type="CollisionShape2D" parent="ActiveArea"]
 position = Vector2(-1, -6)
 shape = SubResource("CircleShape2D_4ay6l")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="AnimTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
-[node name="Timer2" type="Timer" parent="."]
+[node name="StateTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, -5)
+scale = Vector2(0.7, 0.5)
+
+[node name="DamageFlash" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v761u")
+}
+
+[connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

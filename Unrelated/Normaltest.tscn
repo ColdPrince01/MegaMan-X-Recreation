@@ -21,6 +21,21 @@ normal_texture = ExtResource("6_t057b")
 specular_texture = ExtResource("6_t057b")
 specular_shininess = 0.08
 
+[sub_resource type="Animation" id="Animation_5y6fh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Gunvolt:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_af1wy"]
 resource_name = "run"
 length = 0.55
@@ -38,21 +53,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_5y6fh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Gunvolt:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tjggm"]
 _data = {
 "RESET": SubResource("Animation_5y6fh"),
@@ -63,6 +63,7 @@ _data = {
 script = ExtResource("1_taqof")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 z_index = 4
 texture_filter = 1
 texture = SubResource("CanvasTexture_xaki7")
@@ -93,7 +94,6 @@ texture = ExtResource("3_sou10")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Gunvolt" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(1, -21)
 texture = SubResource("CanvasTexture_knqus")
 hframes = 6

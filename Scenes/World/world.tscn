@@ -98,3 +98,4 @@ position = Vector2(-12, -1)
 
 [node name="Met_Tool" parent="." instance=ExtResource("4_e4k12")]
 position = Vector2(249, 184)
+area_size = 75.0
