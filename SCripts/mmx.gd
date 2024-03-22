@@ -10,6 +10,8 @@ const WallKickDust = preload("res://Scenes/Player/WallJumpSpark.tscn")
 const ChargedShockwave = preload("res://OtherScenes/charged_shockwave.tscn")
 const ChargeOneShockwave = preload("res://OtherScenes/charge_one_shockwave.tscn")
 const ChargedParticles = preload("res://OtherScenes/charge_particles.tscn")
+const DamageNumber = preload("res://Unrelated/damage_number.tscn")
+
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
@@ -126,6 +128,11 @@ func set_direction():
 	if Vector2.LEFT:
 		x_sprite.flip_h = true
 
+func blit_damage_number(number):
+	var damage_number_inst = Utils.instantiate_scene_on_world(DamageNumber, global_position + Vector2(0, -12)) #offset the global_position 
+	damage_number_inst.number = number
+	
+
 
 func charge_aura_effect():
 	var aura = Utils.instantiate_scene_on_world(ChargedParticles, global_position - Vector2(0, y_offset))
@@ -171,6 +178,7 @@ func _on_aura_timer_timeout():
 func _on_hurt_box_component_hurt(hitbox, damage):
 	is_damaged = true
 	PlayerStats.health -= damage
+	blit_damage_number(damage)
 	invincibility.start()
 	hurt_box_component.is_invincible = true 
 	await invincibility.timeout

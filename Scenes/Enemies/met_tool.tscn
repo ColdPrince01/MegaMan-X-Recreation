@@ -1,10 +1,18 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4jtd8kp38ms7"]
+[gd_scene load_steps=25 format=3 uid="uid://b4jtd8kp38ms7"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/met_tool.gd" id="1_gvss6"]
 [ext_resource type="Texture2D" uid="uid://3c23bqtimnpb" path="res://Sprites/Enemies/MetTool.png" id="1_lsk7f"]
 [ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="2_52bmo"]
+[ext_resource type="Shader" path="res://Scenes/Enemies/DamageFlash.gdshader" id="2_sl4wk"]
 [ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="3_f683f"]
 [ext_resource type="PackedScene" uid="uid://dpjc7bv3tf8bu" path="res://OtherScenes/stats.tscn" id="4_km2x8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oayoy"]
+resource_local_to_scene = true
+shader = ExtResource("2_sl4wk")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+shader_parameter/alpha = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8o73q"]
 atlas = ExtResource("1_lsk7f")
@@ -130,76 +138,15 @@ size = Vector2(12, 12)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ay6l"]
 radius = 55.0
 
-[sub_resource type="Animation" id="Animation_bl8lw"]
-resource_name = "flash"
-length = 0.1
-step = 0.03
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.03, 0.06),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(100, 100, 100, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ns814"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_v761u"]
-_data = {
-"RESET": SubResource("Animation_ns814"),
-"flash": SubResource("Animation_bl8lw")
-}
-
 [node name="Met_Tool" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_gvss6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_oayoy")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_80kyo")
-animation = &"Open"
+animation = &"Close"
 autoplay = "Close_P"
 offset = Vector2(0, 0.5)
 
@@ -257,12 +204,12 @@ one_shot = true
 position = Vector2(1.19209e-07, -5)
 scale = Vector2(0.7, 0.5)
 
-[node name="DamageFlash" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_v761u")
-}
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.02
+one_shot = true
 
 [connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]

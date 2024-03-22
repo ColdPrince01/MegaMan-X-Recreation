@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3kuj4nwy61am"]
+[gd_scene load_steps=11 format=3 uid="uid://c3kuj4nwy61am"]
 
 [ext_resource type="PackedScene" uid="uid://0l3y7xbic6ij" path="res://Scenes/InheritanceScenes/projectile.tscn" id="1_aodgy"]
+[ext_resource type="Script" path="res://Scenes/InheritanceScenes/mega_charge_one.gd" id="2_1rj47"]
 [ext_resource type="Texture2D" uid="uid://bmwl5wvg6korq" path="res://Sprites/Player/MegaCharge1.png" id="2_8h0f8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svj1j"]
@@ -48,6 +49,7 @@ point_count = 2
 
 [node name="MegaChargeOne" instance=ExtResource("1_aodgy")]
 z_index = 40
+script = ExtResource("2_1rj47")
 speed = 350
 
 [node name="VisibleOnScreenNotifier2D" parent="." index="0"]

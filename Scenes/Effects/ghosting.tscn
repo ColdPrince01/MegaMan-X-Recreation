@@ -1,16 +1,59 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq3y6iasal11s"]
+[gd_scene load_steps=6 format=3 uid="uid://cq3y6iasal11s"]
 
 [ext_resource type="Script" path="res://Sprite2D.gd" id="1_556gn"]
 [ext_resource type="Texture2D" uid="uid://cncprju7xm5x0" path="res://icon.svg" id="1_hqkjr"]
 
+[sub_resource type="Animation" id="Animation_v4hnm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_q5nur"]
+resource_name = "fade"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m0hrf"]
+_data = {
+"RESET": SubResource("Animation_v4hnm"),
+"fade": SubResource("Animation_q5nur")
+}
+
 [node name="Ghosting" type="Sprite2D"]
-modulate = Color(0, 0, 100, 0.43)
+self_modulate = Color(0.0431373, 0, 98.2196, 0.32549)
 show_behind_parent = true
+use_parent_material = true
 texture = ExtResource("1_hqkjr")
 script = ExtResource("1_556gn")
 
 [node name="TweenTimer" type="Timer" parent="."]
 wait_time = 0.4
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m0hrf")
+}
 
 [connection signal="timeout" from="TweenTimer" to="." method="_on_tween_timer_timeout"]

@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=3 uid="uid://dxqanl7slv1yl"]
+
+[ext_resource type="Texture2D" uid="uid://nrbo88nrfhio" path="res://Sprites/Enemies/junksprites.png" id="1_lwafw"]
+[ext_resource type="Script" path="res://Scenes/Enemies/junk_sprites.gd" id="2_3afyu"]
+[ext_resource type="Texture2D" uid="uid://c65ldqbcv5hwx" path="res://Sprites/Enemies/DustParticle.png" id="2_cor8h"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8j1t0"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cq44y"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_qhiwl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 0.210526), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Animation" id="Animation_57loy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3cjsg"]
+resource_name = "blink"
+length = 0.2
+loop_mode = 1
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cha6q"]
+_data = {
+"RESET": SubResource("Animation_57loy"),
+"blink": SubResource("Animation_3cjsg")
+}
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+z_index = 25
+material = SubResource("CanvasItemMaterial_8j1t0")
+amount = 5
+lifetime = 2.0
+explosiveness = 1.0
+texture = ExtResource("1_lwafw")
+emission_shape = 2
+emission_sphere_radius = 15.0
+direction = Vector2(0, -1)
+initial_velocity_min = 150.0
+initial_velocity_max = 450.0
+scale_amount_min = 0.35
+scale_amount_max = 0.75
+anim_offset_min = 0.5
+anim_offset_max = 1.0
+script = ExtResource("2_3afyu")
+
+[node name="Smoke" type="CPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_cq44y")
+amount = 10
+lifetime = 2.0
+explosiveness = 1.0
+texture = ExtResource("2_cor8h")
+emission_shape = 2
+emission_sphere_radius = 6.5
+direction = Vector2(0, -1)
+gravity = Vector2(0, 900)
+initial_velocity_min = 250.0
+initial_velocity_max = 450.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_qhiwl")
+anim_speed_max = 2.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cha6q")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

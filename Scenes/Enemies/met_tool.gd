@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 const MetBullet = preload("res://Scenes/InheritanceScenes/met_bullet.tscn")
+const JunkSprites = preload("res://Scenes/Enemies/junk_sprites.tscn")
+const DamageNumber = preload("res://Unrelated/damage_number.tscn")
+const ExplosionDust = preload("res://Unrelated/ExplosionDust.tscn")
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var collision_shape_2d = $CollisionShape2D
@@ -16,7 +19,8 @@ const MetBullet = preload("res://Scenes/InheritanceScenes/met_bullet.tscn")
 @onready var fire_direction = $FireDirection
 @onready var anim_timer = $AnimTimer
 @onready var state_timer = $StateTimer
-@onready var damage_flash = $DamageFlash
+@onready var flash_timer = $FlashTimer
+
 
 
 enum DIRECTION {LEFT = -1, RIGHT = 1}
@@ -26,12 +30,13 @@ enum DIRECTION {LEFT = -1, RIGHT = 1}
 @export var facing_direction = DIRECTION.RIGHT
 @export var area_size = 55.0
 @export var speed = 75.0
-
+@export var sizeScale : float = 1.0
 
 var player_dir = 1
 var self_dir = 1
 var spawn_pos : Vector2
 var active = false
+var velo = Vector2()
 
 func _ready():
 	active_shape.shape.radius = area_size
@@ -76,7 +81,20 @@ func spawn_bullets(spawn_pos):
 	state_timer.start()
 	
 
+# placeholder func()
+## 	weight amount : 25
+## var number : int
+## randomize()
+## if number >= 25
 
+
+func createDeathExplosion():
+	var dust = Utils.instantiate_scene_on_world(JunkSprites, global_position + Vector2(0, -9))
+	
+
+func flash():
+	animated_sprite_2d.material.set_shader_parameter("flash_modifier", 1)
+	flash_timer.start()
 
 func handle_anims():
 	if anim_timer.time_left > 0.0:
@@ -97,11 +115,17 @@ func find_player(from):
 
 
 
-
+func blit_damage_number(number):
+	var damage_number_inst = Utils.instantiate_scene_on_world(DamageNumber, global_position + Vector2(0, -12)) #offset the global_position 
+	damage_number_inst.number = number
+	
 
 
 
 func _on_stats_no_health():
+	Utils.instantiate_scene_on_world(ExplosionDust, global_position + Vector2(0, -10))
+	Sounds.play(Sounds.enemy_die_one, 1.0, randi_range(-9.0, 0.0))
+	createDeathExplosion()
 	queue_free()
 
 
@@ -111,9 +135,11 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 	if anim_timer.time_left > 0.0: #if the mettool is open, take no damage
 		stats.health -= damage
 		Sounds.play(Sounds.small_hit, 1.0, -9.5)
-		damage_flash.play("flash")
+		blit_damage_number(damage)
+		flash()
 	elif anim_timer.time_left <= 0.0:
 		stats.health -= 0
+		blit_damage_number(0)
 		Sounds.play(Sounds.small_deflect)
 
 
@@ -126,3 +152,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	active = true
+
+
+func _on_flash_timer_timeout():
+	animated_sprite_2d.material.set_shader_parameter("flash_modifier", 0)

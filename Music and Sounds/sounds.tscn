@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dlp5kghmo5t2d"]
+[gd_scene load_steps=14 format=3 uid="uid://dlp5kghmo5t2d"]
 
 [ext_resource type="Script" path="res://Sounds.gd" id="1_4p871"]
 [ext_resource type="AudioStream" uid="uid://bw1i2hkmvh5f3" path="res://Music and Sounds/Dash.wav" id="2_mehvm"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bam83b5qb0ivt" path="res://Music and Sounds/smalldeflect.wav" id="10_dnl1u"]
 [ext_resource type="AudioStream" uid="uid://dm3m1427ht0dk" path="res://Music and Sounds/30 - MMX - Small Hit.wav" id="11_atbi5"]
 [ext_resource type="AudioStream" uid="uid://bvyeg3u6arc5o" path="res://Music and Sounds/31 - MMX - Big Hit.wav" id="12_3qwc0"]
+[ext_resource type="AudioStream" uid="uid://chupij8unx2a6" path="res://Music and Sounds/56 - MMX - Enemy Die (1).wav" id="13_n3sj0"]
 
 [node name="Sounds" type="Node"]
 script = ExtResource("1_4p871")
@@ -26,39 +27,52 @@ death = ExtResource("9_gsxw5")
 small_deflect = ExtResource("10_dnl1u")
 small_hit = ExtResource("11_atbi5")
 big_hit = ExtResource("12_3qwc0")
+enemy_die_one = ExtResource("13_n3sj0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer9" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer10" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer11" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="AudioStreamPlayer12" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
 bus = &"Sounds"
