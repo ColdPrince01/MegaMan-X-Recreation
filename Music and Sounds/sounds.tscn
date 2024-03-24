@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dlp5kghmo5t2d"]
+[gd_scene load_steps=16 format=3 uid="uid://dlp5kghmo5t2d"]
 
 [ext_resource type="Script" path="res://Sounds.gd" id="1_4p871"]
 [ext_resource type="AudioStream" uid="uid://bw1i2hkmvh5f3" path="res://Music and Sounds/Dash.wav" id="2_mehvm"]
@@ -13,6 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://dm3m1427ht0dk" path="res://Music and Sounds/30 - MMX - Small Hit.wav" id="11_atbi5"]
 [ext_resource type="AudioStream" uid="uid://bvyeg3u6arc5o" path="res://Music and Sounds/31 - MMX - Big Hit.wav" id="12_3qwc0"]
 [ext_resource type="AudioStream" uid="uid://chupij8unx2a6" path="res://Music and Sounds/56 - MMX - Enemy Die (1).wav" id="13_n3sj0"]
+[ext_resource type="AudioStream" uid="uid://df3afg3qkiucj" path="res://Music and Sounds/59 - MMX - Enemy Die (4).wav" id="14_v1dka"]
+[ext_resource type="AudioStream" uid="uid://dy6w0d5ylecut" path="res://Music and Sounds/60 - MMX - Enemy Missle Fire.wav" id="15_p86yi"]
 
 [node name="Sounds" type="Node"]
 script = ExtResource("1_4p871")
@@ -28,6 +30,8 @@ small_deflect = ExtResource("10_dnl1u")
 small_hit = ExtResource("11_atbi5")
 big_hit = ExtResource("12_3qwc0")
 enemy_die_one = ExtResource("13_n3sj0")
+enemy_die_four = ExtResource("14_v1dka")
+enemy_missile = ExtResource("15_p86yi")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 max_polyphony = 3

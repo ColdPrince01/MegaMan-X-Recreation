@@ -63,7 +63,6 @@ _data = {
 script = ExtResource("1_taqof")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 z_index = 4
 texture_filter = 1
 texture = SubResource("CanvasTexture_xaki7")
@@ -94,6 +93,7 @@ texture = ExtResource("3_sou10")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Gunvolt" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1, -21)
 texture = SubResource("CanvasTexture_knqus")
 hframes = 6

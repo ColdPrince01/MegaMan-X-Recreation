@@ -1,0 +1,226 @@
+[gd_scene load_steps=25 format=3 uid="uid://c561lcps561ki"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/missile_launcher.gd" id="1_5oamg"]
+[ext_resource type="Texture2D" uid="uid://cpvplrprag47p" path="res://Sprites/Enemies/BigMissileEnemy.png" id="1_ni07i"]
+[ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="2_7m7tn"]
+[ext_resource type="Shader" path="res://Scenes/Enemies/DamageFlash.gdshader" id="2_mpsj4"]
+[ext_resource type="PackedScene" uid="uid://dpjc7bv3tf8bu" path="res://OtherScenes/stats.tscn" id="3_xri1v"]
+[ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="4_5f0ug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1h7e"]
+resource_local_to_scene = true
+shader = ExtResource("2_mpsj4")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+shader_parameter/alpha = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emjjo"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(0, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqvnj"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(38, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgbh5"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(76, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6l5ij"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(114, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1p5n"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(114, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqfl6"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(114, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_slt01"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(76, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3gwm"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(38, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lx48"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(0, 0, 38, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnjms"]
+atlas = ExtResource("1_ni07i")
+region = Rect2(0, 0, 38, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m7t3x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emjjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqvnj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgbh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6l5ij")
+}],
+"loop": false,
+"name": &"Close",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1p5n")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqfl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_slt01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3gwm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lx48")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnjms")
+}],
+"loop": true,
+"name": &"Open_P",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2gbf"]
+size = Vector2(31, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjcm7"]
+size = Vector2(29, 31)
+
+[sub_resource type="Animation" id="Animation_ndf3y"]
+resource_name = "Death"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_x3y4k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1m2w5"]
+_data = {
+"Death": SubResource("Animation_ndf3y"),
+"RESET": SubResource("Animation_x3y4k")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evqat"]
+size = Vector2(100, 37)
+
+[node name="MissileLauncher" type="Node2D"]
+script = ExtResource("1_5oamg")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_j1h7e")
+sprite_frames = SubResource("SpriteFrames_m7t3x")
+animation = &"Open"
+autoplay = "Idle"
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("2_7m7tn")]
+collision_layer = 16
+collision_mask = 8
+
+[node name="HurtCollision" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(0.5, 5.5)
+shape = SubResource("RectangleShape2D_s2gbf")
+
+[node name="Stats" parent="." instance=ExtResource("3_xri1v")]
+max_health = 20
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_5f0ug")]
+collision_layer = 4
+collision_mask = 8
+damage = 3
+
+[node name="HitCollision" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_gjcm7")
+
+[node name="PlayerFinder" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(60, 0)
+collision_mask = 2
+
+[node name="Muzzle1" type="Marker2D" parent="."]
+position = Vector2(19, 6)
+
+[node name="Muzzle2" type="Marker2D" parent="."]
+position = Vector2(16, -1)
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.02
+one_shot = true
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="DeathPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1m2w5")
+}
+
+[node name="AnimTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimDetector" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="AnimCollision" type="CollisionShape2D" parent="AnimDetector"]
+position = Vector2(50, 5.5)
+shape = SubResource("RectangleShape2D_evqat")
+
+[connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="AnimTimer" to="." method="_on_anim_timer_timeout"]
+[connection signal="body_entered" from="AnimDetector" to="." method="_on_anim_detector_body_entered"]

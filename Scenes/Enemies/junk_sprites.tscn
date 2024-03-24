@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxqanl7slv1yl"]
+[gd_scene load_steps=11 format=3 uid="uid://dxqanl7slv1yl"]
 
 [ext_resource type="Texture2D" uid="uid://nrbo88nrfhio" path="res://Sprites/Enemies/junksprites.png" id="1_lwafw"]
 [ext_resource type="Script" path="res://Scenes/Enemies/junk_sprites.gd" id="2_3afyu"]
@@ -9,6 +9,11 @@ particles_animation = true
 particles_anim_h_frames = 5
 particles_anim_v_frames = 1
 particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_x5hxv"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, -0.178947), 0.0, 0.0, 0, 0, Vector2(1, -0.51579), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cq44y"]
 particles_animation = true
@@ -73,6 +78,9 @@ initial_velocity_min = 150.0
 initial_velocity_max = 450.0
 scale_amount_min = 0.35
 scale_amount_max = 0.75
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_x5hxv")
 anim_offset_min = 0.5
 anim_offset_max = 1.0
 script = ExtResource("2_3afyu")
@@ -99,6 +107,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "blink"
 libraries = {
 "": SubResource("AnimationLibrary_cha6q")
 }

@@ -16,6 +16,8 @@ var sounds_path = "res://Music and Sounds/"
 @export var small_hit : AudioStream
 @export var big_hit : AudioStream
 @export var enemy_die_one : AudioStream
+@export var enemy_die_four : AudioStream
+@export var enemy_missile : AudioStream
 
 @onready var sound_players = get_children() #variable for getting the audio players in the scene 
 
