@@ -55,8 +55,7 @@ func _physics_process(delta):
 				pass
 
 
-func _process(delta):
-	print(sprite.animation)
+
 
 func flash():
 	sprite.material.set_shader_parameter("flash_modifier", 1)
@@ -122,8 +121,7 @@ func _on_anim_timer_timeout(): #when the timer times out
 		anim_timer.start() #start the timer to repeat the check
 	else:
 		sprite.play("Close")
-		await sprite.animation_finished
-		sprite.play("Idle")
+		
 
 
 

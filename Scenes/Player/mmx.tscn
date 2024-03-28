@@ -710,6 +710,7 @@ _data = {
 [node name="MMX" type="CharacterBody2D"]
 z_index = 25
 collision_layer = 2
+safe_margin = 0.1
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
 dev_menu = false
@@ -886,6 +887,7 @@ script = ExtResource("4_bs4rq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
+position_smoothing_speed = 10.0
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.2

@@ -18,17 +18,6 @@ func enter() -> void:
 	super()
 	parent.can_dash = false
 
-func process_input(event: InputEvent) -> State:
-	if Input.is_action_pressed("Dash"):
-		if Input.is_action_just_pressed("ui_accept"):
-			if parent.is_on_wall_only():
-				return dash_wall_state
-	if Input.is_action_just_pressed("ui_accept"):
-		if parent.is_on_wall_only():
-			return wall_jump_state
-	
-	
-	return null
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += movement_data.gravity * delta

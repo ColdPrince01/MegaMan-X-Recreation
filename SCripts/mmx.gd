@@ -87,6 +87,7 @@ func _physics_process(delta):
 	if not is_dashing:
 		ghost_timer.stop()
 		
+	print(is_on_wall())
 
 
 func _process(delta):

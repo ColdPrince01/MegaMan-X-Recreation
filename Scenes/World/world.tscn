@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=9 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
 [ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
 [ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
 [ext_resource type="PackedScene" uid="uid://b4jtd8kp38ms7" path="res://Scenes/Enemies/met_tool.tscn" id="4_e4k12"]
 [ext_resource type="PackedScene" uid="uid://c561lcps561ki" path="res://Scenes/Enemies/missile_launcher.tscn" id="5_nm0hc"]
+[ext_resource type="PackedScene" uid="uid://dyd3durfq21qr" path="res://Scenes/World/stage_level.tscn" id="6_hkh66"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o448h"]
 font_size = 5
@@ -14,6 +15,9 @@ font_size = 5
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7qcyd")
+
+[node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
+position = Vector2(103, -16)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -82,26 +86,18 @@ offset_bottom = 155.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
-[node name="TempWalls" type="StaticBody2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TempWalls"]
-polygon = PackedVector2Array(0, 0, 0, 184, 1272, 184, 1272, -8, 1344, -8, 1344, 320, -72, 320, -72, 0)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="TempWalls"]
-polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -72)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="TempWalls"]
-position = Vector2(109, 0)
-polygon = PackedVector2Array(448, -72, 448, -24.939, 448, 136, 488, 136, 488, -72)
-
-[node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
-position = Vector2(-12, -1)
-
 [node name="Met_Tool" parent="." instance=ExtResource("4_e4k12")]
-position = Vector2(527, 184)
+position = Vector2(762, 144)
 area_size = 75.0
 
 [node name="MissileLauncher2" parent="." instance=ExtResource("5_nm0hc")]
-position = Vector2(307, 160)
+position = Vector2(924, 104)
 facing_direction = -1
 detection_range = 100
+
+[node name="StageLevel" parent="." instance=ExtResource("6_hkh66")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(643, -34, 643, 115, 723, 115, 723, -35)
