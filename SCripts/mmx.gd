@@ -49,6 +49,7 @@ const DamageNumber = preload("res://Unrelated/damage_number.tscn")
 @onready var hurt_box_component = $HurtBoxComponent
 @onready var damage_flash = $DamageFlash
 @onready var charge_flash = $ChargeFlash
+@onready var spawn_anim = $SpawnAnim
 
 
 var charge_lvl = 0
@@ -64,6 +65,7 @@ var is_damaged = false
 var is_charging = false
 var y_offset = 8
 var can_fire_charge = true 
+var on_spawn = false
 
 var no_shockwave = is_dashing and is_on_floor()
 
@@ -175,6 +177,12 @@ func _on_ghost_timer_timeout():
 func _on_aura_timer_timeout():
 	charge_aura_effect()
 
+
+func spawn_effect_one():
+	Sounds.play(Sounds.fade_in, 1.0, -10.0)
+
+func spawn_effect_two():
+	Sounds.play(Sounds.spawn_comp, 1.0, -12.0)
 
 func _on_hurt_box_component_hurt(hitbox, damage):
 	is_damaged = true

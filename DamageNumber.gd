@@ -2,13 +2,14 @@ extends Node2D
 
 @onready var label = $Label
 
-var vel = Vector2(randf_range(-70,70), randf_range(-400,-100)) #randomizes velocity between given values
+var vel = Vector2(randf_range(-100,100), randf_range(-400,-100)) #randomizes velocity between given values
 var lifetime = 2 #amount of time text will exist
 
 var number = 0
 
 var blink = 0 #I believe this is the amount of time until the blinking begins, counts upwards during physics process
 var blink_intrvl = 0.03
+var gravity := 15.0
 
 func _ready() -> void:
 	label.text = str(number) #at ready, whatever number is gets passed in to be label text's string

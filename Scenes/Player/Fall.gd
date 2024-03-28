@@ -28,7 +28,11 @@ func process_physics(delta: float) -> State:
 	
 	if input_direction != 0:
 		parent.x_sprite.flip_h = input_direction < 0
-	parent.velocity.x = input_direction * movement_data.move_speed
+	
+	if parent.is_dashing:
+		parent.velocity.x = input_direction * movement_data.dash_speed
+	else:
+		parent.velocity.x = input_direction * movement_data.move_speed
 	
 	
 	parent.move_and_slide()
@@ -67,6 +71,8 @@ func process_frame(delta: float) -> State:
 
 
 func exit() -> void:
+	parent.is_dashing = false
 	parent.can_dash = true
 	if parent.is_on_floor():
 		Sounds.play(Sounds.land)
+	

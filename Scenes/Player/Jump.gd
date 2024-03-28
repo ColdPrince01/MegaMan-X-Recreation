@@ -48,8 +48,10 @@ func process_physics(delta: float) -> State:
 	if input_direction !=0:
 		parent.x_sprite.flip_h = input_direction < 0 #whether or not the player sprite flips is determined by the direction of movement
 		
-	
-	parent.velocity.x = input_direction * movement_data.move_speed
+	if parent.is_dashing:
+		parent.velocity.x = input_direction * movement_data.dash_speed
+	else:
+		parent.velocity.x = input_direction * movement_data.move_speed
 	parent.move_and_slide() #call move and slide after movement calculations
 	
 	if parent.is_damaged:

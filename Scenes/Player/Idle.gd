@@ -12,6 +12,7 @@ var input_action = "null"
 
 func enter() -> void:
 	super()
+	parent.can_dash = true
 	parent.velocity.x = 0
 	
 

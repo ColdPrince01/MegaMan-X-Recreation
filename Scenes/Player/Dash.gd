@@ -4,12 +4,12 @@ extends State
 @export var run_state : State
 @export var fall_state : State
 @export var dash_state : State
-@export var dash_jump_state : State
 @export var stagger_state : State
+@export var jump_state : State
 
 @export var dash_time := 0.5
-@export var buster_pos := Vector2(19,-11)
-@export var buster_pos_2 := Vector2(-15,-11)
+@export var buster_pos := Vector2(22,-11)
+@export var buster_pos_2 := Vector2(-14,-11)
 
 
 var direction := 1
@@ -46,12 +46,13 @@ func enter() -> void:
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_released("Dash"):
 		if get_movement_input() != 0.0:
+			parent.is_dashing = false
 			return run_state
 		return idle_state
 		
 	if Input.is_action_just_pressed("ui_accept") and parent.is_on_floor():
 		
-		return dash_jump_state
+		return jump_state
 	return null
 
 
@@ -70,6 +71,7 @@ func process_physics(delta: float) -> State:
 		return stagger_state
 	
 	if !parent.is_on_floor():
+		parent.is_dashing = false
 		return fall_state
 	
 	if parent.is_on_wall():
@@ -77,10 +79,15 @@ func process_physics(delta: float) -> State:
 	
 	return null
 
-
+func process_frame(delta: float) -> State:
+	if parent.attack_anim_timer.time_left > 0.0:
+		parent.character_animator.play("dash_shoot")
+	if parent.attack_anim_timer.time_left <= 0.0:
+		parent.character_animator.play("shoot")
+	
+	return null
 
 func exit() -> void:
-	parent.is_dashing = false
 	parent.vertical_collision.set_deferred("disabled", false)
 	parent.horizontal_collision.set_deferred("disabled", true)
 	parent.x_buster.buster_pos.position = current_buster_pos

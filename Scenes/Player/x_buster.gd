@@ -15,6 +15,7 @@ var original_pos = Vector2(15,-14)
 var original_pos_2 = Vector2(-13,-14)
 
 func fire_lemon():
+	if player.is_damaged : return
 	Sounds.play(Sounds.lemons, 1.0, -12.0)
 	buster_pos.position.x = abs(buster_pos.position.x) * player.get_direction().x
 	var direction = buster_pos.position.x

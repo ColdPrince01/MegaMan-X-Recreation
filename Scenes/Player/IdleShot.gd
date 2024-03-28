@@ -9,6 +9,7 @@ var string_name = "Shooting"
 var shockwave_offset_X = 2
 
 func enter() -> void:
+	if parent.on_spawn : return
 	if parent.charge_lvl == 0:
 		parent.x_buster.fire_lemon()
 		#Nested If Statements below are for the shockwave sprite
