@@ -10,9 +10,11 @@ var shockwave_offset_X = 2
 
 func enter() -> void:
 	if parent.on_spawn : return
+	parent.charge_flash.play("shot_flash")
 	if parent.charge_lvl == 0:
 		parent.x_buster.fire_lemon()
 		#Nested If Statements below are for the shockwave sprite
+		if parent.is_damaged : return
 		if parent.is_wall_sliding and parent.x_sprite.flip_h: #If the player is wall sliding and facing right
 			var shockwave = Utils.instantiate_scene_on_world(parent.LemonShockwave, parent.x_buster.buster_pos.global_position + Vector2(shockwave_offset_X,0))
 		else: #Otherwise if player is wall sliding and facing left
@@ -41,11 +43,11 @@ func enter() -> void:
 			if parent.is_wall_sliding : return
 			var shockwave = Utils.instantiate_scene_on_world(parent.ChargeOneShockwave, parent.x_buster.buster_pos.global_position)
 	
-		
-	
 	if parent.charge_lvl == 2:
+		parent.character_animator.play("Charge_Shot")
 		parent.charge_lvl = 0
 		parent.x_buster.fire_charge_two()
+		
 		#Nested If Statements below are for the shockwave sprite
 		if parent.is_wall_sliding and parent.x_sprite.flip_h: #If the player is wall sliding and facing right
 			var shockwave = Utils.instantiate_scene_on_world(parent.ChargedShockwave, parent.x_buster.buster_pos.global_position)

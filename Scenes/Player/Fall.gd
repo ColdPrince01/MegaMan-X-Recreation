@@ -17,6 +17,7 @@ var input_action = "null"
 func enter() -> void:
 	super()
 	parent.can_dash = false
+	parent.velocity.x = parent.state_velocity.x
 
 
 func process_physics(delta: float) -> State:
@@ -74,5 +75,6 @@ func exit() -> void:
 	parent.is_dashing = false
 	parent.can_dash = true
 	if parent.is_on_floor():
+		Utils.instantiate_scene_on_world(parent.JumpEffect, parent.global_position)
 		Sounds.play(Sounds.land)
 	

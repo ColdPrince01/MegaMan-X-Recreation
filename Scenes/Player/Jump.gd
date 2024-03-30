@@ -24,6 +24,7 @@ func enter() -> void:
 	current_buster_pos_2 = parent.x_buster.buster_pos_2.position
 	parent.x_buster.buster_pos.position = buster_pos
 	parent.x_buster.buster_pos_2.position = buster_pos_2
+	Utils.instantiate_scene_on_world(parent.JumpEffect, parent.global_position)
 	Sounds.play(Sounds.jump)
 
 
@@ -37,6 +38,7 @@ func process_input(event: InputEvent) -> State:
 
 
 func process_physics(delta: float) -> State:
+	
 	parent.velocity.y += movement_data.gravity * delta
 	
 	
@@ -80,7 +82,8 @@ func process_frame(delta: float) -> State:
 	return null
 
 
-func exit() -> void:
+func exit():
 	parent.can_dash = true
 	parent.x_buster.buster_pos.position = current_buster_pos
 	parent.x_buster.buster_pos_2.position = current_buster_pos_2
+	

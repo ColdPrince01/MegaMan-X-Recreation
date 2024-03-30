@@ -6,6 +6,7 @@
 script = ExtResource("1_mr75c")
 
 [node name="Label" type="Label" parent="."]
+texture_filter = 5
 offset_right = 20.0
 offset_bottom = 8.0
 theme_override_colors/font_shadow_color = Color(0.12549, 0, 0.627451, 0.898039)

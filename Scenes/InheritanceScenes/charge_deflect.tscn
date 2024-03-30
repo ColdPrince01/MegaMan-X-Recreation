@@ -46,6 +46,7 @@ animations = [{
 }]
 
 [node name="ChargeDeflect" type="AnimatedSprite2D"]
+z_index = 45
 sprite_frames = SubResource("SpriteFrames_s8vaw")
 autoplay = "default"
 frame = 4

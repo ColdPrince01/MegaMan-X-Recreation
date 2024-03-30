@@ -13,7 +13,7 @@ var input_action = "Arrow"
 
 func enter() -> void:
 	super()
-	state_velocity.x = parent.velocity.x
+	parent.is_dashing = false
 
 func process_input(event : InputEvent) -> State:
 	if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_right"):

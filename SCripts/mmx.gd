@@ -11,12 +11,12 @@ const ChargedShockwave = preload("res://OtherScenes/charged_shockwave.tscn")
 const ChargeOneShockwave = preload("res://OtherScenes/charge_one_shockwave.tscn")
 const ChargedParticles = preload("res://OtherScenes/charge_particles.tscn")
 const DamageNumber = preload("res://Unrelated/damage_number.tscn")
-
+const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 
 @export var movement_data : PlayerMovementData
 @export var death_time := 0.33
 @export var dev_menu := true
-
+@export var spawn_time := 2.0
 
 @onready var x_sprite = $XSprite
 @onready var character_animator = $CharacterAnimator
@@ -50,8 +50,10 @@ const DamageNumber = preload("res://Unrelated/damage_number.tscn")
 @onready var damage_flash = $DamageFlash
 @onready var charge_flash = $ChargeFlash
 @onready var spawn_anim = $SpawnAnim
+@onready var camera = $Camera
+@onready var charge_timer = $Timers/ChargeTimer
 
-
+var state_velocity := Vector2.ZERO
 var charge_lvl = 0
 var has_control := true
 var has_jumped = false
@@ -66,7 +68,8 @@ var is_charging = false
 var y_offset = 8
 var can_fire_charge = true 
 var on_spawn = false
-
+var room_pause = false
+var released_charge = false
 var no_shockwave = is_dashing and is_on_floor()
 
 func _enter_tree():
@@ -78,18 +81,22 @@ func _exit_tree():
 
 
 func _ready():
+	on_spawn = true
 	state_machine.init(self, movement_component)
 	attack_machine.init(self, movement_component)
+	await get_tree().create_timer(spawn_time).timeout
+	on_spawn = false
 
 
 func _physics_process(delta):
 	state_machine.process_physics(delta)
 	attack_machine.process_physics(delta)
+	state_velocity.x = velocity.x
 	charge_animation()
 	if not is_dashing:
 		ghost_timer.stop()
-		
-	print(is_on_wall())
+			
+	
 
 
 func _process(delta):
@@ -186,6 +193,7 @@ func spawn_effect_two():
 
 func _on_hurt_box_component_hurt(hitbox, damage):
 	is_damaged = true
+	Events.add_screenshake.emit(2, 0.1)
 	PlayerStats.health -= damage
 	blit_damage_number(damage)
 	invincibility.start()
@@ -193,3 +201,33 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 	await invincibility.timeout
 	hurt_box_component.is_invincible = false
 	
+
+
+func _on_room_detector_area_entered(area):
+	if on_spawn:
+		camera.position_smoothing_enabled = false
+	else:
+		camera.position_smoothing_enabled = true
+		camera.position_smoothing_speed = 2.5
+	var collision_shape: CollisionShape2D = area.get_node("CollisionShape2D")
+	var size : Vector2 = collision_shape.shape.extents * 2 #variable size set equal to the extents of the shape of the collision shape times 2
+	
+	camera.limit_top = collision_shape.global_position.y - size.y/2
+	camera.limit_left = collision_shape.global_position.x - size.x/2
+	camera.limit_right = camera.limit_left + size.x
+	camera.limit_bottom = camera.limit_top + size.y
+	
+	
+	
+func add_screenshake():
+	Events.add_screenshake.emit(1.5, 0.12)
+
+
+func _on_room_detector_area_exited(area):
+	
+	await get_tree().create_timer(0.5).timeout
+	camera.position_smoothing_enabled = false
+	
+
+
+

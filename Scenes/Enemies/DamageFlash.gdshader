@@ -6,8 +6,8 @@ uniform float alpha : hint_range(0.0, 1.0) = 1;
 
 
 void fragment() { ///Runs for every pixel, determines what color should be
-	vec4 color = texture(TEXTURE, UV);
-	color.rgb = mix(color.rgb, flash_color.rgb, flash_modifier);
+	vec4 color = texture(TEXTURE, UV); 
+	color.rgb = mix(color.rgb, flash_color.rgb,  flash_modifier);
 	
 	COLOR = color;
 	

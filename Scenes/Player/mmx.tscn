@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=77 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="PackedScene" uid="uid://dsbbg0d7q4pma" path="res://Scenes/Player/x_buster.tscn" id="3_o60g5"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
 [ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="20_h4km2"]
 [ext_resource type="Script" path="res://Scenes/Player/Charging.gd" id="20_iarpn"]
+[ext_resource type="PackedScene" uid="uid://bdefjuvu4al64" path="res://Scenes/World/camera_2d.tscn" id="21_fsegg"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -38,6 +39,23 @@ size = Vector2(16, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2rw6"]
 size = Vector2(16, 14)
+
+[sub_resource type="Animation" id="Animation_jhkxx"]
+resource_name = "Charge_Shot"
+length = 0.48
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.3, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [31, 80, 81, 82, 83, 10]
+}
 
 [sub_resource type="Animation" id="Animation_oi4vv"]
 length = 0.001
@@ -163,7 +181,7 @@ tracks/0/path = NodePath("XSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.07),
+"times": PackedFloat32Array(0, 0.42),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [30, 31]
@@ -404,6 +422,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lfpgc"]
 _data = {
+"Charge_Shot": SubResource("Animation_jhkxx"),
 "RESET": SubResource("Animation_oi4vv"),
 "dash": SubResource("Animation_b2vqt"),
 "dash_enter": SubResource("Animation_347f0"),
@@ -448,6 +467,33 @@ _data = {
 "instatiation": SubResource("Animation_iqbvb")
 }
 
+[sub_resource type="Animation" id="Animation_xw28i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [63]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("XSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -18)]
+}
+
 [sub_resource type="Animation" id="Animation_36dhp"]
 resource_name = "Spawn"
 length = 2.0
@@ -483,42 +529,18 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.82),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 1.68, 1.82),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"spawn_effect_one"
 }, {
 "args": [],
+"method": &"add_screenshake"
+}, {
+"args": [],
 "method": &"spawn_effect_two"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_xw28i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("XSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [63]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("XSprite:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -18)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sdqc3"]
@@ -679,6 +701,9 @@ font_size = 5
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnrv5"]
 size = Vector2(12, 22)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv5hp"]
+size = Vector2(20, 28)
+
 [sub_resource type="Animation" id="Animation_jvkyd"]
 length = 0.001
 tracks/0/type = "value"
@@ -767,11 +792,29 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_nc54x"]
+resource_name = "shot_flash"
+length = 0.07
+step = 0.06
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("XSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(7.69, 2, 97.33, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_urwh0"]
 _data = {
 "Charge_One": SubResource("Animation_j4wy2"),
 "Charge_Two": SubResource("Animation_4j2cq"),
-"RESET": SubResource("Animation_vjt5p")
+"RESET": SubResource("Animation_vjt5p"),
+"shot_flash": SubResource("Animation_nc54x")
 }
 
 [node name="MMX" type="CharacterBody2D"]
@@ -788,7 +831,7 @@ dev_menu = false
 position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
-vframes = 8
+vframes = 9
 frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
@@ -941,9 +984,12 @@ movement_data = SubResource("Resource_cdj88")
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_bs4rq")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera" parent="." instance=ExtResource("21_fsegg")]
 process_callback = 0
-position_smoothing_speed = 10.0
+position_smoothing_enabled = false
+position_smoothing_speed = 5.0
+
+[node name="Timer" type="Timer" parent="Camera"]
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -1044,6 +1090,10 @@ wait_time = 0.25
 wait_time = 1.5
 one_shot = true
 
+[node name="ChargeTimer" type="Timer" parent="Timers"]
+wait_time = 0.48
+one_shot = true
+
 [node name="HurtBoxComponent" parent="." instance=ExtResource("20_h4km2")]
 collision_layer = 8
 collision_mask = 16
@@ -1051,6 +1101,12 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 position = Vector2(1, -11)
 shape = SubResource("RectangleShape2D_rnrv5")
+
+[node name="RoomDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomDetector"]
+position = Vector2(1, -14)
+shape = SubResource("RectangleShape2D_lv5hp")
 
 [node name="DamageFlash" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1062,6 +1118,9 @@ libraries = {
 "": SubResource("AnimationLibrary_urwh0")
 }
 
+[connection signal="timeout" from="Camera/Timer" to="Camera" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]
 [connection signal="timeout" from="Timers/AuraTimer" to="." method="_on_aura_timer_timeout"]
 [connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
+[connection signal="area_entered" from="RoomDetector" to="." method="_on_room_detector_area_entered"]
+[connection signal="area_exited" from="RoomDetector" to="." method="_on_room_detector_area_exited"]

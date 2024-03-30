@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=8 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
-[ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="1_ou0ht"]
 [ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
+[ext_resource type="PackedScene" uid="uid://ck8br5d7c4gde" path="res://Scenes/World/ready.tscn" id="4_ef60d"]
+[ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="5_gk6ir"]
 [ext_resource type="PackedScene" uid="uid://dyd3durfq21qr" path="res://Scenes/World/stage_level.tscn" id="6_hkh66"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o448h"]
@@ -11,19 +12,17 @@ font_size = 5
 [sub_resource type="LabelSettings" id="LabelSettings_wawkd"]
 font_size = 5
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("init_room")]
 script = ExtResource("1_7qcyd")
-
-[node name="MMX" parent="." instance=ExtResource("1_ou0ht")]
-position = Vector2(158, 176)
+init_room = NodePath("StageLevel/Rooms/Room")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthMeter" parent="CanvasLayer" instance=ExtResource("2_ou68e")]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 4.0
+offset_top = 10.0
+offset_right = 4.0
+offset_bottom = 10.0
 
 [node name="Labels" type="Node2D" parent="CanvasLayer"]
 position = Vector2(0, -10)
@@ -84,4 +83,23 @@ offset_bottom = 155.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
+[node name="Ready" parent="CanvasLayer" instance=ExtResource("4_ef60d")]
+position = Vector2(159, 64)
+scale = Vector2(0.75, 0.75)
+
 [node name="StageLevel" parent="." instance=ExtResource("6_hkh66")]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Room" parent="StageLevel/Rooms" index="0"]
+visible = false
+
+[node name="Room2" parent="StageLevel/Rooms" index="1"]
+visible = false
+
+[node name="MMX" parent="." instance=ExtResource("5_gk6ir")]
+position = Vector2(156, 176)
+
+[editable path="StageLevel"]
+[editable path="StageLevel/Rooms/Room"]
+[editable path="StageLevel/Rooms/Room2"]

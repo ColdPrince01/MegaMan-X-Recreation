@@ -21,11 +21,12 @@ Sounds="*res://Music and Sounds/sounds.tscn"
 Utils="*res://SCripts/Utils.gd"
 MainInstances="*res://SCripts/MainInstances.gd"
 PlayerStats="*res://SCripts/PlayerStats.gd"
+Events="*res://SCripts/Events.gd"
 
 [display]
 
-window/size/viewport_width=256
-window/size/viewport_height=190
+window/size/viewport_width=320
+window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"

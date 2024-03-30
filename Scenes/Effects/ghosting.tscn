@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cq3y6iasal11s"]
+[gd_scene load_steps=8 format=3 uid="uid://cq3y6iasal11s"]
 
 [ext_resource type="Script" path="res://Sprite2D.gd" id="1_556gn"]
 [ext_resource type="Texture2D" uid="uid://cncprju7xm5x0" path="res://icon.svg" id="1_hqkjr"]
+[ext_resource type="Shader" path="res://Scenes/Effects/ghosting3.gdshader" id="1_imkoi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ckek"]
+resource_local_to_scene = true
+shader = ExtResource("1_imkoi")
+shader_parameter/flash_color = Color(0.133333, 0, 1, 1)
+shader_parameter/flash_modifier = 1.0
+shader_parameter/alpha = 1.0
+shader_parameter/alpha_set = Color(0.121569, 0, 1, 1)
 
 [sub_resource type="Animation" id="Animation_v4hnm"]
 length = 0.001
@@ -43,7 +52,7 @@ _data = {
 [node name="Ghosting" type="Sprite2D"]
 self_modulate = Color(0.0431373, 0, 98.2196, 0.32549)
 show_behind_parent = true
-use_parent_material = true
+material = SubResource("ShaderMaterial_0ckek")
 texture = ExtResource("1_hqkjr")
 script = ExtResource("1_556gn")
 

@@ -35,10 +35,11 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 25.0
+"speed": 35.0
 }]
 
 [node name="Deflect" type="AnimatedSprite2D"]
+z_index = 45
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_s5hin")
 autoplay = "default"

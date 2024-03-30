@@ -34,12 +34,14 @@ func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_released("Shoot") and parent.charge_lvl == 2:
 		parent.is_charging = false
 		parent.fire_rate.start()
+		parent.charge_timer.start()
 		parent.attack_anim_timer.start()
 		return shooting_state
 	return null
 
 
 func process_frame(delta:float) -> State:
+	if parent.on_spawn : return
 	charge_timer += delta
 	
 	if charge_timer > CHARGE_MEGABUSTER_START:
