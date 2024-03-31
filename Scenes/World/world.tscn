@@ -19,9 +19,9 @@ init_room = NodePath("StageLevel/Rooms/Room")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthMeter" parent="CanvasLayer" instance=ExtResource("2_ou68e")]
-offset_left = 4.0
+offset_left = 7.0
 offset_top = 10.0
-offset_right = 4.0
+offset_right = 7.0
 offset_bottom = 10.0
 
 [node name="Labels" type="Node2D" parent="CanvasLayer"]

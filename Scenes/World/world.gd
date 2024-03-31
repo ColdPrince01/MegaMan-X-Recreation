@@ -33,7 +33,7 @@ func _ready():
 	ready_text.queue_free()
 
 func _physics_process(delta):
-	if dev_menu == true:
+	if dev_menu == true and player != null:
 		label.text = str("FPS:") + str(Engine.get_frames_per_second())
 		label_2.text = str("Vel_x:") + str(player.velocity.x)
 		label_3.text = str("Vel_y:") + str(player.velocity.y)

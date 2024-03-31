@@ -50,7 +50,6 @@ func process_frame(delta: float) -> State:
 	if parent.attack_anim_timer.time_left > 0.0:
 		if parent.charge_timer.time_left > 0.0:
 			parent.character_animator.play("Charge_Shot")
-			print("yeah")
 		else:
 			parent.character_animator.play("idle_shoot")
 	if parent.attack_anim_timer.time_left <= 0.0:

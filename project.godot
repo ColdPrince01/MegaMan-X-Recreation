@@ -20,8 +20,8 @@ config/icon="res://Unrelated/XHead.png"
 Sounds="*res://Music and Sounds/sounds.tscn"
 Utils="*res://SCripts/Utils.gd"
 MainInstances="*res://SCripts/MainInstances.gd"
-PlayerStats="*res://SCripts/PlayerStats.gd"
 Events="*res://SCripts/Events.gd"
+PlayerStats="*res://Scenes/Player/player_stats.tscn"
 
 [display]
 

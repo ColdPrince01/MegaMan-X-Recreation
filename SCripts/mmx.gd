@@ -71,6 +71,7 @@ var on_spawn = false
 var room_pause = false
 var released_charge = false
 var no_shockwave = is_dashing and is_on_floor()
+var is_dead = false
 
 func _enter_tree():
 	MainInstances.player = self
@@ -81,6 +82,8 @@ func _exit_tree():
 
 
 func _ready():
+	PlayerStats.set_health(PlayerStats.max_health)
+	PlayerStats.no_health.connect(death)
 	on_spawn = true
 	state_machine.init(self, movement_component)
 	attack_machine.init(self, movement_component)
@@ -196,11 +199,16 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 	Events.add_screenshake.emit(2, 0.1)
 	PlayerStats.health -= damage
 	blit_damage_number(damage)
-	invincibility.start()
-	hurt_box_component.is_invincible = true 
-	await invincibility.timeout
-	hurt_box_component.is_invincible = false
 	
+	
+
+func death():
+	is_dead = true #player is dead
+	camera.global_position = global_position #grab current pos and set as camera position
+	velocity = Vector2(0,0) #player should stop completely
+	character_animator.play("stagger")
+	camera.reparent(get_tree().current_scene, true)
+	queue_free()
 
 
 func _on_room_detector_area_entered(area):

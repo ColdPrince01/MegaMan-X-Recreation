@@ -734,6 +734,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtBoxComponent")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"@is_invincible_setter"
+}, {
+"args": [false],
+"method": &"@is_invincible_setter"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n6hvd"]
 _data = {
@@ -832,7 +849,7 @@ position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
 vframes = 9
-frame = 10
+frame = 63
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -12.5)
@@ -1068,7 +1085,7 @@ label_settings = SubResource("LabelSettings_s3e2d")
 [node name="Timers" type="Node" parent="."]
 
 [node name="FireRate" type="Timer" parent="Timers"]
-wait_time = 0.14
+wait_time = 0.11
 one_shot = true
 
 [node name="AttackAnimTimer" type="Timer" parent="Timers"]
@@ -1081,7 +1098,7 @@ autostart = true
 
 [node name="GhostTimer" type="Timer" parent="Timers"]
 process_callback = 0
-wait_time = 0.12
+wait_time = 0.1
 
 [node name="AuraTimer" type="Timer" parent="Timers"]
 wait_time = 0.25
