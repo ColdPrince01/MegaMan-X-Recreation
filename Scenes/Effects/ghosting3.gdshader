@@ -9,7 +9,7 @@ void fragment() {
 	
 	vec4 ghostcolor = texture(TEXTURE, UV);
 	ghostcolor.rgb = mix(ghostcolor.rgb, flash_color.rgb,  flash_modifier);
-	ghostcolor.a *= 0.7;
+	ghostcolor.a *= 0.65;
 	ghostcolor.a *= alpha;
 	
 	COLOR = ghostcolor;

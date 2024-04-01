@@ -86,6 +86,7 @@ func blit_damage_number(number):
 	
 
 func _on_stats_no_health():
+	sprite.stop()
 	Sounds.play(Sounds.enemy_die_four, 1.0, -10.0)
 	anim_collision.set_deferred("disabled", true)
 	hurt_collision.set_deferred("disabled", true)

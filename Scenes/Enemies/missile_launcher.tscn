@@ -160,7 +160,7 @@ script = ExtResource("1_5oamg")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_j1h7e")
 sprite_frames = SubResource("SpriteFrames_m7t3x")
-animation = &"Open"
+animation = &"Close"
 autoplay = "Idle"
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("2_7m7tn")]

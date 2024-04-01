@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://cp1taopkiaubn"]
+[gd_scene load_steps=80 format=3 uid="uid://cp1taopkiaubn"]
 
 [ext_resource type="Script" path="res://SCripts/mmx.gd" id="1_bjuxh"]
 [ext_resource type="PackedScene" uid="uid://dsbbg0d7q4pma" path="res://Scenes/Player/x_buster.tscn" id="3_o60g5"]
@@ -16,12 +16,14 @@
 [ext_resource type="Script" path="res://Scenes/Player/WallJump.gd" id="13_ma2ia"]
 [ext_resource type="Script" path="res://Scenes/Player/DashWallJump.gd" id="14_l3gxi"]
 [ext_resource type="PackedScene" uid="uid://du2ntcuu5snff" path="res://StateMachine/attack_machine.tscn" id="15_0h6pj"]
+[ext_resource type="Script" path="res://Scenes/Player/Death.gd" id="16_1bac4"]
 [ext_resource type="Script" path="res://Scenes/Player/Stagger.gd" id="16_5bknb"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShoot.gd" id="16_f68vu"]
 [ext_resource type="Script" path="res://Scenes/Player/IdleShot.gd" id="17_apale"]
 [ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="20_h4km2"]
 [ext_resource type="Script" path="res://Scenes/Player/Charging.gd" id="20_iarpn"]
 [ext_resource type="PackedScene" uid="uid://bdefjuvu4al64" path="res://Scenes/World/camera_2d.tscn" id="21_fsegg"]
+[ext_resource type="PackedScene" uid="uid://gk651n3fk0jw" path="res://Scenes/Effects/effects_spawner.tscn" id="24_1iat6"]
 
 [sub_resource type="Resource" id="Resource_mc3o2"]
 script = ExtResource("5_aapas")
@@ -529,15 +531,26 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.68, 1.82),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1.68),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"spawn_effect_one"
 }, {
 "args": [],
 "method": &"add_screenshake"
-}, {
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.68),
+"transitions": PackedFloat32Array(1),
+"values": [{
 "args": [],
 "method": &"spawn_effect_two"
 }]
@@ -649,6 +662,17 @@ climb_speed = 90.0
 max_wall_speed = 90.0
 
 [sub_resource type="Resource" id="Resource_kji87"]
+script = ExtResource("5_aapas")
+move_speed = 90.0
+jump_velocity = 312.0
+gravity_scale = 1.0
+dash_speed = 245.0
+gravity = 900
+max_fall_speed = 375.0
+climb_speed = 90.0
+max_wall_speed = 90.0
+
+[sub_resource type="Resource" id="Resource_7kroa"]
 script = ExtResource("5_aapas")
 move_speed = 90.0
 jump_velocity = 312.0
@@ -834,13 +858,14 @@ _data = {
 "shot_flash": SubResource("Animation_nc54x")
 }
 
-[node name="MMX" type="CharacterBody2D"]
+[node name="MMX" type="CharacterBody2D" node_paths=PackedStringArray("death_state")]
 z_index = 25
 collision_layer = 2
 safe_margin = 0.1
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
 dev_menu = false
+death_state = NodePath("StateMachine/Death")
 
 [node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]
 
@@ -974,6 +999,11 @@ run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 fall_state = NodePath("../Fall")
 movement_data = SubResource("Resource_kji87")
+animation_name = "stagger"
+
+[node name="Death" type="Node" parent="StateMachine"]
+script = ExtResource("16_1bac4")
+movement_data = SubResource("Resource_7kroa")
 animation_name = "stagger"
 
 [node name="AttackMachine" parent="." node_paths=PackedStringArray("starting_state") instance=ExtResource("15_0h6pj")]
@@ -1134,6 +1164,8 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_urwh0")
 }
+
+[node name="EffectsSpawner" parent="." instance=ExtResource("24_1iat6")]
 
 [connection signal="timeout" from="Camera/Timer" to="Camera" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]

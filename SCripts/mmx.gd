@@ -17,6 +17,7 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @export var death_time := 0.33
 @export var dev_menu := true
 @export var spawn_time := 2.0
+@export var death_state : State
 
 @onready var x_sprite = $XSprite
 @onready var character_animator = $CharacterAnimator
@@ -52,6 +53,8 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @onready var spawn_anim = $SpawnAnim
 @onready var camera = $Camera
 @onready var charge_timer = $Timers/ChargeTimer
+@onready var effects_spawner = $EffectsSpawner
+
 
 var state_velocity := Vector2.ZERO
 var charge_lvl = 0
@@ -98,8 +101,8 @@ func _physics_process(delta):
 	charge_animation()
 	if not is_dashing:
 		ghost_timer.stop()
-			
-	
+				
+		
 
 
 func _process(delta):
@@ -108,8 +111,9 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	state_machine.process_input(event)
-	attack_machine.process_input(event)
+	if has_control:
+		state_machine.process_input(event)
+		attack_machine.process_input(event)
 
 
 
@@ -203,12 +207,11 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 	
 
 func death():
-	is_dead = true #player is dead
+	state_machine.change_state(death_state)
 	camera.global_position = global_position #grab current pos and set as camera position
-	velocity = Vector2(0,0) #player should stop completely
-	character_animator.play("stagger")
 	camera.reparent(get_tree().current_scene, true)
-	queue_free()
+	await get_tree().create_timer(0.5).timeout
+	ScreenTransition.fade_in()
 
 
 func _on_room_detector_area_entered(area):
@@ -216,7 +219,7 @@ func _on_room_detector_area_entered(area):
 		camera.position_smoothing_enabled = false
 	else:
 		camera.position_smoothing_enabled = true
-		camera.position_smoothing_speed = 2.5
+		camera.position_smoothing_speed = 3
 	var collision_shape: CollisionShape2D = area.get_node("CollisionShape2D")
 	var size : Vector2 = collision_shape.shape.extents * 2 #variable size set equal to the extents of the shape of the collision shape times 2
 	
@@ -232,8 +235,7 @@ func add_screenshake():
 
 
 func _on_room_detector_area_exited(area):
-	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.70).timeout
 	camera.position_smoothing_enabled = false
 	
 

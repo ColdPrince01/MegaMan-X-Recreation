@@ -22,6 +22,7 @@ Utils="*res://SCripts/Utils.gd"
 MainInstances="*res://SCripts/MainInstances.gd"
 Events="*res://SCripts/Events.gd"
 PlayerStats="*res://Scenes/Player/player_stats.tscn"
+ScreenTransition="*res://Scenes/Effects/screen_transition.tscn"
 
 [display]
 
