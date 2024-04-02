@@ -84,7 +84,7 @@ text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
 [node name="Ready" parent="CanvasLayer" instance=ExtResource("4_ef60d")]
-position = Vector2(159, 64)
+position = Vector2(150, 60)
 scale = Vector2(0.75, 0.75)
 
 [node name="StageLevel" parent="." instance=ExtResource("6_hkh66")]

@@ -9,6 +9,7 @@ var death_time := 0.12
 func enter()-> void:
 	super()
 	Sounds.play(Sounds.death)
+	parent.add_screenshake(2, 0.3)
 	death_timer = death_time
 	parent.velocity.x = 0.0
 	parent.velocity.y = 0.0

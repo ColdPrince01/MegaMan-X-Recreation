@@ -230,12 +230,12 @@ func _on_room_detector_area_entered(area):
 	
 	
 	
-func add_screenshake():
-	Events.add_screenshake.emit(1.5, 0.12)
+func add_screenshake(shake_intensity : float, shake_length : float):
+	Events.add_screenshake.emit(shake_intensity, shake_length)
 
 
 func _on_room_detector_area_exited(area):
-	await get_tree().create_timer(0.70).timeout
+	await get_tree().create_timer(0.60).timeout
 	camera.position_smoothing_enabled = false
 	
 

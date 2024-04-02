@@ -537,7 +537,7 @@ tracks/2/keys = {
 "args": [],
 "method": &"spawn_effect_one"
 }, {
-"args": [],
+"args": [1.2, 0.2],
 "method": &"add_screenshake"
 }]
 }
@@ -874,7 +874,7 @@ position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
 vframes = 9
-frame = 63
+frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -12.5)
