@@ -75,7 +75,7 @@ var room_pause = false
 var released_charge = false
 var no_shockwave = is_dashing and is_on_floor()
 var is_dead = false
-var transit_factor := 1.67 : set = change_transit #variable that multiplies the position smoothing of the camera based on the current fps
+var transit_factor := 1.67 #variable that multiplies the position smoothing of the camera based on the current fps
 
 func _enter_tree():
 	MainInstances.player = self
@@ -100,7 +100,6 @@ func _physics_process(delta):
 	attack_machine.process_physics(delta)
 	state_velocity.x = velocity.x
 	charge_animation()
-	print(transit_factor)
 	if not is_dashing:
 		ghost_timer.stop()
 				
@@ -110,6 +109,7 @@ func _physics_process(delta):
 func _process(delta):
 	state_machine.process_frame(delta)
 	attack_machine.process_frame(delta)
+	change_transit()
 
 
 func _unhandled_input(event):
@@ -222,6 +222,7 @@ func _on_room_detector_area_entered(area):
 	else:
 		camera.position_smoothing_enabled = true
 		camera.position_smoothing_speed = 3 * transit_factor
+		print(camera.position_smoothing_speed)
 	var collision_shape: CollisionShape2D = area.get_node("CollisionShape2D")
 	var size : Vector2 = collision_shape.shape.extents * 2 #variable size set equal to the extents of the shape of the collision shape times 2
 	
@@ -241,9 +242,9 @@ func _on_room_detector_area_exited(area):
 	camera.position_smoothing_enabled = false
 	
 
-func change_transit(value):
+func change_transit():
 	var current_fps = Engine.get_frames_per_second()
 	if current_fps <= 60:
-		transit_factor = value
+		transit_factor = 1.67
 	else:
 		transit_factor = 1
