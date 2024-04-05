@@ -13,6 +13,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.294737), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Missile" instance=ExtResource("1_63mda")]
+z_index = 55
 script = ExtResource("2_c8nt4")
 speed = 150
 

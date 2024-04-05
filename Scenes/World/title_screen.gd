@@ -18,9 +18,9 @@ const FullyChargedBlast = preload("res://Scenes/InheritanceScenes/fully_charged_
 @onready var copy_right_text = $CopyRightText
 @onready var x_icon = $XIcon
 @onready var player_anim = $XIcon/PlayerAnim
+@onready var binary_particles = $BinaryParticles
 
-
-
+var can_shoot = true
 
 func _ready():
 	x_icon.modulate.a = 0
@@ -29,6 +29,7 @@ func _ready():
 	buttons.modulate.a = 0
 	text_x.visible = false
 	x_icon.global_position.y = 108.5
+	await get_tree().create_timer(2.5).timeout
 	mega_text_anim.play("slide_in")
 	await mega_text_anim.animation_finished
 	copy_right_text.play("fade_in")
@@ -42,6 +43,7 @@ func _ready():
 	shadow_text.play("fade_in")
 	player_anim.play("fade_in")
 	await button_anim.animation_finished
+	binary_particles.emitting = true
 	start.grab_focus()
 	
 
@@ -50,15 +52,37 @@ func _ready():
 
 func _on_start_focus_entered():
 	x_icon.global_position.y = start.global_position.y
+	Sounds.play(Sounds.menu_cursor)
 
 
 func _on_exit_focus_entered():
 	x_icon.global_position.y = exit.global_position.y
+	Sounds.play(Sounds.menu_cursor)
 
 
 func _on_start_pressed():
-	player_anim.play("fire")
-	Sounds.play(Sounds.fully_charged)
-	var lemon = Utils.instantiate_scene_on_world(FullyChargedBlast, x_icon.global_position + Vector2(8, 0))
-	lemon.update_velocity()
-	lemon.velocity.x = lemon.speed
+	if can_shoot:
+		player_anim.play("fire")
+		Sounds.play(Sounds.fully_charged)
+		var lemon = Utils.instantiate_scene_on_world(FullyChargedBlast, x_icon.global_position + Vector2(12, 5))
+		lemon.update_velocity()
+		lemon.velocity.x = lemon.speed
+		can_shoot = false
+		await ScreenTransition.fade_in_black()
+		get_tree().change_scene_to_packed(next_scene)
+
+
+func _on_start_focus_exited():
+	can_shoot = true
+
+
+func _on_exit_pressed():
+	if can_shoot:
+		player_anim.play("fire")
+		Sounds.play(Sounds.fully_charged)
+		var lemon = Utils.instantiate_scene_on_world(FullyChargedBlast, x_icon.global_position + Vector2(12, 5))
+		lemon.update_velocity()
+		lemon.velocity.x = lemon.speed
+		can_shoot = false
+		await get_tree().create_timer(1.2).timeout
+		get_tree().quit()

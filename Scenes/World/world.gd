@@ -26,6 +26,7 @@ var world_ready := false
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.BLACK)
+	await ScreenTransition.fade_out_black()
 	ready_text.visible = true
 	await get_tree().create_timer(1.0).timeout
 	ready_text.play("new_animation")

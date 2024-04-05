@@ -859,7 +859,7 @@ _data = {
 }
 
 [node name="MMX" type="CharacterBody2D" node_paths=PackedStringArray("death_state")]
-z_index = 25
+z_index = 65
 collision_layer = 2
 safe_margin = 0.1
 script = ExtResource("1_bjuxh")
