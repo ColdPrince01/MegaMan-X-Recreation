@@ -21,6 +21,7 @@ const FullyChargedBlast = preload("res://Scenes/InheritanceScenes/fully_charged_
 @onready var binary_particles = $BinaryParticles
 
 var can_shoot = true
+var on_start = true #this variable exists for the sole purpose of freeing up GUI Sounds so that it doesn't play in unnecessary ways on the title screen
 
 func _ready():
 	x_icon.modulate.a = 0
@@ -52,12 +53,13 @@ func _ready():
 
 func _on_start_focus_entered():
 	x_icon.global_position.y = start.global_position.y
-	Sounds.play(Sounds.menu_cursor)
+	if not on_start:
+		GuiSounds.play(GuiSounds.menu_cursor, 1.0, -7.5)
 
 
 func _on_exit_focus_entered():
 	x_icon.global_position.y = exit.global_position.y
-	Sounds.play(Sounds.menu_cursor)
+	GuiSounds.play(GuiSounds.menu_cursor, 1.0, -7.5)
 
 
 func _on_start_pressed():
@@ -70,10 +72,14 @@ func _on_start_pressed():
 		can_shoot = false
 		await ScreenTransition.fade_in_black()
 		get_tree().change_scene_to_packed(next_scene)
+	
+	
+	
 
 
 func _on_start_focus_exited():
 	can_shoot = true
+	on_start = false
 
 
 func _on_exit_pressed():
@@ -86,3 +92,6 @@ func _on_exit_pressed():
 		can_shoot = false
 		await get_tree().create_timer(1.2).timeout
 		get_tree().quit()
+
+
+

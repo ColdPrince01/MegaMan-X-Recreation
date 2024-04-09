@@ -11,7 +11,7 @@ interpolation_mode = 2
 colors = PackedColorArray(0, 0.546, 0.91, 1, 0, 0.983334, 1, 1)
 
 [node name="ChargeParticles" type="CPUParticles2D"]
-z_index = 47
+z_index = 67
 amount = 6
 lifetime = 0.25
 emission_shape = 1

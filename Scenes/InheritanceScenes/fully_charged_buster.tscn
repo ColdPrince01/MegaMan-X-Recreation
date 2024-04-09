@@ -42,7 +42,7 @@ _data = [Vector2(0.021978, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0421052), 0.0, 0.0, 
 point_count = 2
 
 [node name="FullyChargedBuster" instance=ExtResource("1_3ddpt")]
-z_index = 40
+z_index = 67
 script = ExtResource("2_ksgy0")
 speed = 385
 

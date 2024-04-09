@@ -46,7 +46,7 @@ animations = [{
 }]
 
 [node name="DashStart" type="AnimatedSprite2D"]
-z_index = 30
+z_index = 68
 sprite_frames = SubResource("SpriteFrames_wsw5l")
 autoplay = "default"
 frame = 1

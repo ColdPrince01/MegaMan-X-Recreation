@@ -47,7 +47,7 @@ animations = [{
 }]
 
 [node name="LemonShockwave" type="AnimatedSprite2D"]
-z_index = 35
+z_index = 67
 sprite_frames = SubResource("SpriteFrames_6uggg")
 autoplay = "default"
 frame = 4

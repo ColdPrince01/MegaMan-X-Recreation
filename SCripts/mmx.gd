@@ -110,6 +110,7 @@ func _process(delta):
 	state_machine.process_frame(delta)
 	attack_machine.process_frame(delta)
 	change_transit()
+	print(transit_factor)
 
 
 func _unhandled_input(event):
@@ -209,6 +210,9 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 	
 
 func death():
+	get_tree().paused = true
+	await get_tree().create_timer(death_time).timeout
+	get_tree().paused = false
 	state_machine.change_state(death_state)
 	camera.global_position = global_position #grab current pos and set as camera position
 	camera.reparent(get_tree().current_scene, true)
@@ -232,7 +236,8 @@ func _on_room_detector_area_entered(area):
 	camera.limit_bottom = camera.limit_top + size.y
 	
 	
-	
+
+
 func add_screenshake(shake_intensity : float, shake_length : float):
 	Events.add_screenshake.emit(shake_intensity, shake_length)
 

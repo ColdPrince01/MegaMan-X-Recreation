@@ -9,7 +9,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="DustEffect" type="CPUParticles2D"]
-z_index = 30
+z_index = 67
 material = SubResource("CanvasItemMaterial_debxc")
 position = Vector2(7.10543e-15, -2)
 amount = 1

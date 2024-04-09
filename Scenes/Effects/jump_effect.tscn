@@ -7,7 +7,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.189474), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="JumpEffect" type="CPUParticles2D"]
-z_index = 50
+z_index = 68
 explosiveness = 1.0
 texture = ExtResource("1_8n47a")
 emission_shape = 3

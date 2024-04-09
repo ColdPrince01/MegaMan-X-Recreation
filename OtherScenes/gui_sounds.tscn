@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqg4iwovgbyp4"]
+
+[ext_resource type="Script" path="res://OtherScenes/gui_sounds.gd" id="1_vuwrd"]
+[ext_resource type="AudioStream" uid="uid://3ppls5pdy7vm" path="res://Music and Sounds/111 - MMX - Stage Cursor Move.wav" id="2_4buct"]
+
+[node name="GUISounds" type="Node"]
+script = ExtResource("1_vuwrd")
+menu_cursor = ExtResource("2_4buct")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]

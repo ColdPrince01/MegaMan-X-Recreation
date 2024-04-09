@@ -51,7 +51,7 @@ animations = [{
 }]
 
 [node name="XLemon" instance=ExtResource("1_jfr6u")]
-z_index = 31
+z_index = 67
 script = ExtResource("2_2nxxf")
 speed = 400
 

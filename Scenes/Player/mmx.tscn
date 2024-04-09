@@ -864,6 +864,7 @@ collision_layer = 2
 safe_margin = 0.1
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
+death_time = 0.67
 dev_menu = false
 death_state = NodePath("StateMachine/Death")
 
@@ -874,7 +875,7 @@ position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
 vframes = 9
-frame = 63
+frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -12.5)

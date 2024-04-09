@@ -48,7 +48,7 @@ _data = [Vector2(0.0164835, 1), 0.0, 0.0, 0, 0, Vector2(0.901099, 0.178947), 0.0
 point_count = 2
 
 [node name="MegaChargeOne" instance=ExtResource("1_aodgy")]
-z_index = 40
+z_index = 67
 script = ExtResource("2_1rj47")
 speed = 350
 

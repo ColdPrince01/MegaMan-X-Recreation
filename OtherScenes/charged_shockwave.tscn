@@ -54,7 +54,7 @@ animations = [{
 }]
 
 [node name="ChargedShockwave" type="AnimatedSprite2D"]
-z_index = 47
+z_index = 67
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_4la2d")
 autoplay = "default"

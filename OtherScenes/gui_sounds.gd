@@ -3,26 +3,12 @@ extends Node
 
 var sounds_path = "res://Music and Sounds/"
 
+@export var menu_cursor : AudioStream
 
-@export var dash : AudioStream
-@export var jump : AudioStream
-@export var land : AudioStream
-@export var lemons : AudioStream
-@export var hurt : AudioStream
-@export var charge_one : AudioStream
-@export var fully_charged : AudioStream
-@export var death : AudioStream
-@export var small_deflect : AudioStream
-@export var small_hit : AudioStream
-@export var big_hit : AudioStream
-@export var enemy_die_one : AudioStream
-@export var enemy_die_four : AudioStream
-@export var enemy_missile : AudioStream
-@export var fade_in : AudioStream
-@export var spawn_comp : AudioStream
 
 
 @onready var sound_players = get_children() #variable for getting the audio players in the scene 
+
 
 
 func play(sound_stream, pitch_scale = 1.0, volume_db = 0.0):
@@ -44,9 +30,12 @@ func stop(sound_stream):
 			sound_player.stop()
 			
 
-func fade_out(sound_stream, delta):
+func mute(sound_stream):
 	for sound_player in sound_players:
-		if sound_player.playing:
-			sound_player.volume_db -= delta
-			if sound_player.volume_db <= -30.0:
-				sound_player.stop()
+		sound_player.volume_db = -80.0
+		sound_player.stream = sound_stream
+
+
+func unmute(sound_stream, value = 1.0):
+	for sound_player in sound_players:
+		sound_player.volume_db = value
