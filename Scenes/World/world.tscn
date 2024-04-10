@@ -103,3 +103,4 @@ position = Vector2(156, 176)
 [editable path="StageLevel"]
 [editable path="StageLevel/Rooms/Room"]
 [editable path="StageLevel/Rooms/Room2"]
+[editable path="StageLevel/Rooms/Room3"]
