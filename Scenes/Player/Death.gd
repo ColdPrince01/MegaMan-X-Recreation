@@ -17,7 +17,7 @@ func enter()-> void:
 	parent.has_control = false
 	parent.hurt_box_component.is_invincible = true
 	parent.effects_spawner.spawn_death_particles(parent.global_position + Vector2(0,-8))
-	print("effects spawned")
+	
 
 
 func process_physics(delta : float) -> State:

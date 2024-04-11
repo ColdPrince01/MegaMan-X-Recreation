@@ -110,7 +110,7 @@ func _process(delta):
 	state_machine.process_frame(delta)
 	attack_machine.process_frame(delta)
 	change_transit()
-	print(transit_factor)
+	
 
 
 func _unhandled_input(event):
@@ -213,6 +213,7 @@ func death():
 	get_tree().paused = true
 	await get_tree().create_timer(death_time).timeout
 	get_tree().paused = false
+	Events.player_died.emit()
 	state_machine.change_state(death_state)
 	camera.global_position = global_position #grab current pos and set as camera position
 	camera.reparent(get_tree().current_scene, true)
@@ -243,9 +244,11 @@ func add_screenshake(shake_intensity : float, shake_length : float):
 
 
 func _on_room_detector_area_exited(area):
-	await get_tree().create_timer(0.60).timeout
+	await get_tree().create_timer(0.5).timeout
 	camera.position_smoothing_enabled = false
-	
+	#if the player leaves a room, and there is no room after it, the position smoothing will stay able upon reentering the initial room
+	#this is due to the area exited function never being called upon reentering the prior room so position smoothing is never allowed to be turned back on
+	#this problem is easily avoided, by simply having an ample number of rooms within the level scene. 
 
 func change_transit():
 	var current_fps = Engine.get_frames_per_second()

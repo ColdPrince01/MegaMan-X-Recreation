@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cd6xl48vljj5"
+path="res://.godot/imported/[8-BitGame Boy]Ground Scaravich - Mega Man X6MMXtreme 2 Style.mp3-8e3f8f1809a380050a9e6bbc35a4b31f.mp3str"
+
+[deps]
+
+source_file="res://Music and Sounds/[8-BitGame Boy]Ground Scaravich - Mega Man X6MMXtreme 2 Style.mp3"
+dest_files=["res://.godot/imported/[8-BitGame Boy]Ground Scaravich - Mega Man X6MMXtreme 2 Style.mp3-8e3f8f1809a380050a9e6bbc35a4b31f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

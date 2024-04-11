@@ -98,9 +98,10 @@ visible = false
 visible = false
 
 [node name="MMX" parent="." instance=ExtResource("5_gk6ir")]
-position = Vector2(156, 176)
+position = Vector2(158, 176)
 
 [editable path="StageLevel"]
 [editable path="StageLevel/Rooms/Room"]
 [editable path="StageLevel/Rooms/Room2"]
 [editable path="StageLevel/Rooms/Room3"]
+[editable path="StageLevel/Rooms/Room4"]

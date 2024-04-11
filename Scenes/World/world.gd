@@ -43,6 +43,7 @@ func _physics_process(delta):
 		label_6.text = str("Input:") + str(player.state_machine.current_state.input_action)
 		label_7.text = str("Charge_lvl:") + str(player.charge_lvl)
 		
+		
 	if Input.is_action_pressed("ui_up"):
 		Engine.time_scale = 0.1
 	else:

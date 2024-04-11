@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cewkf6jqjnp8y"]
+
+[ext_resource type="Script" path="res://OtherScenes/music.gd" id="1_yaptm"]
+[ext_resource type="AudioStream" uid="uid://cd6xl48vljj5" path="res://Music and Sounds/[8-BitGame Boy]Ground Scaravich - Mega Man X6MMXtreme 2 Style.mp3" id="2_rpulo"]
+
+[node name="Music" type="Node"]
+script = ExtResource("1_yaptm")
+level_theme = ExtResource("2_rpulo")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
