@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpah635fb77sm"]
+[gd_scene load_steps=12 format=3 uid="uid://dpah635fb77sm"]
 
 [ext_resource type="Texture2D" uid="uid://cem6ux7e2dn0d" path="res://Sprites/Level/MightyGunvoltTileset-export.png" id="1_6p4yg"]
 [ext_resource type="Texture2D" uid="uid://cdl2kvhelkihl" path="res://Sprites/Level/tilesetInterior.png" id="2_exrvc"]
 [ext_resource type="Texture2D" uid="uid://drebjxdw57i6x" path="res://Sprites/Level/InteriorWireTile.png" id="2_fgf6p"]
 [ext_resource type="Texture2D" uid="uid://bm4ii77opxpg6" path="res://Sprites/Level/AltTiles.png" id="4_doui4"]
+[ext_resource type="Texture2D" uid="uid://cqniud81sfunl" path="res://Sprites/Level/Extra Tiles.png" id="5_ex8x4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vxpoa"]
 resource_name = "SetOne"
@@ -761,6 +762,17 @@ texture = ExtResource("4_doui4")
 1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7rss"]
+texture = ExtResource("5_ex8x4")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSet" id="TileSet_cjsy6"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
@@ -771,6 +783,7 @@ sources/0 = SubResource("TileSetAtlasSource_vxpoa")
 sources/2 = SubResource("TileSetAtlasSource_603hc")
 sources/1 = SubResource("TileSetAtlasSource_0igy6")
 sources/3 = SubResource("TileSetAtlasSource_udanm")
+sources/4 = SubResource("TileSetAtlasSource_b7rss")
 
 [node name="Station" type="TileMap"]
 tile_set = SubResource("TileSet_cjsy6")

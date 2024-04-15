@@ -60,12 +60,12 @@ func process_frame(delta: float) -> State:
 		current_animation_pos = parent.character_animator.current_animation_position
 		parent.character_animator.play("jump_fall_shoot")
 		parent.character_animator.seek(current_animation_pos, true)
+		
 	
 	if parent.attack_anim_timer.time_left <= 0.0:
 		current_animation_pos = parent.character_animator.current_animation_position
 		parent.character_animator.play("jump_fall")
 		parent.character_animator.seek(current_animation_pos, true)
-	
 	
 	return null
 

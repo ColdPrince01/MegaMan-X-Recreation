@@ -5,6 +5,7 @@ const DamageNumber = preload("res://Unrelated/damage_number.tscn")
 const MissileScene = preload("res://Scenes/InheritanceScenes/missile.tscn")
 const ExplosionDust = preload("res://Unrelated/explosion_dust_particle.tscn")
 const ExplosionDustBig = preload("res://Unrelated/ExplosionDust.tscn")
+const ExplosionScrap = preload("res://OtherScenes/explosion_scrap.tscn")
 
 enum DIRECTION {LEFT = -1, RIGHT = 1}
 
@@ -85,6 +86,10 @@ func blit_damage_number(number):
 	damage_number_inst.number = number
 	
 
+func blit_junk_sprites():
+	for junk in range(4):
+		var damage_number_inst = Utils.instantiate_scene_on_world(ExplosionScrap, global_position + Vector2(randi_range(-8,8), randi_range(-12,12))) #offset the global_position 
+
 func _on_stats_no_health():
 	sprite.stop()
 	Sounds.play(Sounds.enemy_die_four, 1.0, -10.0)
@@ -97,7 +102,7 @@ func _on_stats_no_health():
 	await get_tree().create_timer(2.0).timeout
 	var explosion = Utils.instantiate_scene_on_world(ExplosionDustBig, global_position)
 	explosion.scale *= 2
-	createDeathExplosion()
+	blit_junk_sprites()
 	Sounds.play(Sounds.enemy_die_one, 1.0, randi_range(-9.0, 0.0))
 	queue_free()
 	explosion_dust.queue_free()
@@ -110,8 +115,9 @@ func _on_flash_timer_timeout():
 func _on_hurt_box_component_hurt(hitbox, damage):
 	stats.health -= damage
 	Sounds.play(Sounds.small_hit, 1.0, -9.5)
-	blit_damage_number(damage)
 	flash()
+	blit_damage_number(damage)
+	
 
 
 func _on_anim_timer_timeout(): #when the timer times out

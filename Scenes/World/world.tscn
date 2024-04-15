@@ -25,7 +25,7 @@ offset_right = 7.0
 offset_bottom = 10.0
 
 [node name="Labels" type="Node2D" parent="CanvasLayer"]
-position = Vector2(0, -10)
+position = Vector2(6, -9)
 
 [node name="Label" type="Label" parent="CanvasLayer/Labels"]
 offset_left = 2.0

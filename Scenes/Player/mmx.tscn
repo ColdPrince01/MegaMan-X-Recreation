@@ -53,7 +53,7 @@ tracks/0/path = NodePath("XSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.3, 0.4, 0.45),
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.25, 0.3, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [31, 80, 81, 82, 83, 10]
@@ -875,7 +875,7 @@ position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
 vframes = 9
-frame = 63
+frame = 10
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -12.5)
@@ -1139,7 +1139,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="ChargeTimer" type="Timer" parent="Timers"]
-wait_time = 0.48
+wait_time = 0.45
 one_shot = true
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("20_h4km2")]
@@ -1167,6 +1167,9 @@ libraries = {
 }
 
 [node name="EffectsSpawner" parent="." instance=ExtResource("24_1iat6")]
+
+[node name="Center" type="Marker2D" parent="."]
+position = Vector2(1, -14)
 
 [connection signal="timeout" from="Camera/Timer" to="Camera" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]

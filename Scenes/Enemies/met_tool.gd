@@ -4,6 +4,7 @@ const MetBullet = preload("res://Scenes/InheritanceScenes/met_bullet.tscn")
 const JunkSprites = preload("res://Scenes/Enemies/junk_sprites.tscn")
 const DamageNumber = preload("res://Unrelated/damage_number.tscn")
 const ExplosionDust = preload("res://Unrelated/ExplosionDust.tscn")
+const ExplosionScrap = preload("res://OtherScenes/explosion_scrap.tscn")
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var collision_shape_2d = $CollisionShape2D
@@ -81,6 +82,10 @@ func spawn_bullets(spawn_pos):
 	state_timer.start()
 	
 
+func blit_junk_sprites():
+	for junk in range(4):
+		var damage_number_inst = Utils.instantiate_scene_on_world(ExplosionScrap, global_position + Vector2(randi_range(-8,8), randi_range(-12,-6))) #offset the global_position 
+
 # placeholder func()
 ## 	weight amount : 25
 ## var number : int
@@ -125,7 +130,7 @@ func blit_damage_number(number):
 func _on_stats_no_health():
 	Utils.instantiate_scene_on_world(ExplosionDust, global_position + Vector2(0, -10))
 	Sounds.play(Sounds.enemy_die_one, 1.0, randi_range(-9.0, 0.0))
-	createDeathExplosion()
+	blit_junk_sprites()
 	queue_free()
 
 

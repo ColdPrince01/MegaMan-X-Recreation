@@ -195,7 +195,7 @@ position = Vector2(19, 6)
 position = Vector2(16, -1)
 
 [node name="FlashTimer" type="Timer" parent="."]
-wait_time = 0.02
+wait_time = 0.025
 one_shot = true
 
 [node name="FireRate" type="Timer" parent="."]

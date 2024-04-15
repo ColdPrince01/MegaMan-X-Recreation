@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj1a4q4q6kug1"]
+
+[ext_resource type="Script" path="res://OtherScenes/explosion_scrap.gd" id="1_p5eaf"]
+[ext_resource type="Texture2D" uid="uid://nrbo88nrfhio" path="res://Sprites/Enemies/junksprites.png" id="2_6l40d"]
+
+[node name="ExplosionScrap" type="Node2D"]
+script = ExtResource("1_p5eaf")
+
+[node name="JunkSprite" type="Sprite2D" parent="."]
+z_index = 68
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_6l40d")
+hframes = 5
+frame = 3
+
+[node name="ExplosionTrail" type="Timer" parent="."]
+wait_time = 0.075
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.38419e-07, -5.96046e-08)
+scale = Vector2(0.5, 0.4)
+
+[connection signal="timeout" from="ExplosionTrail" to="." method="_on_explosion_trail_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

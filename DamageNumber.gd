@@ -9,7 +9,8 @@ var number = 0
 
 var blink = 0 #I believe this is the amount of time until the blinking begins, counts upwards during physics process
 var blink_intrvl = 0.03
-var gravity := 15.0
+var gravity := 375.0
+var velocity = Vector2()
 
 func _ready() -> void:
 	label.text = str(number) #at ready, whatever number is gets passed in to be label text's string
@@ -19,8 +20,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	lifetime -= delta
 	position += vel * delta
-	vel /= 1.09
-#	vel.y += 3
+	vel /= 1.09 #every physics step the current velocity is divided by 1.09 until it eventually reaches zero (number stops moving), removing this line will essentially make the numbers explode outwards without stopping.
 	blink += delta
 	
 	

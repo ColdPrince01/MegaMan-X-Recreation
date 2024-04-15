@@ -1,0 +1,115 @@
+[gd_scene load_steps=16 format=3 uid="uid://b1ooshqadj2ga"]
+
+[ext_resource type="Script" path="res://Bat.gd" id="1_pdi5p"]
+[ext_resource type="Texture2D" uid="uid://dvd5kraexjs2w" path="res://Sprites/Enemies/BatsEnemy.png" id="2_5uwrd"]
+[ext_resource type="PackedScene" uid="uid://dpjc7bv3tf8bu" path="res://OtherScenes/stats.tscn" id="3_xg2t0"]
+[ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="4_yotav"]
+[ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="5_x7545"]
+[ext_resource type="PackedScene" uid="uid://ngc755fcg30o" path="res://Scenes/Enemies/waypoint_path_finding.tscn" id="6_5djqo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr26i"]
+atlas = ExtResource("2_5uwrd")
+region = Rect2(0, 0, 27, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3kvr"]
+atlas = ExtResource("2_5uwrd")
+region = Rect2(108, 0, 27, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yogjf"]
+atlas = ExtResource("2_5uwrd")
+region = Rect2(135, 0, 27, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxec0"]
+atlas = ExtResource("2_5uwrd")
+region = Rect2(162, 0, 27, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mv8v1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr26i")
+}],
+"loop": false,
+"name": &"Closed",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3kvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yogjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxec0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yogjf")
+}],
+"loop": true,
+"name": &"Flight",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ogu5"]
+size = Vector2(8, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udeqf"]
+radius = 5.09902
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_irhy0"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l7t7e"]
+radius = 29.0
+
+[node name="Bat" type="CharacterBody2D"]
+z_index = 55
+collision_layer = 0
+script = ExtResource("1_pdi5p")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mv8v1")
+animation = &"Flight"
+autoplay = "Closed"
+frame_progress = 0.851216
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_3ogu5")
+
+[node name="Stats" parent="." instance=ExtResource("3_xg2t0")]
+max_health = 2
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_yotav")]
+collision_layer = 4
+collision_mask = 8
+damage = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("CircleShape2D_udeqf")
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("5_x7545")]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("CircleShape2D_irhy0")
+
+[node name="WaypointPathFinding" parent="." instance=ExtResource("6_5djqo")]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, -8.9407e-08)
+scale = Vector2(0.7, 0.9)
+
+[node name="OperatingArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="OperatingShape" type="CollisionShape2D" parent="OperatingArea"]
+shape = SubResource("CircleShape2D_l7t7e")
+
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="OperatingArea" to="." method="_on_operating_area_area_entered"]

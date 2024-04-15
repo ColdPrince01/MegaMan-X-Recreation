@@ -100,3 +100,11 @@ bus = &"Sounds"
 [node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="."]
 max_polyphony = 3
 bus = &"Sounds"
+
+[node name="AudioStreamPlayer17" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
+bus = &"Sounds"
+
+[node name="AudioStreamPlayer18" type="AudioStreamPlayer" parent="."]
+max_polyphony = 3
+bus = &"Sounds"

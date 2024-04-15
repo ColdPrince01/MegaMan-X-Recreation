@@ -54,6 +54,7 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @onready var camera = $Camera
 @onready var charge_timer = $Timers/ChargeTimer
 @onready var effects_spawner = $EffectsSpawner
+@onready var center = $Center
 
 
 var state_velocity := Vector2.ZERO
