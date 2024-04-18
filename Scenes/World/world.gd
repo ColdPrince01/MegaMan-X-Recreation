@@ -44,6 +44,15 @@ func _physics_process(delta):
 		label_7.text = str("Charge_lvl:") + str(player.charge_lvl)
 		
 		
+	else:
+		label.visible = false
+		label_2.visible = false
+		label_3.visible = false
+		label_4.visible = false
+		label_5.visible = false
+		label_6.visible = false
+		label_7.visible = false 
+		
 	if Input.is_action_pressed("ui_up"):
 		Engine.time_scale = 0.1
 	else:

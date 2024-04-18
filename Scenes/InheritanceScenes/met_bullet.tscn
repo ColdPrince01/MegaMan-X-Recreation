@@ -44,6 +44,7 @@ animations = [{
 }]
 
 [node name="MetBullet" instance=ExtResource("1_aigbe")]
+z_index = 65
 script = ExtResource("2_4veo7")
 speed = 150
 

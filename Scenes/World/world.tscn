@@ -28,57 +28,57 @@ offset_bottom = 10.0
 position = Vector2(6, -9)
 
 [node name="Label" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 153.0
-offset_right = 54.0
+offset_right = 48.0
 offset_bottom = 172.0
 text = "Test"
 label_settings = SubResource("LabelSettings_o448h")
 
 [node name="Label6" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 146.0
-offset_right = 54.0
+offset_right = 48.0
 offset_bottom = 165.0
 text = "Test"
 label_settings = SubResource("LabelSettings_o448h")
 
 [node name="Label2" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 161.0
-offset_right = 54.0
+offset_right = 48.0
 offset_bottom = 180.0
 text = "Test"
 label_settings = SubResource("LabelSettings_o448h")
 
 [node name="Label3" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 168.0
-offset_right = 42.0
+offset_right = 36.0
 offset_bottom = 184.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
 [node name="Label4" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 176.0
-offset_right = 42.0
+offset_right = 36.0
 offset_bottom = 192.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
 [node name="Label5" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 183.0
-offset_right = 42.0
+offset_right = 36.0
 offset_bottom = 199.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
 
 [node name="Label7" type="Label" parent="CanvasLayer/Labels"]
-offset_left = 2.0
+offset_left = -4.0
 offset_top = 139.0
-offset_right = 42.0
+offset_right = 36.0
 offset_bottom = 155.0
 text = "Test"
 label_settings = SubResource("LabelSettings_wawkd")
@@ -98,10 +98,16 @@ visible = false
 visible = false
 
 [node name="MMX" parent="." instance=ExtResource("5_gk6ir")]
-position = Vector2(158, 176)
+position = Vector2(3185, 1749)
 
 [editable path="StageLevel"]
 [editable path="StageLevel/Rooms/Room"]
 [editable path="StageLevel/Rooms/Room2"]
 [editable path="StageLevel/Rooms/Room3"]
 [editable path="StageLevel/Rooms/Room4"]
+[editable path="StageLevel/Rooms/Room5"]
+[editable path="StageLevel/Rooms/Room6"]
+[editable path="StageLevel/Rooms/Room7"]
+[editable path="StageLevel/Rooms/Room8"]
+[editable path="StageLevel/Parallax"]
+[editable path="StageLevel/Hazards/InstantKillArea"]

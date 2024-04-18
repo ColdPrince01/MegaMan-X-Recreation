@@ -54,7 +54,7 @@ func _physics_process(delta):
 			anim_timer.start()
 			if state_timer.time_left <= 0.0:
 				spawn_bullets(marker_2d.global_position)
-				
+				Sounds.play(Sounds.enemy_bullet)
 
 
 func get_direction():
@@ -93,9 +93,6 @@ func blit_junk_sprites():
 ## if number >= 25
 
 
-func createDeathExplosion():
-	var dust = Utils.instantiate_scene_on_world(JunkSprites, global_position + Vector2(0, -9))
-	
 
 func flash():
 	animated_sprite_2d.material.set_shader_parameter("flash_modifier", 1)

@@ -12,8 +12,9 @@ const ExplosionScrap = preload("res://OtherScenes/explosion_scrap.tscn")
 @onready var sprite = $Sprite
 @onready var stats = $Stats
 @onready var operating_shape = $OperatingArea/OperatingShape
+@onready var shake = $Shake
 
-
+var shake_amount = 0
 
 func _ready():
 	set_physics_process(false) #at the onset of entering the scene, the enemy will not move unless they can be seen 
@@ -27,6 +28,9 @@ func _physics_process(delta):
 		sprite.play("Flight")
 	
 
+func _process(delta):
+	sprite.offset.x = randf_range(-shake_amount, shake_amount)
+	sprite.offset.y = randf_range(-shake_amount, shake_amount)
 
 func move_toward_target(target_position, delta): #function for moving flying enemy towards player, asks for target_position and delta
 	var direction = global_position.direction_to(target_position) #creates variable direction and sets it equal tp the global position direction to target position (relative to parent node)
@@ -63,10 +67,18 @@ func _on_stats_no_health():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	set_physics_process(false)
 	await sprite.animation_looped
+	operating_shape.set_deferred("disabled", false)
 	sprite.play("Closed")
 
 
 func _on_operating_area_area_entered(area):
 	set_physics_process(true)
+	operating_shape.set_deferred("disabled", true)
+	shake_amount = 2.5
+	shake.start()
 	await sprite.animation_finished
 	
+
+
+func _on_shake_timeout():
+	shake_amount = 0

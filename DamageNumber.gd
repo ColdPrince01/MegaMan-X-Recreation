@@ -17,7 +17,7 @@ func _ready() -> void:
 	scale *= countZerosInInteger(number) 
 	
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	lifetime -= delta
 	position += vel * delta
 	vel /= 1.09 #every physics step the current velocity is divided by 1.09 until it eventually reaches zero (number stops moving), removing this line will essentially make the numbers explode outwards without stopping.

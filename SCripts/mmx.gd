@@ -55,6 +55,7 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @onready var charge_timer = $Timers/ChargeTimer
 @onready var effects_spawner = $EffectsSpawner
 @onready var center = $Center
+@onready var wall_cast = $WallCast
 
 
 var state_velocity := Vector2.ZERO
@@ -100,6 +101,10 @@ func _physics_process(delta):
 	state_machine.process_physics(delta)
 	attack_machine.process_physics(delta)
 	state_velocity.x = velocity.x
+	if x_sprite.flip_h:
+		wall_cast.target_position.x = abs(wall_cast.target_position.x) * -1
+	else:
+		wall_cast.target_position.x = abs(wall_cast.target_position.x)
 	charge_animation()
 	if not is_dashing:
 		ghost_timer.stop()
@@ -146,8 +151,10 @@ func wall_dust_effect():
 func set_direction():
 	if Vector2.RIGHT:
 		x_sprite.flip_h = false
+		wall_cast.target_position.x *= 1
 	if Vector2.LEFT:
 		x_sprite.flip_h = true
+		wall_cast.target_position.x *= -1
 
 func blit_damage_number(number):
 	var damage_number_inst = Utils.instantiate_scene_on_world(DamageNumber, global_position + Vector2(0, -12)) #offset the global_position 
@@ -254,6 +261,6 @@ func _on_room_detector_area_exited(area):
 func change_transit():
 	var current_fps = Engine.get_frames_per_second()
 	if current_fps <= 60:
-		transit_factor = 1.67
+		transit_factor = 1.5
 	else:
 		transit_factor = 1

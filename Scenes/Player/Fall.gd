@@ -36,18 +36,22 @@ func process_physics(delta: float) -> State:
 		parent.velocity.x = input_direction * movement_data.move_speed
 	
 	
+	if parent.is_on_wall():
+		if input_direction == -1 and wall_normal.x == 1: #if the player is moving left and wall is facing right
+			return wall_slide_state
+	if parent.is_on_wall_only():
+		if input_direction == 1 and wall_normal.x == -1: #if player is moving right and wall is facing left
+			return wall_slide_state
+	
+	
+	
+	
 	parent.move_and_slide()
 	
 	if parent.is_damaged:
 		return stagger_state
 	
-	if parent.is_on_wall_only():
-		if input_direction == -1 and wall_normal.x == 1:
-			return wall_slide_state
-	if parent.is_on_wall_only():
-		if input_direction == 1 and wall_normal.x == -1:
-			return wall_slide_state
-	
+
 	if parent.is_on_floor():
 		parent.has_jumped = false
 		if input_direction != 0:

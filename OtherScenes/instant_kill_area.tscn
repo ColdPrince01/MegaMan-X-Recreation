@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxruo3cq7qjft"]
+
+[ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="1_54g7v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cgds"]
+size = Vector2(88, 20)
+
+[node name="InstantKillArea" type="Node2D"]
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("1_54g7v")]
+collision_layer = 64
+collision_mask = 8
+damage = 300
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+shape = SubResource("RectangleShape2D_3cgds")

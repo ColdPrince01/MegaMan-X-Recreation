@@ -5,7 +5,7 @@ const DustEffectScene = preload("res://Scenes/Player/dust_effect.tscn")
 @onready var junk_sprite = $JunkSprite
 @onready var explosion_trail = $ExplosionTrail
 
-var vel = Vector2(randf_range(-170,170), randf_range(-375,-100)) #randomizes velocity between given values
+var vel = Vector2(randf_range(-75,75), randf_range(-250,-100)) #randomizes velocity between given values
 var lifetime = 2 #amount of time text will exist
 
 var number = 0
@@ -20,7 +20,7 @@ func _ready() -> void:
 	junk_sprite.set_frame(randi_range(0,5)) #Possible experiment to get a random frame from the animation
 	
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	position += vel * delta 
 	vel.y += gravity * delta
 	clamp(vel.y, -375, 375)

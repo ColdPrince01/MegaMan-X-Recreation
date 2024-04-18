@@ -109,7 +109,13 @@ collision_mask = 8
 [node name="OperatingShape" type="CollisionShape2D" parent="OperatingArea"]
 shape = SubResource("CircleShape2D_l7t7e")
 
+[node name="Shake" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.12
+one_shot = true
+
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 [connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="area_entered" from="OperatingArea" to="." method="_on_operating_area_area_entered"]
+[connection signal="timeout" from="Shake" to="." method="_on_shake_timeout"]

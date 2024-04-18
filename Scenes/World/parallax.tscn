@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://q4ou1kwr2jxf"]
+
+[ext_resource type="Texture2D" uid="uid://yptbv1s68cde" path="res://Sprites/Level/MMXParallax2.png" id="1_2cuug"]
+[ext_resource type="Script" path="res://Scenes/World/BuildingsBG.gd" id="1_srfpp"]
+[ext_resource type="Texture2D" uid="uid://b4envspiff082" path="res://Sprites/Level/MMXParallax3.png" id="1_yplnn"]
+[ext_resource type="Texture2D" uid="uid://bwpo1guk2qmbd" path="res://Sprites/Level/MMXParallax1.png" id="2_vhor6"]
+[ext_resource type="Script" path="res://Scenes/World/BuildingsFG.gd" id="2_yi81f"]
+
+[node name="Parallax" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -26)
+motion_mirroring = Vector2(320, 180)
+
+[node name="Sky" type="Sprite2D" parent="ParallaxBackground/Sky"]
+position = Vector2(160, 64)
+texture = ExtResource("1_yplnn")
+
+[node name="Stars" type="CPUParticles2D" parent="ParallaxBackground"]
+position = Vector2(320, 30)
+amount = 50
+lifetime = 6.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 45)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 250.0
+
+[node name="BuildingsBG" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -26)
+motion_scale = Vector2(0.25, 0)
+motion_mirroring = Vector2(320, 0)
+script = ExtResource("1_srfpp")
+cloud_speed = -50.0
+
+[node name="Buildings" type="Sprite2D" parent="ParallaxBackground/BuildingsBG"]
+position = Vector2(160, 116)
+texture = ExtResource("1_2cuug")
+
+[node name="BuildingsFG" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -26)
+motion_scale = Vector2(0.45, 0)
+motion_mirroring = Vector2(320, 0)
+script = ExtResource("2_yi81f")
+cloud_speed = -125.0
+
+[node name="BuildingsFG" type="Sprite2D" parent="ParallaxBackground/BuildingsFG"]
+position = Vector2(160, 116)
+texture = ExtResource("2_vhor6")

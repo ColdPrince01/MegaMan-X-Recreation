@@ -519,7 +519,7 @@ tracks/1/path = NodePath("XSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.975),
+"times": PackedFloat32Array(0, 0.98),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -512), Vector2(0, -18)]
@@ -861,11 +861,13 @@ _data = {
 [node name="MMX" type="CharacterBody2D" node_paths=PackedStringArray("death_state")]
 z_index = 65
 collision_layer = 2
-safe_margin = 0.1
+collision_priority = 15.0
+safe_margin = 0.8
 script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
 death_time = 0.67
 dev_menu = false
+spawn_time = null
 death_state = NodePath("StateMachine/Death")
 
 [node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]
@@ -875,7 +877,7 @@ position = Vector2(0, -18)
 texture = ExtResource("4_ufs68")
 hframes = 10
 vframes = 9
-frame = 10
+frame = 63
 
 [node name="VerticalCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -12.5)
@@ -1170,6 +1172,10 @@ libraries = {
 
 [node name="Center" type="Marker2D" parent="."]
 position = Vector2(1, -14)
+
+[node name="WallCast" type="RayCast2D" parent="."]
+position = Vector2(1, -14)
+target_position = Vector2(11, 0)
 
 [connection signal="timeout" from="Camera/Timer" to="Camera" method="_on_timer_timeout"]
 [connection signal="timeout" from="Timers/GhostTimer" to="." method="_on_ghost_timer_timeout"]

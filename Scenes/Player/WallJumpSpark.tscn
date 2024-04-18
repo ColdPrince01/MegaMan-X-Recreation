@@ -32,6 +32,7 @@ animations = [{
 }]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+z_index = 45
 sprite_frames = SubResource("SpriteFrames_4kouw")
 autoplay = "default"
 frame = 2

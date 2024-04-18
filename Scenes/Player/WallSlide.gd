@@ -16,6 +16,7 @@ var input_action = "arrow"
 
 func enter() -> void:
 	super()
+	
 	parent.velocity.x = 0.0
 	parent.velocity.y = 0.0
 	parent.is_wall_sliding = true
@@ -34,6 +35,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta:float) -> State:
 	
 	var input_direction = get_movement_input()
+	
 	if input_direction != 0 and parent.is_on_wall_only():
 		parent.velocity.x = 0.0
 		parent.velocity.y += movement_data.gravity * delta
@@ -43,7 +45,9 @@ func process_physics(delta:float) -> State:
 	else:
 		return fall_state
 	
-
+	
+	
+	
 	
 	parent.move_and_slide()
 	

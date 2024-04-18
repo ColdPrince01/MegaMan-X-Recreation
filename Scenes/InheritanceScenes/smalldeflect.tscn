@@ -39,7 +39,7 @@ animations = [{
 }]
 
 [node name="Deflect" type="AnimatedSprite2D"]
-z_index = 45
+z_index = 56
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_s5hin")
 autoplay = "default"

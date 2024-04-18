@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://h6q2ufa6xa3k"]
+
+[ext_resource type="Texture2D" uid="uid://clc6qvceb0ojb" path="res://Sprites/Enemies/MinerEnemy.png" id="1_gh7hy"]
+[ext_resource type="Script" path="res://Scenes/Enemies/miner.gd" id="1_iyf5f"]
+[ext_resource type="Shader" path="res://Scenes/Enemies/DamageFlash.gdshader" id="2_d4512"]
+[ext_resource type="PackedScene" uid="uid://dpjc7bv3tf8bu" path="res://OtherScenes/stats.tscn" id="2_knjed"]
+[ext_resource type="PackedScene" uid="uid://u6hjnq4ludvc" path="res://Scenes/InheritanceScenes/hurt_box_component.tscn" id="3_tqeyr"]
+[ext_resource type="PackedScene" uid="uid://by4cdpk5r2i60" path="res://Scenes/InheritanceScenes/hit_box_component.tscn" id="4_6pyj4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pgf0c"]
+resource_local_to_scene = true
+shader = ExtResource("2_d4512")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+shader_parameter/alpha = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af6u8"]
+atlas = ExtResource("1_gh7hy")
+region = Rect2(114, 0, 38, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc5iy"]
+atlas = ExtResource("1_gh7hy")
+region = Rect2(0, 0, 38, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vn0n"]
+atlas = ExtResource("1_gh7hy")
+region = Rect2(76, 0, 38, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsxdw"]
+atlas = ExtResource("1_gh7hy")
+region = Rect2(38, 0, 38, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_apnaj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af6u8")
+}],
+"loop": true,
+"name": &"Reset",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc5iy")
+}],
+"loop": false,
+"name": &"Stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vn0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsxdw")
+}],
+"loop": false,
+"name": &"Throw",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bb5gb"]
+size = Vector2(20, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3k34l"]
+size = Vector2(17, 24)
+
+[node name="Miner" type="Node2D"]
+z_index = 45
+script = ExtResource("1_iyf5f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_pgf0c")
+sprite_frames = SubResource("SpriteFrames_apnaj")
+animation = &"Stand"
+autoplay = "Stand"
+
+[node name="Stats" parent="." instance=ExtResource("2_knjed")]
+max_health = 12
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("3_tqeyr")]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_bb5gb")
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("4_6pyj4")]
+collision_layer = 4
+collision_mask = 8
+damage = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(0.5, 3)
+shape = SubResource("RectangleShape2D_3k34l")
+
+[node name="PlayerDetector" type="RayCast2D" parent="."]
+target_position = Vector2(130, 0)
+collision_mask = 2
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.02
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
