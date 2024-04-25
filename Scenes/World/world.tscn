@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjmkfiguhiqs0"]
+[gd_scene load_steps=10 format=3 uid="uid://cjmkfiguhiqs0"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_7qcyd"]
 [ext_resource type="PackedScene" uid="uid://c78fr5dvp0rad" path="res://OtherScenes/health_meter.tscn" id="2_ou68e"]
 [ext_resource type="PackedScene" uid="uid://ck8br5d7c4gde" path="res://Scenes/World/ready.tscn" id="4_ef60d"]
 [ext_resource type="PackedScene" uid="uid://cp1taopkiaubn" path="res://Scenes/Player/mmx.tscn" id="5_gk6ir"]
 [ext_resource type="PackedScene" uid="uid://dyd3durfq21qr" path="res://Scenes/World/stage_level.tscn" id="6_hkh66"]
+[ext_resource type="PackedScene" uid="uid://c4x4qlcpa6cs8" path="res://Scenes/World/title_screen.tscn" id="6_qi1ec"]
+[ext_resource type="PackedScene" uid="uid://kn5fqjnw5wi3" path="res://Scenes/Player/health_pick.tscn" id="7_6hhvf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_o448h"]
 font_size = 5
@@ -98,7 +100,11 @@ visible = false
 visible = false
 
 [node name="MMX" parent="." instance=ExtResource("5_gk6ir")]
-position = Vector2(3185, 1749)
+position = Vector2(159, 176)
+title_screen = ExtResource("6_qi1ec")
+
+[node name="HealthPick" parent="." instance=ExtResource("7_6hhvf")]
+position = Vector2(230, 170)
 
 [editable path="StageLevel"]
 [editable path="StageLevel/Rooms/Room"]
