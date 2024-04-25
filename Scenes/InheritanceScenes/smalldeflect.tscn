@@ -1,37 +1,37 @@
 [gd_scene load_steps=7 format=3 uid="uid://wr7oswosk60j"]
 
-[ext_resource type="Texture2D" uid="uid://thfoxp2xsmok" path="res://Sprites/Effects/deflect.png" id="1_f3vk0"]
+[ext_resource type="Texture2D" uid="uid://cqd7alitx2r8j" path="res://Sprites/Effects/LemonEnemyHit.png" id="1_g86rg"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xf6mu"]
-atlas = ExtResource("1_f3vk0")
-region = Rect2(0, 0, 45, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ss6v"]
+atlas = ExtResource("1_g86rg")
+region = Rect2(0, 0, 32, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dx8uk"]
-atlas = ExtResource("1_f3vk0")
-region = Rect2(45, 0, 45, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocote"]
+atlas = ExtResource("1_g86rg")
+region = Rect2(32, 0, 32, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5viws"]
-atlas = ExtResource("1_f3vk0")
-region = Rect2(90, 0, 45, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdupy"]
+atlas = ExtResource("1_g86rg")
+region = Rect2(64, 0, 32, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7s7n"]
-atlas = ExtResource("1_f3vk0")
-region = Rect2(135, 0, 45, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxjuy"]
+atlas = ExtResource("1_g86rg")
+region = Rect2(96, 0, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s5hin"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xf6mu")
+"texture": SubResource("AtlasTexture_6ss6v")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dx8uk")
+"texture": SubResource("AtlasTexture_ocote")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5viws")
+"texture": SubResource("AtlasTexture_gdupy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n7s7n")
+"texture": SubResource("AtlasTexture_dxjuy")
 }],
 "loop": false,
 "name": &"default",

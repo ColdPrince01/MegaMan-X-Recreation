@@ -1,23 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1lnalk2f4eh7"]
+[gd_scene load_steps=11 format=3 uid="uid://b1lnalk2f4eh7"]
 
+[ext_resource type="Texture2D" uid="uid://cewt6adpvnjwm" path="res://Sprites/Effects/BetterChargeShockwave.png" id="1_61mi0"]
 [ext_resource type="Texture2D" uid="uid://c8a7yfb16hpvo" path="res://Sprites/Effects/ChargedBusterShockwave.png" id="1_us50l"]
 [ext_resource type="Script" path="res://OtherScenes/charged_shockwave.gd" id="2_o45tc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_brb35"]
-atlas = ExtResource("1_us50l")
-region = Rect2(0, 0, 47, 78)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jgsu"]
+atlas = ExtResource("1_61mi0")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uvjna"]
-atlas = ExtResource("1_us50l")
-region = Rect2(47, 0, 47, 78)
+[sub_resource type="AtlasTexture" id="AtlasTexture_trqlr"]
+atlas = ExtResource("1_61mi0")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yukqg"]
-atlas = ExtResource("1_us50l")
-region = Rect2(94, 0, 47, 78)
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfh18"]
+atlas = ExtResource("1_61mi0")
+region = Rect2(0, 64, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5p7u"]
-atlas = ExtResource("1_us50l")
-region = Rect2(141, 0, 47, 78)
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyddv"]
+atlas = ExtResource("1_61mi0")
+region = Rect2(64, 64, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f48n6"]
 atlas = ExtResource("1_us50l")
@@ -31,16 +32,16 @@ region = Rect2(235, 0, 47, 78)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_brb35")
+"texture": SubResource("AtlasTexture_3jgsu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uvjna")
+"texture": SubResource("AtlasTexture_trqlr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yukqg")
+"texture": SubResource("AtlasTexture_xfh18")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p5p7u")
+"texture": SubResource("AtlasTexture_oyddv")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f48n6")

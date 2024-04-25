@@ -21,6 +21,7 @@ var sounds_path = "res://Music and Sounds/"
 @export var fade_in : AudioStream
 @export var spawn_comp : AudioStream
 @export var enemy_bullet : AudioStream
+@export var life_gain : AudioStream
 
 @onready var sound_players = get_children() #variable for getting the audio players in the scene 
 

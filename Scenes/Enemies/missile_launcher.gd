@@ -137,3 +137,11 @@ func _on_anim_detector_body_entered(body):
 	anim_timer.start()
 	sprite.play("Open")
 	anim_collision.set_deferred("disabled", true)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	set_physics_process(false)
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered():
+	set_physics_process(true)

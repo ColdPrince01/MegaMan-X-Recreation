@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://kn5fqjnw5wi3"]
+
+[ext_resource type="Script" path="res://Scenes/Player/health_pick.gd" id="1_1xhnd"]
+[ext_resource type="Texture2D" uid="uid://du1xqortfjv2u" path="res://Sprites/Player/Health Pick.png" id="1_we216"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xud32"]
+atlas = ExtResource("1_we216")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcgv2"]
+atlas = ExtResource("1_we216")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bru04"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xud32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcgv2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gb6a"]
+size = Vector2(18, 12)
+
+[node name="HealthPick" type="Node2D"]
+z_index = 25
+script = ExtResource("1_1xhnd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bru04")
+autoplay = "default"
+frame_progress = 0.626711
+
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_2gb6a")
+
+[connection signal="area_entered" from="PickupArea" to="." method="_on_pickup_area_area_entered"]

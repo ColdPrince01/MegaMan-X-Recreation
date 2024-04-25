@@ -867,7 +867,6 @@ script = ExtResource("1_bjuxh")
 movement_data = SubResource("Resource_mc3o2")
 death_time = 0.67
 dev_menu = false
-spawn_time = null
 death_state = NodePath("StateMachine/Death")
 
 [node name="X_Buster" parent="." instance=ExtResource("3_o60g5")]

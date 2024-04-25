@@ -105,14 +105,13 @@ func handle_anims():
 		animated_sprite_2d.play("Close_P")
 
 func find_player(from):
-	if active: 
-		if active_area.has_overlapping_bodies():
-			marker_2d.position.x = abs(marker_2d.position.x) * self_dir
-			animated_sprite_2d.flip_h = player.global_position < global_position
-			if player.x_sprite.flip_h:
-				player_dir = -1
-			else: 
-				player_dir = 1
+	if active_area.has_overlapping_bodies():
+		marker_2d.position.x = abs(marker_2d.position.x) * self_dir
+		animated_sprite_2d.flip_h = player.global_position < global_position
+		if player.x_sprite.flip_h:
+			player_dir = -1
+		else: 
+			player_dir = 1
 				
 
 
@@ -147,13 +146,13 @@ func _on_hurt_box_component_hurt(hitbox, damage):
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	active = false
+	set_physics_process(false)
 
 
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
-	active = true
+	set_physics_process(true)
 
 
 func _on_flash_timer_timeout():

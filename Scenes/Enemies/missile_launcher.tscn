@@ -219,8 +219,12 @@ collision_mask = 2
 position = Vector2(50, 5.5)
 shape = SubResource("RectangleShape2D_evqat")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="hurt" from="HurtBoxComponent" to="." method="_on_hurt_box_component_hurt"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
 [connection signal="timeout" from="AnimTimer" to="." method="_on_anim_timer_timeout"]
 [connection signal="body_entered" from="AnimDetector" to="." method="_on_anim_detector_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dlp5kghmo5t2d"]
+[gd_scene load_steps=20 format=3 uid="uid://dlp5kghmo5t2d"]
 
 [ext_resource type="Script" path="res://Sounds.gd" id="1_4p871"]
 [ext_resource type="AudioStream" uid="uid://bw1i2hkmvh5f3" path="res://Music and Sounds/Dash.wav" id="2_mehvm"]
@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://h3glbyi48mn1" path="res://Music and Sounds/17 - MMX - X Fade In.wav" id="16_55vad"]
 [ext_resource type="AudioStream" uid="uid://bolsyhomml43d" path="res://Music and Sounds/16 - MMX - X Upgrade Complete.wav" id="17_4d03q"]
 [ext_resource type="AudioStream" uid="uid://diho64dirvq2p" path="res://Music and Sounds/72 - MMX - Enemy Sound (09).wav" id="18_g8gpw"]
+[ext_resource type="AudioStream" uid="uid://d12ycxad1mge0" path="res://Music and Sounds/12 - MMX - X Life Gain.wav" id="19_x51qb"]
 
 [node name="Sounds" type="Node"]
 script = ExtResource("1_4p871")
@@ -38,6 +39,7 @@ enemy_missile = ExtResource("15_p86yi")
 fade_in = ExtResource("16_55vad")
 spawn_comp = ExtResource("17_4d03q")
 enemy_bullet = ExtResource("18_g8gpw")
+life_gain = ExtResource("19_x51qb")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 max_polyphony = 3

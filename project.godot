@@ -14,7 +14,7 @@ config/name="Mega Man X"
 run/main_scene="res://Scenes/World/title_screen.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 run/max_fps=120
-config/icon="res://Unrelated/XHead.png"
+config/icon="res://XHead.png"
 
 [autoload]
 

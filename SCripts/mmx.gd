@@ -18,6 +18,7 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @export var dev_menu := true
 @export var spawn_time := 2.0
 @export var death_state : State
+@export var title_screen : PackedScene
 
 @onready var x_sprite = $XSprite
 @onready var character_animator = $CharacterAnimator
@@ -55,7 +56,8 @@ const JumpEffect = preload("res://Scenes/Effects/jump_effect.tscn")
 @onready var charge_timer = $Timers/ChargeTimer
 @onready var effects_spawner = $EffectsSpawner
 @onready var center = $Center
-@onready var wall_cast = $WallCast
+@onready var wall_cast_1 = $WallCast
+@onready var wall_cast_2 = $WallCast2
 
 
 var state_velocity := Vector2.ZERO
@@ -64,7 +66,6 @@ var has_control := true
 var has_jumped = false
 var is_dashing = false
 var can_dash = !is_on_wall() and is_on_floor()
-var can_wall_slide = is_on_wall() and !is_on_floor() and velocity.y >= 0.0
 var dust_point_position 
 var has_fired = false
 var is_wall_sliding = false
@@ -78,6 +79,7 @@ var released_charge = false
 var no_shockwave = is_dashing and is_on_floor()
 var is_dead = false
 var transit_factor := 1.67 #variable that multiplies the position smoothing of the camera based on the current fps
+var can_wall_slide := false
 
 func _enter_tree():
 	MainInstances.player = self
@@ -101,10 +103,6 @@ func _physics_process(delta):
 	state_machine.process_physics(delta)
 	attack_machine.process_physics(delta)
 	state_velocity.x = velocity.x
-	if x_sprite.flip_h:
-		wall_cast.target_position.x = abs(wall_cast.target_position.x) * -1
-	else:
-		wall_cast.target_position.x = abs(wall_cast.target_position.x)
 	charge_animation()
 	if not is_dashing:
 		ghost_timer.stop()
@@ -151,10 +149,8 @@ func wall_dust_effect():
 func set_direction():
 	if Vector2.RIGHT:
 		x_sprite.flip_h = false
-		wall_cast.target_position.x *= 1
 	if Vector2.LEFT:
 		x_sprite.flip_h = true
-		wall_cast.target_position.x *= -1
 
 func blit_damage_number(number):
 	var damage_number_inst = Utils.instantiate_scene_on_world(DamageNumber, global_position + Vector2(0, -12)) #offset the global_position 
@@ -226,7 +222,10 @@ func death():
 	camera.global_position = global_position #grab current pos and set as camera position
 	camera.reparent(get_tree().current_scene, true)
 	await get_tree().create_timer(0.5).timeout
-	ScreenTransition.fade_in()
+	await ScreenTransition.fade_in_black()
+	get_tree().change_scene_to_packed(title_screen)
+	
+	
 
 
 func _on_room_detector_area_entered(area):
@@ -235,7 +234,6 @@ func _on_room_detector_area_entered(area):
 	else:
 		camera.position_smoothing_enabled = true
 		camera.position_smoothing_speed = 3 * transit_factor
-		print(camera.position_smoothing_speed)
 	var collision_shape: CollisionShape2D = area.get_node("CollisionShape2D")
 	var size : Vector2 = collision_shape.shape.extents * 2 #variable size set equal to the extents of the shape of the collision shape times 2
 	

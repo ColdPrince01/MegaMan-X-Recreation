@@ -20,7 +20,7 @@ var self_dir = 1
 
 func _ready():
 	sprite.scale.x = facing_direction
-	print(self.rotation_degrees)
+	
 
 
 func get_direction():

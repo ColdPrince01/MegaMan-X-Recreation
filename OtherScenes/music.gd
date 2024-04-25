@@ -1,4 +1,3 @@
-class_name MusicPlayer
 extends Node
 
 @export var level_theme : AudioStream
